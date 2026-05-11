@@ -21,14 +21,6 @@ export default function Footer() {
         { label: "Bank Indonesia", href: "https://www.bi.go.id" },
       ],
     },
-    {
-      title: "Legal",
-      links: [
-        { label: "Kebijakan Privasi", href: "#" },
-        { label: "Syarat Penggunaan", href: "#" },
-        { label: "Peta Situs", href: "#" },
-      ],
-    },
   ];
 
   return (
@@ -39,6 +31,7 @@ export default function Footer() {
           src="/mega_mendung.jpeg"
           alt="Motif Mega Mendung"
           fill
+          sizes="100vw"
           className="object-cover opacity-[0.40] mix-blend-luminosity scale-x-[-1] scale-y-[-1]"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-civic-navy/95 via-civic-navy/80 to-civic-navy/60" />
@@ -49,13 +42,15 @@ export default function Footer() {
         <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 mb-12">
           <div className="lg:w-2/5">
             <div className="mb-6">
-              <Image 
-                src="/BI_Logo.png" 
-                alt="Logo Bank Indonesia" 
-                width={160} 
-                height={50} 
-                className="h-auto w-[140px] brightness-0 invert opacity-90"
-              />
+              <div className="bg-white rounded-full px-6 py-2.5 inline-block shadow-lg">
+                <Image 
+                  src="/BI_Logo.png" 
+                  alt="Logo Bank Indonesia" 
+                  width={140} 
+                  height={40} 
+                  className="h-auto w-[120px] object-contain"
+                />
+              </div>
             </div>
             <p className="text-[15px] text-text-on-dark-muted leading-relaxed max-w-sm">
               Platform edukasi literasi keuangan interaktif untuk masyarakat
@@ -64,7 +59,7 @@ export default function Footer() {
           </div>
 
           {/* ── Link Columns ── */}
-          <div className="lg:w-3/5 grid grid-cols-2 sm:grid-cols-3 gap-8">
+          <div className="lg:w-3/5 grid grid-cols-2 gap-8">
             {columns.map((col) => (
               <div key={col.title}>
                 <h3 className="text-overline text-text-on-dark-muted mb-4">

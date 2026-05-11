@@ -21,7 +21,7 @@ export default function TentangPage() {
   return (
     <>
       {/* ═══ HERO ═══ */}
-      <section className="hero-gradient mega-mendung section-padding relative overflow-hidden">
+      <section className="hero-gradient mega-mendung pt-[140px] md:pt-[160px] pb-20 relative overflow-hidden">
         <div className="ornament-cloud w-[500px] h-[500px] -top-40 -right-40" />
         <div className="relative max-w-6xl mx-auto px-6 lg:px-8 text-center">
           <p className="text-overline text-blue-300 mb-4">Tentang Kami</p>

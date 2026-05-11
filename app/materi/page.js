@@ -1,6 +1,7 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 /* ── SVG Icons ── */
 const CategoryIcons = {
@@ -26,27 +27,38 @@ const MaterialIcons = {
 
 const categories = ["Semua", "Literasi Digital", "Perencanaan Keuangan", "Investasi", "Perbankan", "UMKM"];
 
-const allMaterials = [
-  { id: 1, cat: "Literasi Digital", title: "Keamanan Transaksi Digital", desc: "Cara melindungi data pribadi dan menghindari penipuan saat bertransaksi secara digital.", time: "8 mnt", icon: "lock" },
-  { id: 2, cat: "Perencanaan Keuangan", title: "Perencanaan Anggaran Pribadi", desc: "Strategi membagi penghasilan untuk kebutuhan, tabungan, dan investasi masa depan.", time: "12 mnt", icon: "chart" },
-  { id: 3, cat: "Investasi", title: "Mengenal Instrumen Investasi", desc: "Panduan memahami profil risiko dan jenis investasi legal di Indonesia.", time: "10 mnt", icon: "trending" },
-  { id: 4, cat: "Perbankan", title: "Produk dan Layanan Perbankan", desc: "Jenis rekening, kartu kredit, pinjaman, dan layanan perbankan digital.", time: "9 mnt", icon: "bank" },
-  { id: 5, cat: "UMKM", title: "Pengelolaan Keuangan UMKM", desc: "Dasar pembukuan, arus kas, dan strategi finansial untuk pelaku usaha.", time: "15 mnt", icon: "store" },
-  { id: 6, cat: "Literasi Digital", title: "Dompet Digital dan E-Money", desc: "Cara bijak menggunakan dompet digital, QRIS, dan uang elektronik.", time: "7 mnt", icon: "phone" },
-  { id: 7, cat: "Perencanaan Keuangan", title: "Dana Darurat dan Asuransi", desc: "Pentingnya dana darurat 3-6 bulan dan memilih asuransi yang tepat.", time: "11 mnt", icon: "shield" },
-  { id: 8, cat: "Investasi", title: "Reksa Dana untuk Pemula", desc: "Mulai investasi reksa dana dengan modal kecil dan risiko terkelola.", time: "13 mnt", icon: "money" },
-  { id: 9, cat: "Perbankan", title: "Mengenal Suku Bunga BI Rate", desc: "Dampak kebijakan suku bunga terhadap tabungan, pinjaman, dan ekonomi.", time: "8 mnt", icon: "percent" },
-];
-
 export default function MateriPage() {
   const [active, setActive] = useState("Semua");
+  const [allMaterials, setAllMaterials] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await fetch("http://localhost:4000/api/materials");
+        if (res.ok) {
+          const data = await res.json();
+          setAllMaterials(data);
+        }
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
+
   const filtered = active === "Semua" ? allMaterials : allMaterials.filter((m) => m.cat === active);
 
   return (
     <>
       {/* ── Header ── */}
-      <section className="bg-canvas-warm section-padding pb-8 mega-mendung-blue">
-        <div className="max-w-6xl mx-auto px-6 lg:px-8">
+      <section className="bg-canvas-warm pt-[140px] md:pt-[160px] pb-12 relative overflow-hidden">
+        <div className="absolute inset-0 z-0 pointer-events-none">
+          <Image src="/batik_merak.png" alt="Motif Batik Merak" fill className="object-cover opacity-[0.04] mix-blend-multiply" />
+        </div>
+        <div className="relative z-10 max-w-6xl mx-auto px-6 lg:px-8">
           <p className="text-overline text-civic-blue mb-3">Katalog Materi</p>
           <h1 className="text-hero text-text-primary mb-4">Materi Edukasi.</h1>
           <p className="text-body text-text-secondary max-w-xl">
@@ -56,15 +68,15 @@ export default function MateriPage() {
         </div>
       </section>
 
-      {/* ── Filters (sticky) ── */}
-      <section className="sticky top-16 z-30 border-b border-border bg-canvas/80" style={{ backdropFilter: "saturate(180%) blur(20px)" }}>
+      {/* ── Filters ── */}
+      <section className="border-b border-border bg-canvas">
         <div className="max-w-6xl mx-auto px-6 lg:px-8 py-3">
-          <div className="flex gap-2 overflow-x-auto no-scrollbar">
+          <div className="flex gap-2 lg:justify-center overflow-x-auto no-scrollbar py-1">
             {categories.map((cat) => (
               <button
                 key={cat}
                 onClick={() => setActive(cat)}
-                className={`inline-flex items-center gap-2 whitespace-nowrap px-4 py-2.5 rounded-full text-[14px] font-medium transition-all min-h-[44px]
+                className={`inline-flex items-center gap-1.5 lg:gap-2 whitespace-nowrap px-3 lg:px-4 py-2 lg:py-2.5 rounded-full text-[13px] lg:text-[14px] font-medium transition-all min-h-[38px] lg:min-h-[44px]
                   ${active === cat
                     ? "bg-civic-blue text-white shadow-md shadow-civic-blue/20"
                     : "bg-surface-card text-text-secondary border border-border hover:border-civic-blue/30 hover:text-text-primary"
@@ -81,7 +93,20 @@ export default function MateriPage() {
       {/* ── Grid ── */}
       <section className="bg-canvas section-padding pt-10">
         <div className="max-w-6xl mx-auto px-6 lg:px-8">
-          {filtered.length === 0 ? (
+          {loading ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {[1, 2, 3, 4, 5, 6].map((i) => (
+                <div key={i} className="card p-6 animate-pulse bg-white border border-border/50">
+                  <div className="w-14 h-14 bg-slate-200 rounded-2xl mb-6"></div>
+                  <div className="w-1/3 h-3 bg-slate-200 rounded-full mb-3"></div>
+                  <div className="w-3/4 h-5 bg-slate-200 rounded-full mb-4"></div>
+                  <div className="w-full h-3 bg-slate-200 rounded-full mb-2"></div>
+                  <div className="w-5/6 h-3 bg-slate-200 rounded-full mb-6"></div>
+                  <div className="w-1/2 h-4 bg-slate-200 rounded-full"></div>
+                </div>
+              ))}
+            </div>
+          ) : filtered.length === 0 ? (
             <div className="text-center py-20">
               <p className="text-text-tertiary text-body">Belum ada materi untuk kategori ini.</p>
             </div>

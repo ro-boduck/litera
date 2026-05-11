@@ -1,58 +1,78 @@
 "use client";
 import { useState, useEffect, use } from "react";
 import Link from "next/link";
-
-/* ── Data ── */
-const materialData = {
-  1: {
-    category: "Literasi Digital",
-    title: "Keamanan Transaksi Digital di Era Modern",
-    time: "8 menit",
-    date: "15 Mei 2026",
-    content: [
-      { type: "p", text: "Di era transformasi digital yang semakin pesat, transaksi keuangan secara daring telah menjadi bagian tak terpisahkan dari kehidupan sehari-hari masyarakat Indonesia. Mulai dari pembayaran melalui QRIS, transfer antarbank melalui aplikasi mobile banking, hingga belanja online — semuanya membutuhkan pemahaman yang baik tentang keamanan digital." },
-      { type: "h2", text: "Ancaman Umum dalam Transaksi Digital" },
-      { type: "p", text: "Berdasarkan data Bank Indonesia, kasus penipuan digital meningkat signifikan selama beberapa tahun terakhir. Berikut adalah beberapa ancaman yang paling sering dihadapi oleh masyarakat:" },
-      { type: "ul", items: ["Phishing — penipuan melalui email, SMS, atau situs palsu yang meniru institusi resmi untuk mencuri data pribadi.", "Social Engineering — manipulasi psikologis untuk membujuk korban memberikan informasi sensitif seperti OTP atau PIN.", "Skimming — pencurian data kartu debit/kredit melalui perangkat ilegal yang dipasang pada mesin ATM atau EDC.", "Malware — perangkat lunak berbahaya yang disisipkan ke dalam aplikasi atau tautan untuk mencuri data keuangan."] },
-      { type: "h2", text: "Langkah-Langkah Perlindungan" },
-      { type: "callout", text: "Bank Indonesia dan OJK menghimbau seluruh masyarakat untuk tidak pernah membagikan kode OTP, PIN, atau CVV kepada siapa pun, termasuk pihak yang mengaku dari bank." },
-      { type: "p", text: "Untuk melindungi diri dari ancaman tersebut, berikut adalah langkah-langkah yang perlu dilakukan:" },
-      { type: "ol", items: ["Aktifkan autentikasi dua faktor (2FA) pada semua akun keuangan digital Anda.", "Gunakan kata sandi yang kuat dan berbeda untuk setiap platform.", "Selalu verifikasi URL situs web sebelum memasukkan data sensitif.", "Perbarui aplikasi mobile banking dan dompet digital secara berkala.", "Hindari menggunakan WiFi publik untuk transaksi keuangan."] },
-      { type: "h2", text: "Mengenali Tanda-Tanda Penipuan" },
-      { type: "p", text: "Penipuan digital sering kali dirancang dengan sangat meyakinkan. Perhatikan tanda-tanda berikut: permintaan informasi sensitif melalui telepon atau pesan singkat, tawaran hadiah atau investasi dengan keuntungan tidak wajar, serta tekanan untuk bertindak segera tanpa memberi waktu berpikir." },
-      { type: "p", text: "Jika Anda mencurigai adanya aktivitas penipuan, segera hubungi bank terkait dan laporkan ke kanal resmi Bank Indonesia atau OJK. Melaporkan lebih awal dapat mencegah kerugian yang lebih besar." },
-    ],
-    quiz: [
-      { q: "Apa yang dimaksud dengan phishing?", options: ["Teknik memancing ikan secara modern", "Penipuan melalui situs/email palsu untuk mencuri data pribadi", "Sistem keamanan perbankan terbaru", "Aplikasi transfer uang antar bank"], answer: 1 },
-      { q: "Manakah yang TIDAK boleh dibagikan kepada siapa pun?", options: ["Nomor rekening bank", "Nama lengkap", "Kode OTP dan PIN", "Alamat email"], answer: 2 },
-      { q: "Langkah pertama mengamankan akun keuangan digital?", options: ["Menggunakan WiFi publik", "Membagikan password kepada keluarga", "Mengaktifkan autentikasi dua faktor (2FA)", "Mengabaikan pembaruan aplikasi"], answer: 2 },
-      { q: "Tanda penipuan digital yang perlu diwaspadai:", options: ["Notifikasi resmi dari aplikasi bank", "Permintaan informasi sensitif dengan tekanan waktu", "Email konfirmasi transaksi Anda", "SMS berisi saldo rekening"], answer: 1 },
-      { q: "Jika mencurigai penipuan, apa yang harus dilakukan?", options: ["Membalas pesan penipu", "Menunggu beberapa hari", "Menghubungi bank dan melaporkan ke BI/OJK", "Menghapus aplikasi mobile banking"], answer: 2 },
-    ],
-  },
-};
-
-const fallback = materialData[1];
+import Image from "next/image";
 
 export default function MateriDetailPage({ params }) {
-  const resolvedParams = use(params);
-  const data = materialData[resolvedParams.id] || fallback;
-
+  const unwrappedParams = use(params);
+  const { id } = unwrappedParams;
+  
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [progress, setProgress] = useState(0);
+
+  // Fetch data from API
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await fetch(`http://localhost:4000/api/materials/${id}`);
+        if (!res.ok) throw new Error('Data tidak ditemukan');
+        const result = await res.json();
+        setData(result);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, [id]);
 
   useEffect(() => {
     const handleScroll = () => {
-      const el = document.getElementById("article-body");
-      if (!el) return;
-      const rect = el.getBoundingClientRect();
-      const total = el.scrollHeight;
-      const scrolled = Math.max(0, -rect.top + 200);
-      const pct = Math.min(100, (scrolled / (total - window.innerHeight + 200)) * 100);
+      const total = document.documentElement.scrollHeight - window.innerHeight;
+      if (total <= 0) return;
+      const pct = Math.min(100, (window.scrollY / total) * 100);
       setProgress(pct);
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-canvas-warm pt-[120px] pb-20">
+        <div className="max-w-3xl mx-auto px-6">
+           <div className="animate-pulse">
+             <div className="h-4 bg-slate-200 rounded-full w-24 mb-6"></div>
+             <div className="h-10 bg-slate-200 rounded-lg w-full mb-4"></div>
+             <div className="h-10 bg-slate-200 rounded-lg w-2/3 mb-10"></div>
+             
+             <div className="flex gap-4 mb-12">
+                <div className="h-6 bg-slate-200 rounded-full w-20"></div>
+                <div className="h-6 bg-slate-200 rounded-full w-24"></div>
+             </div>
+
+             <div className="space-y-4">
+                <div className="h-4 bg-slate-200 rounded-full w-full"></div>
+                <div className="h-4 bg-slate-200 rounded-full w-full"></div>
+                <div className="h-4 bg-slate-200 rounded-full w-5/6"></div>
+                <div className="h-4 bg-slate-200 rounded-full w-full"></div>
+                <div className="h-4 bg-slate-200 rounded-full w-4/5"></div>
+             </div>
+           </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (!data) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-canvas-warm">
+        <h1 className="text-2xl font-bold text-slate-800">Materi tidak ditemukan.</h1>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -62,7 +82,7 @@ export default function MateriDetailPage({ params }) {
       </div>
 
       {/* ── Header ── */}
-      <section className="bg-canvas-warm section-padding pb-10">
+      <section className="bg-canvas-warm pt-[140px] md:pt-[160px] pb-12">
         <div className="max-w-[720px] mx-auto px-6">
           <nav className="flex items-center gap-2 text-fine text-text-tertiary mb-8">
             <Link href="/" className="hover:text-civic-blue transition-colors">Beranda</Link>
@@ -124,15 +144,20 @@ export default function MateriDetailPage({ params }) {
       {/* ═══ CTA POST-TEST ═══ */}
       <section className="bg-canvas section-padding">
         <div className="max-w-[720px] mx-auto px-6 text-center">
-          <div className="bg-civic-navy rounded-3xl p-12 relative overflow-hidden mega-mendung">
-            <div className="ornament-cloud w-[400px] h-[400px] -top-20 -left-20" />
-            <div className="relative">
+          <div className="relative bg-civic-navy rounded-3xl p-12 text-center overflow-hidden shadow-2xl shadow-blue-900/20">
+            {/* Background Image - Mega Mendung Layer 3 */}
+            <div className="absolute inset-0 z-0 pointer-events-none">
+              <Image src="/mega_mendung.jpeg" alt="Motif Mega Mendung" fill className="object-cover opacity-[0.12] mix-blend-color-dodge -scale-y-100" />
+              <div className="absolute inset-0 bg-civic-navy/85 mix-blend-multiply" />
+            </div>
+            <div className="ornament-cloud w-[400px] h-[400px] -top-20 -left-20 z-10" />
+            <div className="relative z-20">
               <p className="text-overline text-blue-300 mb-3">Selesai Membaca?</p>
               <h2 className="text-display text-white mb-4">Uji pemahaman Anda.</h2>
               <p className="text-body text-text-on-dark-muted max-w-lg mx-auto mb-8">
                 Ikuti post-test singkat untuk mengevaluasi pemahaman Anda tentang {data.title}.
               </p>
-              <Link href={`/materi/${resolvedParams.id}/kuis`} className="btn-primary px-10 py-4 text-[16px]">
+              <Link href={`/materi/${id}/kuis`} className="btn-primary px-10 py-4 text-[16px]">
                 Mulai Post-Test
               </Link>
             </div>

@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import Image from "next/image";
 
 export default function KontakPage() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
@@ -42,8 +43,11 @@ export default function KontakPage() {
   return (
     <>
       {/* ── Header ── */}
-      <section className="bg-canvas-warm section-padding pb-8 mega-mendung-blue">
-        <div className="max-w-6xl mx-auto px-6 lg:px-8">
+      <section className="bg-canvas-warm pt-[140px] md:pt-[160px] pb-12 relative overflow-hidden">
+        <div className="absolute inset-0 z-0 pointer-events-none">
+          <Image src="/batik_merak.png" alt="Motif Batik Merak" fill className="object-cover opacity-[0.04] mix-blend-multiply" />
+        </div>
+        <div className="relative z-10 max-w-6xl mx-auto px-6 lg:px-8">
           <p className="text-overline text-civic-blue mb-3">Kontak</p>
           <h1 className="text-hero text-text-primary mb-4">Hubungi Kami.</h1>
           <p className="text-body text-text-secondary max-w-xl">
@@ -128,7 +132,7 @@ export default function KontakPage() {
         <div className="max-w-6xl mx-auto px-6 lg:px-8">
           <div className="rounded-2xl overflow-hidden border border-border shadow-sm">
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.798!2d107.609!3d-6.917!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68e63f4dbf0001%3A0x5c0e5b7a0e8e2a0!2sBank%20Indonesia%20KPw%20Jawa%20Barat!5e0!3m2!1sid!2sid!4v1700000000000!5m2!1sid!2sid"
+              src="https://maps.google.com/maps?q=Jl.%20Braga%20No.108,%20Babakan%20Ciamis,%20Kec.%20Sumur%20Bandung,%20Kota%20Bandung,%20Jawa%20Barat%2040111&t=&z=16&ie=UTF8&iwloc=&output=embed"
               width="100%" height="400" style={{ border: 0 }} allowFullScreen loading="lazy"
               referrerPolicy="no-referrer-when-downgrade" title="Lokasi KPwBI Jawa Barat" />
           </div>

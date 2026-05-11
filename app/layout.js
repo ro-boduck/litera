@@ -21,7 +21,7 @@ export default function RootLayout({ children }) {
     <html lang="id" className={inter.variable} data-scroll-behavior="smooth">
       <body className="min-h-screen flex flex-col">
         <Navbar />
-        <main className="flex-grow pt-16">{children}</main>
+        <main className="flex-grow">{children}</main>
         <Footer />
       </body>
     </html>
