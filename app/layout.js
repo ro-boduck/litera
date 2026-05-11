@@ -26,7 +26,7 @@ export default async function RootLayout({ children }) {
   const hideFooter = isAdmin || isQuiz;
 
   return (
-    <html lang="id" className={inter.variable} data-scroll-behavior="smooth">
+    <html lang="id" className={inter.variable} data-scroll-behavior="smooth" suppressHydrationWarning>
       <body className="min-h-screen flex flex-col">
         {!isAdmin && <Navbar />}
         {!isAdmin && <CursorGlow />}

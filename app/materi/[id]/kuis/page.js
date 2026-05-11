@@ -20,16 +20,6 @@ export default function QuizPage({ params }) {
       .finally(() => setLoading(false));
   }, [id]);
 
-  // Lock body scroll when modal is open
-  useEffect(() => {
-    if (submitted) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-    return () => { document.body.style.overflow = ""; };
-  }, [submitted]);
-
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-canvas-warm">
@@ -55,7 +45,6 @@ export default function QuizPage({ params }) {
     let correct = 0;
     quiz.forEach((q, i) => { if (answers[i] === q.answer) correct++; });
     setScore(Math.round((correct / quiz.length) * 100));
-    window.scrollTo({ top: 0, behavior: "instant" });
     setSubmitted(true);
   };
 
@@ -149,38 +138,40 @@ export default function QuizPage({ params }) {
 
       {/* Score Modal — fixed center, full-page blur overlay */}
       {submitted && (
-        <div className="fixed inset-0 z-[9999] flex items-center justify-center px-4" style={{ background: "rgba(15,23,42,0.7)", backdropFilter: "blur(16px)", WebkitBackdropFilter: "blur(16px)" }}>
-          <div className="bg-white rounded-[2rem] p-10 max-w-md w-full text-center shadow-2xl animate-scale-in" style={{ boxShadow: "0 32px 64px rgba(0,0,0,0.25), 0 0 0 1px rgba(255,255,255,0.1)" }}>
-            <div className="relative w-40 h-40 mx-auto mb-8">
-              <svg className="w-40 h-40 -rotate-90" viewBox="0 0 128 128">
-                <circle cx="64" cy="64" r="56" fill="none" stroke="#F1F5F9" strokeWidth="12" />
-                <circle cx="64" cy="64" r="56" fill="none"
-                  stroke={score >= 80 ? "#10B981" : score >= 50 ? "#F59E0B" : "#EF4444"}
-                  strokeWidth="12" strokeLinecap="round"
-                  strokeDasharray={`${(score / 100) * 352} 352`}
-                  style={{ transition: "stroke-dasharray 1.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s" }} />
-              </svg>
-              <div className="absolute inset-0 flex flex-col items-center justify-center">
-                <span className="text-4xl font-extrabold text-slate-800">{score}</span>
-                <span className="text-xs font-bold text-slate-400 uppercase tracking-widest mt-1">Skor</span>
+        <div className="fixed inset-0 z-[9999] overflow-y-auto" style={{ background: "rgba(15,23,42,0.7)", backdropFilter: "blur(16px)", WebkitBackdropFilter: "blur(16px)" }}>
+          <div className="flex min-h-full items-center justify-center p-4 text-center">
+            <div className="bg-white rounded-[2rem] p-8 md:p-10 max-w-md w-full text-center shadow-2xl animate-scale-in relative" style={{ boxShadow: "0 32px 64px rgba(0,0,0,0.25), 0 0 0 1px rgba(255,255,255,0.1)" }}>
+              <div className="relative w-32 h-32 md:w-40 md:h-40 mx-auto mb-8">
+                <svg className="w-full h-full -rotate-90" viewBox="0 0 128 128">
+                  <circle cx="64" cy="64" r="56" fill="none" stroke="#F1F5F9" strokeWidth="12" />
+                  <circle cx="64" cy="64" r="56" fill="none"
+                    stroke={score >= 80 ? "#10B981" : score >= 50 ? "#F59E0B" : "#EF4444"}
+                    strokeWidth="12" strokeLinecap="round"
+                    strokeDasharray={`${(score / 100) * 352} 352`}
+                    style={{ transition: "stroke-dasharray 1.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s" }} />
+                </svg>
+                <div className="absolute inset-0 flex flex-col items-center justify-center">
+                  <span className="text-3xl md:text-4xl font-extrabold text-slate-800">{score}</span>
+                  <span className="text-[10px] md:text-xs font-bold text-slate-400 uppercase tracking-widest mt-1">Skor</span>
+                </div>
               </div>
-            </div>
 
-            <h3 className="text-2xl font-bold text-slate-800 mb-3">
-              {score >= 80 ? "Luar Biasa!" : score >= 50 ? "Cukup Baik!" : "Perlu Belajar Lagi"}
-            </h3>
-            <p className="text-slate-500 mb-10 leading-relaxed font-medium">
-              {score >= 80 ? "Pemahaman Anda sangat luar biasa tentang materi ini." : score >= 50 ? "Coba baca ulang beberapa bagian yang terlewat." : "Disarankan membaca ulang materi sebelum mencoba lagi."}
-            </p>
+              <h3 className="text-xl md:text-2xl font-bold text-slate-800 mb-3">
+                {score >= 80 ? "Luar Biasa!" : score >= 50 ? "Cukup Baik!" : "Perlu Belajar Lagi"}
+              </h3>
+              <p className="text-sm md:text-base text-slate-500 mb-8 md:mb-10 leading-relaxed font-medium">
+                {score >= 80 ? "Pemahaman Anda sangat luar biasa tentang materi ini." : score >= 50 ? "Coba baca ulang beberapa bagian yang terlewat." : "Disarankan membaca ulang materi sebelum mencoba lagi."}
+              </p>
 
-            <div className="flex flex-col gap-3">
-              <Link href="/materi" className="bg-blue-600 hover:bg-blue-500 text-white font-bold py-4 rounded-full transition-all duration-300">
-                Lanjut ke Katalog Materi
-              </Link>
-              <button onClick={() => { setSubmitted(false); setAnswers({}); window.scrollTo({top: 0, behavior: 'smooth'}); }}
-                className="bg-slate-100 hover:bg-slate-200 text-slate-600 font-bold py-4 rounded-full transition-all duration-300">
-                Ulangi Evaluasi
-              </button>
+              <div className="flex flex-col gap-3">
+                <Link href="/materi" className="bg-blue-600 hover:bg-blue-500 text-white font-bold py-3.5 md:py-4 rounded-full transition-all duration-300">
+                  Lanjut ke Katalog Materi
+                </Link>
+                <button onClick={() => { setSubmitted(false); setAnswers({}); window.scrollTo({top: 0, behavior: 'smooth'}); }}
+                  className="bg-slate-100 hover:bg-slate-200 text-slate-600 font-bold py-3.5 md:py-4 rounded-full transition-all duration-300">
+                  Ulangi Evaluasi
+                </button>
+              </div>
             </div>
           </div>
         </div>

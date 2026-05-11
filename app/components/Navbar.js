@@ -16,8 +16,7 @@ export default function Navbar() {
   }, []);
 
   const isAdmin = pathname?.startsWith("/kelola-8f2k9x3m");
-  const isQuiz = /^\/materi\/[^/]+\/kuis/.test(pathname || "");
-  if (isAdmin || isQuiz) return null;
+  if (isAdmin) return null;
 
   const navLinks = [
     { href: "/", label: "Beranda" },
