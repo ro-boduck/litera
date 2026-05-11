@@ -1,6 +1,8 @@
 "use client";
 import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
+import BlockBuilder from "./BlockBuilder";
+import QuizBuilder from "./QuizBuilder";
 
 /* ── Login Screen ── */
 function LoginScreen({ onLogin }) {
@@ -153,8 +155,8 @@ export default function AdminCMS() {
       const data = await res.json();
       setFormData({
         ...data,
-        content: JSON.stringify(data.content, null, 2),
-        quiz: JSON.stringify(data.quiz, null, 2),
+        content: data.content || [],
+        quiz: data.quiz || [],
       });
     } catch {
       showToast("Gagal memuat detail materi.", "error");
@@ -164,7 +166,7 @@ export default function AdminCMS() {
   const handleCreate = () => {
     setIsCreating(true);
     setEditingId(null);
-    setFormData({ cat: "Umum", title: "", desc: "", time: "5 mnt", icon: "book", level: "Pemula", content: "[]", quiz: "[]" });
+    setFormData({ cat: "Umum", title: "", desc: "", time: "5 mnt", icon: "book", level: "Pemula", content: [], quiz: [] });
   };
 
   const handleDelete = async (id) => {
@@ -182,9 +184,11 @@ export default function AdminCMS() {
     e.preventDefault();
     setSaving(true);
     try {
-      const parsedContent = JSON.parse(formData.content || "[]");
-      const parsedQuiz = JSON.parse(formData.quiz || "[]");
-      const payload = { ...formData, content: parsedContent, quiz: parsedQuiz };
+      const payload = { 
+        ...formData, 
+        content: formData.content || [], 
+        quiz: formData.quiz || [] 
+      };
 
       const url = isCreating ? "/api/materi" : `/api/materi/${editingId}`;
       const method = isCreating ? "POST" : "PUT";
@@ -276,16 +280,37 @@ export default function AdminCMS() {
               <button onClick={() => { setEditingId(null); setIsCreating(false); }} className="text-sm" style={{ color: "#64748B" }}>Batal</button>
             </div>
             <form onSubmit={handleSave} className="space-y-5">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                <Field label="Kategori" name="cat" />
-                <Field label="Judul Materi" name="title" />
-                <Field label="Estimasi Waktu" name="time" />
-                <Field label="Level" name="level" />
-                <Field label="Ikon" name="icon" />
+              {/* Basic Info */}
+              <div className="rounded-xl p-5" style={{ background: "#F8FAFC", border: "1px solid #E2E8F0" }}>
+                <p className="text-xs font-bold mb-4" style={{ color: "#2563EB", letterSpacing: "0.05em", textTransform: "uppercase" }}>Informasi Dasar</p>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <Field label="Kategori" name="cat" hint="Contoh: Literasi Digital, Investasi, Perbankan" />
+                  <Field label="Judul Materi" name="title" hint="Judul yang jelas dan deskriptif" />
+                  <Field label="Estimasi Waktu Baca" name="time" hint="Contoh: 8 mnt, 15 mnt" />
+                  <div className="grid grid-cols-2 gap-4">
+                    <Field label="Level" name="level" hint="Pemula / Menengah" />
+                    <Field label="Ikon" name="icon" hint="book, chart, lock, dll" />
+                  </div>
+                </div>
+                <div className="mt-4">
+                  <Field label="Deskripsi Singkat" name="desc" rows={2} hint="1-2 kalimat ringkasan materi" />
+                </div>
               </div>
-              <Field label="Deskripsi Singkat" name="desc" rows={2} />
-              <Field label="Konten Materi (JSON)" name="content" rows={8} mono hint='Format: [{ "type": "p", "text": "..." }]' />
-              <Field label="Data Kuis (JSON)" name="quiz" rows={6} mono hint='Format: [{ "q": "...", "options": [...], "answer": 0 }]' />
+
+              {/* Content Editor */}
+              <div className="rounded-xl p-5" style={{ background: "#F8FAFC", border: "1px solid #E2E8F0" }}>
+                <div className="flex items-center justify-between mb-4">
+                  <p className="text-xs font-bold" style={{ color: "#2563EB", letterSpacing: "0.05em", textTransform: "uppercase" }}>Konten Materi (Visual Builder)</p>
+                </div>
+                <BlockBuilder blocks={formData.content || []} onChange={(val) => setFormData({ ...formData, content: val })} />
+              </div>
+
+              {/* Quiz Editor */}
+              <div className="rounded-xl p-5" style={{ background: "#F8FAFC", border: "1px solid #E2E8F0" }}>
+                <p className="text-xs font-bold mb-4" style={{ color: "#2563EB", letterSpacing: "0.05em", textTransform: "uppercase" }}>Data Kuis (Post-Test)</p>
+                <QuizBuilder quiz={formData.quiz || []} onChange={(val) => setFormData({ ...formData, quiz: val })} />
+              </div>
+
               <div className="flex gap-3 pt-4" style={{ borderTop: "1px solid #F1F5F9" }}>
                 <button type="submit" disabled={saving} className="px-6 py-2.5 rounded-xl text-sm font-semibold text-white transition disabled:opacity-50" style={{ background: "#2563EB" }}>
                   {saving ? "Menyimpan..." : "Simpan Materi"}
@@ -310,11 +335,11 @@ export default function AdminCMS() {
             <div className="overflow-x-auto">
               <table className="w-full text-left">
                 <thead>
-                  <tr style={{ borderBottom: "1px solid #E2E8F0" }}>
-                    <th className="px-6 py-3 text-xs font-semibold" style={{ color: "#94A3B8", letterSpacing: "0.05em", textTransform: "uppercase" }}>ID</th>
-                    <th className="px-6 py-3 text-xs font-semibold" style={{ color: "#94A3B8", letterSpacing: "0.05em", textTransform: "uppercase" }}>Kategori</th>
-                    <th className="px-6 py-3 text-xs font-semibold" style={{ color: "#94A3B8", letterSpacing: "0.05em", textTransform: "uppercase" }}>Judul Materi</th>
-                    <th className="px-6 py-3 text-xs font-semibold text-right" style={{ color: "#94A3B8", letterSpacing: "0.05em", textTransform: "uppercase" }}>Aksi</th>
+                  <tr style={{ borderBottom: "1px solid #E2E8F0", background: "#F8FAFC" }}>
+                    <th className="px-5 py-2.5 text-xs font-semibold" style={{ color: "#64748B", letterSpacing: "0.05em", textTransform: "uppercase" }}>ID</th>
+                    <th className="px-5 py-2.5 text-xs font-semibold" style={{ color: "#64748B", letterSpacing: "0.05em", textTransform: "uppercase" }}>Kategori</th>
+                    <th className="px-5 py-2.5 text-xs font-semibold" style={{ color: "#64748B", letterSpacing: "0.05em", textTransform: "uppercase" }}>Judul Materi</th>
+                    <th className="px-5 py-2.5 text-xs font-semibold text-right" style={{ color: "#64748B", letterSpacing: "0.05em", textTransform: "uppercase" }}>Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -323,14 +348,14 @@ export default function AdminCMS() {
                   ) : materials.length === 0 ? (
                     <tr><td colSpan="4" className="text-center py-12 text-sm" style={{ color: "#94A3B8" }}>Belum ada data materi.</td></tr>
                   ) : materials.map((m) => (
-                    <tr key={m.id} className="group" style={{ borderBottom: "1px solid #F1F5F9" }}>
-                      <td className="px-6 py-4 text-xs font-mono" style={{ color: "#94A3B8" }}>#{m.id}</td>
-                      <td className="px-6 py-4"><span className="text-xs font-semibold px-2.5 py-1 rounded-md" style={{ background: "#EFF6FF", color: "#2563EB" }}>{m.cat}</span></td>
-                      <td className="px-6 py-4 text-sm font-medium" style={{ color: "#1E293B" }}>{m.title}</td>
-                      <td className="px-6 py-4 text-right">
-                        <div className="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                          <button onClick={() => handleEdit(m.id)} className="text-xs font-medium px-3 py-1.5 rounded-lg transition" style={{ color: "#2563EB", background: "rgba(37,99,235,0.08)" }}>Edit</button>
-                          <button onClick={() => handleDelete(m.id)} className="text-xs font-medium px-3 py-1.5 rounded-lg transition" style={{ color: "#DC2626", background: "rgba(220,38,38,0.08)" }}>Hapus</button>
+                    <tr key={m.id} className="group hover:bg-slate-50 transition-colors" style={{ borderBottom: "1px solid #F1F5F9" }}>
+                      <td className="px-5 py-3 text-xs font-mono" style={{ color: "#94A3B8" }}>#{m.id}</td>
+                      <td className="px-5 py-3"><span className="text-[11px] font-bold px-2 py-1 rounded-md" style={{ background: "#EFF6FF", color: "#2563EB" }}>{m.cat}</span></td>
+                      <td className="px-5 py-3 text-sm font-medium" style={{ color: "#1E293B" }}>{m.title}</td>
+                      <td className="px-5 py-3 text-right">
+                        <div className="flex items-center justify-end gap-2">
+                          <button onClick={() => handleEdit(m.id)} className="text-xs font-medium px-3 py-1.5 rounded-lg transition hover:bg-blue-100" style={{ color: "#2563EB", background: "rgba(37,99,235,0.08)" }}>Edit</button>
+                          <button onClick={() => handleDelete(m.id)} className="text-xs font-medium px-3 py-1.5 rounded-lg transition hover:bg-red-100" style={{ color: "#DC2626", background: "rgba(220,38,38,0.08)" }}>Hapus</button>
                         </div>
                       </td>
                     </tr>

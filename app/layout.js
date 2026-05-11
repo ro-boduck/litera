@@ -2,6 +2,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import CursorGlow from "./components/CursorGlow";
 import { headers } from "next/headers";
 
 const inter = Inter({
@@ -28,6 +29,7 @@ export default async function RootLayout({ children }) {
     <html lang="id" className={inter.variable} data-scroll-behavior="smooth">
       <body className="min-h-screen flex flex-col">
         {!isAdmin && <Navbar />}
+        {!isAdmin && <CursorGlow />}
         <main className="flex-grow">{children}</main>
         {!hideFooter && <Footer />}
       </body>
