@@ -35,7 +35,7 @@ export default function MateriPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch("http://localhost:4000/api/materials");
+        const res = await fetch("/api/materi");
         if (res.ok) {
           const data = await res.json();
           setAllMaterials(data);

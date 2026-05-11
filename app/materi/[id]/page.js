@@ -15,7 +15,7 @@ export default function MateriDetailPage({ params }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch(`http://localhost:4000/api/materials/${id}`);
+        const res = await fetch(`/api/materi/${id}`);
         if (!res.ok) throw new Error('Data tidak ditemukan');
         const result = await res.json();
         setData(result);
@@ -115,7 +115,7 @@ export default function MateriDetailPage({ params }) {
                 ))}</ol>
               );
               case "callout": return (
-                <div key={i} className="bg-civic-blue-mist border-l-[3px] border-civic-blue rounded-r-xl p-5 mb-6">
+                <div key={i} className="bg-civic-blue-mist rounded-xl p-5 mb-6">
                   <div className="flex gap-3 items-start">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-civic-blue)" strokeWidth="2" className="flex-shrink-0 mt-0.5"><circle cx="12" cy="12" r="10" /><path d="M12 16v-4M12 8h.01" /></svg>
                     <p className="text-body text-text-primary">{block.text}</p>

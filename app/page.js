@@ -5,11 +5,26 @@ import Image from "next/image";
 
 import dynamic from "next/dynamic";
 
-const HomeStats = dynamic(() => import("./components/HomeSections").then(mod => mod.HomeStats), { ssr: false });
-const HomeFeatures = dynamic(() => import("./components/HomeSections").then(mod => mod.HomeFeatures), { ssr: false });
-const HomeProfile = dynamic(() => import("./components/HomeSections").then(mod => mod.HomeProfile), { ssr: false });
-const HomeFaq = dynamic(() => import("./components/HomeSections").then(mod => mod.HomeFaq), { ssr: false });
-const HomeCta = dynamic(() => import("./components/HomeSections").then(mod => mod.HomeCta), { ssr: false });
+const HomeStats = dynamic(
+  () => import("./components/HomeSections").then((mod) => mod.HomeStats),
+  { ssr: false },
+);
+const HomeFeatures = dynamic(
+  () => import("./components/HomeSections").then((mod) => mod.HomeFeatures),
+  { ssr: false },
+);
+const HomeProfile = dynamic(
+  () => import("./components/HomeSections").then((mod) => mod.HomeProfile),
+  { ssr: false },
+);
+const HomeFaq = dynamic(
+  () => import("./components/HomeSections").then((mod) => mod.HomeFaq),
+  { ssr: false },
+);
+const HomeCta = dynamic(
+  () => import("./components/HomeSections").then((mod) => mod.HomeCta),
+  { ssr: false },
+);
 
 export default function Home() {
   return (
@@ -31,25 +46,34 @@ export default function Home() {
 
         {/* Subtle Background Glows */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-blue-400/10 blur-[100px] rounded-full pointer-events-none z-0" />
-        
+
         <div className="relative z-20 max-w-5xl mx-auto px-6 lg:px-8 text-center flex flex-col items-center">
-          
           <h1 className="text-5xl md:text-6xl lg:text-[72px] font-bold tracking-tight text-slate-900 leading-[1.1] mb-6 max-w-4xl">
-            Tingkatkan Pemahaman <span className="text-blue-600 bg-blue-100/50 px-3 py-1 rounded-2xl mx-1 inline-flex items-center gap-2 relative -top-1 shadow-sm border border-blue-200">Finansial</span> Anda Bersama Kami
+            Membangun Masyarakat Sadar{" "}
+            <span className="text-blue-600 bg-blue-100/50 px-3 py-1 rounded-2xl mx-1 inline-flex items-center gap-2 relative -top-1 shadow-sm border border-blue-200">
+              Finansial
+            </span>{" "}
+            Demi Masa Depan Bangsa
           </h1>
 
           <p className="text-lg md:text-xl text-slate-500 leading-relaxed max-w-2xl mb-10">
-            Platform pembelajaran interaktif untuk meningkatkan pemahaman
-            keuangan masyarakat Jawa Barat — gratis, mudah, dan terbuka untuk semua kalangan.
+            Membangun kemandirian finansial seluruh rakyat Indonesia melalui
+            platform edukasi interaktif yang gratis, praktis, dan dapat diakses
+            oleh siapa saja
           </p>
 
-          <Link href="/materi" className="group relative inline-flex items-center justify-center gap-3 bg-blue-600 text-white font-medium px-8 py-4 rounded-full overflow-hidden transition-all hover:scale-105 active:scale-95 shadow-xl shadow-blue-600/30">
+          <Link
+            href="/materi"
+            className="group relative inline-flex items-center justify-center gap-3 bg-blue-600 text-white font-medium px-8 py-4 rounded-full overflow-hidden transition-all hover:scale-105 active:scale-95 shadow-xl shadow-blue-600/30"
+          >
             <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-blue-500 opacity-0 group-hover:opacity-100 transition-opacity" />
             <span className="relative z-10 flex items-center gap-2">
-              Mulai Belajar Sekarang <span className="text-xl leading-none group-hover:translate-x-1 transition-transform">→</span>
+              Mulai Belajar Sekarang{" "}
+              <span className="text-xl leading-none group-hover:translate-x-1 transition-transform">
+                →
+              </span>
             </span>
           </Link>
-
         </div>
       </section>
 
