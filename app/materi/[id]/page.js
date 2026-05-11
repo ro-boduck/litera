@@ -4,6 +4,57 @@ import Link from "next/link";
 import Image from "next/image";
 import { ScrollProgressBar } from "../../components/ScrollProgressBar";
 
+/* ── Slide Carousel for educational content ── */
+function SlideBlock({ slides }) {
+  const [current, setCurrent] = useState(0);
+  if (!slides || slides.length === 0) return null;
+
+  return (
+    <div className="slide-container mb-6">
+      <div className="relative aspect-video bg-canvas-warm">
+        <Image
+          src={slides[current].url}
+          alt={slides[current].caption || `Slide ${current + 1}`}
+          fill
+          sizes="720px"
+          className="object-contain"
+        />
+      </div>
+      {slides.length > 1 && (
+        <>
+          <button
+            onClick={() => setCurrent((p) => (p - 1 + slides.length) % slides.length)}
+            className="slide-nav slide-nav-prev"
+            aria-label="Slide sebelumnya"
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1E293B" strokeWidth="2.5" strokeLinecap="round"><path d="M15 18l-6-6 6-6" /></svg>
+          </button>
+          <button
+            onClick={() => setCurrent((p) => (p + 1) % slides.length)}
+            className="slide-nav slide-nav-next"
+            aria-label="Slide berikutnya"
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1E293B" strokeWidth="2.5" strokeLinecap="round"><path d="M9 18l6-6-6-6" /></svg>
+          </button>
+          <div className="flex justify-center gap-1.5 py-3">
+            {slides.map((_, idx) => (
+              <button
+                key={idx}
+                onClick={() => setCurrent(idx)}
+                className={`w-2 h-2 rounded-full transition-all ${idx === current ? "bg-civic-blue w-6" : "bg-slate-300 hover:bg-slate-400"}`}
+                aria-label={`Slide ${idx + 1}`}
+              />
+            ))}
+          </div>
+        </>
+      )}
+      {slides[current].caption && (
+        <p className="text-xs text-text-tertiary text-center pb-3 px-4">{slides[current].caption}</p>
+      )}
+    </div>
+  );
+}
+
 export default function MateriDetailPage({ params }) {
   const unwrappedParams = use(params);
   const { id } = unwrappedParams;
@@ -15,7 +66,7 @@ export default function MateriDetailPage({ params }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch(`http://localhost:4000/api/materials/${id}`);
+        const res = await fetch(`/api/materi/${id}`);
         if (!res.ok) throw new Error('Data tidak ditemukan');
         const result = await res.json();
         setData(result);
@@ -97,6 +148,7 @@ export default function MateriDetailPage({ params }) {
           {data.content.map((block, i) => {
             switch (block.type) {
               case "h2": return <h2 key={i} className="text-heading text-text-primary mt-12 mb-4">{block.text}</h2>;
+              case "h3": return <h3 key={i} className="text-subheading text-text-primary mt-8 mb-3">{block.text}</h3>;
               case "p": return <p key={i} className="text-body text-text-primary mb-6">{block.text}</p>;
               case "ul": return (
                 <ul key={i} className="space-y-3 mb-6 ml-1">{block.items.map((item, j) => (
@@ -115,13 +167,35 @@ export default function MateriDetailPage({ params }) {
                 ))}</ol>
               );
               case "callout": return (
-                <div key={i} className="bg-civic-blue-mist border-l-[3px] border-civic-blue rounded-r-xl p-5 mb-6">
+                <div key={i} className="bg-civic-blue-mist rounded-xl p-5 mb-6">
                   <div className="flex gap-3 items-start">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-civic-blue)" strokeWidth="2" className="flex-shrink-0 mt-0.5"><circle cx="12" cy="12" r="10" /><path d="M12 16v-4M12 8h.01" /></svg>
                     <p className="text-body text-text-primary">{block.text}</p>
                   </div>
                 </div>
               );
+              case "video": return (
+                <div key={i} className="mb-6">
+                  {block.caption && <p className="text-sm font-medium text-text-secondary mb-3">{block.caption}</p>}
+                  <div className="video-embed">
+                    <iframe
+                      src={block.url}
+                      title={block.caption || "Video edukatif"}
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    />
+                  </div>
+                </div>
+              );
+              case "image": return (
+                <figure key={i} className="mb-6 rounded-2xl overflow-hidden shadow-lg">
+                  <div className="relative aspect-video bg-canvas-warm">
+                    <Image src={block.url} alt={block.caption || "Ilustrasi materi"} fill sizes="720px" className="object-cover" />
+                  </div>
+                  {block.caption && <figcaption className="text-xs text-text-tertiary text-center py-3 px-4 bg-canvas-warm">{block.caption}</figcaption>}
+                </figure>
+              );
+              case "slides": return <SlideBlock key={i} slides={block.items} />;
               default: return null;
             }
           })}

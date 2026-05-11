@@ -1,7 +1,15 @@
+"use client";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 
 export default function Footer() {
+  const pathname = usePathname() || "";
+  const isAdmin = pathname.startsWith("/kelola-8f2k9x3m");
+  const isQuiz = /^\/materi\/[^/]+\/kuis/.test(pathname);
+
+  if (isAdmin || isQuiz) return null;
+
   const year = new Date().getFullYear();
 
   const columns = [
@@ -10,7 +18,6 @@ export default function Footer() {
       links: [
         { label: "Beranda", href: "/" },
         { label: "Katalog Materi", href: "/materi" },
-        { label: "Evaluasi Diri", href: "/materi" },
       ],
     },
     {

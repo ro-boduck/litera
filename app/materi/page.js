@@ -35,7 +35,7 @@ export default function MateriPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch("http://localhost:4000/api/materials");
+        const res = await fetch("/api/materi");
         if (res.ok) {
           const data = await res.json();
           setAllMaterials(data);
@@ -113,7 +113,7 @@ export default function MateriPage() {
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {filtered.map((m, i) => (
-                <Link key={m.id} href={`/materi/${m.id}`} className={`card group animate-fade-up delay-${Math.min(i + 1, 6)}`}>
+                <Link key={m.id} href={`/materi/${m.id}`} className={`card group hover-glow animate-fade-up delay-${Math.min(i + 1, 6)}`}>
                   <div className="aspect-[5/3] bg-gradient-to-br from-civic-blue-mist to-canvas-warm flex items-center justify-center relative overflow-hidden">
                     <div className="w-14 h-14 rounded-2xl bg-white shadow-sm flex items-center justify-center text-civic-blue group-hover:scale-110 transition-transform duration-300">
                       {MaterialIcons[m.icon]}

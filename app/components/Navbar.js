@@ -15,6 +15,10 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const isAdmin = pathname?.startsWith("/kelola-8f2k9x3m");
+  const isQuiz = /^\/materi\/[^/]+\/kuis/.test(pathname || "");
+  if (isAdmin || isQuiz) return null;
+
   const navLinks = [
     { href: "/", label: "Beranda" },
     { href: "/materi", label: "Materi" },
