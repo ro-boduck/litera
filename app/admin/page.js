@@ -10,18 +10,27 @@ export default function AdminCMS() {
   const [formData, setFormData] = useState({});
 
   useEffect(() => {
+    const fetchMaterials = async () => {
+      try {
+        const res = await fetch("http://localhost:4000/api/materials");
+        const data = await res.json();
+        setMaterials(data);
+        setLoading(false);
+      } catch (error) {
+        console.error("Gagal mengambil data dari API CMS", error);
+        setLoading(false);
+      }
+    };
     fetchMaterials();
   }, []);
 
-  const fetchMaterials = async () => {
+  const refetchMaterials = async () => {
     try {
       const res = await fetch("http://localhost:4000/api/materials");
       const data = await res.json();
       setMaterials(data);
-      setLoading(false);
     } catch (error) {
       console.error("Gagal mengambil data dari API CMS", error);
-      setLoading(false);
     }
   };
 
@@ -60,7 +69,7 @@ export default function AdminCMS() {
     if (!confirm("Anda yakin ingin menghapus materi ini?")) return;
     try {
       await fetch(`http://localhost:4000/api/materials/${id}`, { method: "DELETE" });
-      fetchMaterials();
+      refetchMaterials();
     } catch (error) {
       alert("Gagal menghapus.");
     }
@@ -94,7 +103,7 @@ export default function AdminCMS() {
         alert("Berhasil disimpan!");
         setEditingId(null);
         setIsCreating(false);
-        fetchMaterials();
+        refetchMaterials();
       } else {
         alert("Gagal menyimpan data.");
       }

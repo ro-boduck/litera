@@ -2,6 +2,7 @@
 import { useState, useEffect, use } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { ScrollProgressBar } from "../../components/ScrollProgressBar";
 
 export default function MateriDetailPage({ params }) {
   const unwrappedParams = use(params);
@@ -9,7 +10,6 @@ export default function MateriDetailPage({ params }) {
   
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [progress, setProgress] = useState(0);
 
   // Fetch data from API
   useEffect(() => {
@@ -27,17 +27,6 @@ export default function MateriDetailPage({ params }) {
     };
     fetchData();
   }, [id]);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const total = document.documentElement.scrollHeight - window.innerHeight;
-      if (total <= 0) return;
-      const pct = Math.min(100, (window.scrollY / total) * 100);
-      setProgress(pct);
-    };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   if (loading) {
     return (
@@ -77,9 +66,7 @@ export default function MateriDetailPage({ params }) {
   return (
     <>
       {/* Progress Bar */}
-      <div className="fixed top-0 left-0 w-full h-[3px] z-[60]">
-        <div className="h-full progress-shimmer transition-all duration-150" style={{ width: `${progress}%` }} />
-      </div>
+      <ScrollProgressBar />
 
       {/* ── Header ── */}
       <section className="bg-canvas-warm pt-[140px] md:pt-[160px] pb-12">

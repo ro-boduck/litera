@@ -1,0 +1,3 @@
+## 2024-03-24 - [Fix Re-rendering from Scroll Events]
+**Learning:** Attaching a scroll event listener that calls `setState` in a high-level component like `MateriDetailPage` forces the entire page, including heavy content rendering, to continuously re-render on scroll. This is a common performance anti-pattern.
+**Action:** Extract scroll-dependent UI (like a progress bar) into its own isolated component (`ScrollProgressBar`) and throttle state updates with `requestAnimationFrame`. This isolates the frequent state changes to a tiny component, protecting the main application from unnecessary and expensive re-renders.

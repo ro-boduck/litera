@@ -15,10 +15,6 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  useEffect(() => {
-    setMobileOpen(false);
-  }, [pathname]);
-
   const navLinks = [
     { href: "/", label: "Beranda" },
     { href: "/materi", label: "Materi" },
@@ -104,6 +100,7 @@ export default function Navbar() {
             <Link
               key={link.href}
               href={link.href}
+              onClick={() => setMobileOpen(false)}
               className={`block px-4 py-3 rounded-xl text-[16px] font-medium transition-colors
                 ${isActive(link.href)
                   ? "text-blue-600 bg-blue-50"
@@ -115,6 +112,7 @@ export default function Navbar() {
           ))}
           <Link
             href="/materi"
+            onClick={() => setMobileOpen(false)}
             className="flex items-center justify-center w-full mt-3 bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-500/40 rounded-xl px-4 py-3 text-[15px] font-medium transition-all"
           >
             Mulai Belajar
