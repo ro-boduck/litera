@@ -21,12 +21,12 @@ export async function POST(request) {
     }
 
     // Auto-seed first admin if none exist (setup mode)
-    if (adminCount() === 0) {
+    if ((await adminCount()) === 0) {
       const hash = await bcrypt.hash(password, 12);
-      createAdmin(username, hash);
+      await createAdmin(username, hash);
     }
 
-    const admin = getAdminByUsername(username);
+    const admin = await getAdminByUsername(username);
     if (!admin) {
       return NextResponse.json({ error: "Kredensial tidak valid" }, { status: 401 });
     }

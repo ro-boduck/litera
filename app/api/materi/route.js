@@ -9,7 +9,7 @@ import { getAdminSession } from "../../../lib/auth";
 
 export async function GET() {
   try {
-    const materials = getAllMaterials();
+    const materials = await getAllMaterials();
     return NextResponse.json(materials);
   } catch (err) {
     console.error("[API] GET /api/materi:", err);
@@ -34,7 +34,7 @@ export async function POST(request) {
       );
     }
 
-    const { id } = createMaterial(body);
+    const { id } = await createMaterial(body);
     const created = { id, ...body };
     return NextResponse.json(created, { status: 201 });
   } catch (err) {

@@ -11,7 +11,7 @@ import { getAdminSession } from "../../../../lib/auth";
 export async function GET(request, { params }) {
   try {
     const { id } = await params;
-    const material = getMaterialById(id);
+    const material = await getMaterialById(id);
     if (!material) {
       return NextResponse.json({ error: "Materi tidak ditemukan" }, { status: 404 });
     }
@@ -39,12 +39,12 @@ export async function PUT(request, { params }) {
       );
     }
 
-    const changes = updateMaterial(id, body);
+    const changes = await updateMaterial(id, body);
     if (changes === 0) {
       return NextResponse.json({ error: "Materi tidak ditemukan" }, { status: 404 });
     }
 
-    const updated = getMaterialById(id);
+    const updated = await getMaterialById(id);
     return NextResponse.json(updated);
   } catch (err) {
     console.error("[API] PUT /api/materi/[id]:", err);
@@ -60,7 +60,7 @@ export async function DELETE(request, { params }) {
 
   try {
     const { id } = await params;
-    const changes = deleteMaterial(id);
+    const changes = await deleteMaterial(id);
     if (changes === 0) {
       return NextResponse.json({ error: "Materi tidak ditemukan" }, { status: 404 });
     }
