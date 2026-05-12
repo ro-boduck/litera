@@ -101,6 +101,32 @@ function LoginScreen({ onLogin }) {
   );
 }
 
+/* ── Field Helper ── */
+const Field = ({ label, name, type = "text", rows, mono, hint, formData, setFormData }) => (
+  <div>
+    <label className="block text-xs font-semibold mb-1.5" style={{ color: "#64748B", letterSpacing: "0.04em", textTransform: "uppercase" }}>{label}</label>
+    {rows ? (
+      <textarea
+        value={formData[name] || ""}
+        onChange={(e) => setFormData({ ...formData, [name]: e.target.value })}
+        rows={rows}
+        className={`w-full rounded-xl px-4 py-3 text-sm outline-none transition ${mono ? "font-mono text-xs" : ""}`}
+        style={{ background: "#F8FAFC", border: "1px solid #E2E8F0", color: "#1E293B" }}
+      />
+    ) : (
+      <input
+        type={type}
+        value={formData[name] || ""}
+        onChange={(e) => setFormData({ ...formData, [name]: e.target.value })}
+        required={["cat", "title", "desc"].includes(name)}
+        className="w-full rounded-xl px-4 py-2.5 text-sm outline-none transition"
+        style={{ background: "#F8FAFC", border: "1px solid #E2E8F0", color: "#1E293B" }}
+      />
+    )}
+    {hint && <p className="text-xs mt-1" style={{ color: "#94A3B8" }}>{hint}</p>}
+  </div>
+);
+
 /* ── Dashboard ── */
 export default function AdminCMS() {
   const [adminUser, setAdminUser] = useState(null);
@@ -214,31 +240,7 @@ export default function AdminCMS() {
   if (!authChecked) return <div className="min-h-screen flex items-center justify-center" style={{ background: "#1B2D4F" }}><div className="w-6 h-6 border-2 border-blue-400 border-t-transparent rounded-full animate-spin" /></div>;
   if (!adminUser) return <LoginScreen onLogin={setAdminUser} />;
 
-  // Field helper
-  const Field = ({ label, name, type = "text", rows, mono, hint }) => (
-    <div>
-      <label className="block text-xs font-semibold mb-1.5" style={{ color: "#64748B", letterSpacing: "0.04em", textTransform: "uppercase" }}>{label}</label>
-      {rows ? (
-        <textarea
-          value={formData[name] || ""}
-          onChange={(e) => setFormData({ ...formData, [name]: e.target.value })}
-          rows={rows}
-          className={`w-full rounded-xl px-4 py-3 text-sm outline-none transition ${mono ? "font-mono text-xs" : ""}`}
-          style={{ background: "#F8FAFC", border: "1px solid #E2E8F0", color: "#1E293B" }}
-        />
-      ) : (
-        <input
-          type={type}
-          value={formData[name] || ""}
-          onChange={(e) => setFormData({ ...formData, [name]: e.target.value })}
-          required={["cat", "title", "desc"].includes(name)}
-          className="w-full rounded-xl px-4 py-2.5 text-sm outline-none transition"
-          style={{ background: "#F8FAFC", border: "1px solid #E2E8F0", color: "#1E293B" }}
-        />
-      )}
-      {hint && <p className="text-xs mt-1" style={{ color: "#94A3B8" }}>{hint}</p>}
-    </div>
-  );
+
 
   return (
     <div className="min-h-screen" style={{ background: "#F1F5F9" }}>
@@ -284,16 +286,16 @@ export default function AdminCMS() {
               <div className="rounded-xl p-5" style={{ background: "#F8FAFC", border: "1px solid #E2E8F0" }}>
                 <p className="text-xs font-bold mb-4" style={{ color: "#2563EB", letterSpacing: "0.05em", textTransform: "uppercase" }}>Informasi Dasar</p>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <Field label="Kategori" name="cat" hint="Contoh: Literasi Digital, Investasi, Perbankan" />
-                  <Field label="Judul Materi" name="title" hint="Judul yang jelas dan deskriptif" />
-                  <Field label="Estimasi Waktu Baca" name="time" hint="Contoh: 8 mnt, 15 mnt" />
+                  <Field label="Kategori" name="cat" hint="Contoh: Literasi Digital, Investasi, Perbankan" formData={formData} setFormData={setFormData} />
+                  <Field label="Judul Materi" name="title" hint="Judul yang jelas dan deskriptif" formData={formData} setFormData={setFormData} />
+                  <Field label="Estimasi Waktu Baca" name="time" hint="Contoh: 8 mnt, 15 mnt" formData={formData} setFormData={setFormData} />
                   <div className="grid grid-cols-2 gap-4">
-                    <Field label="Level" name="level" hint="Pemula / Menengah" />
-                    <Field label="Ikon" name="icon" hint="book, chart, lock, dll" />
+                    <Field label="Level" name="level" hint="Pemula / Menengah" formData={formData} setFormData={setFormData} />
+                    <Field label="Ikon" name="icon" hint="book, chart, lock, dll" formData={formData} setFormData={setFormData} />
                   </div>
                 </div>
                 <div className="mt-4">
-                  <Field label="Deskripsi Singkat" name="desc" rows={2} hint="1-2 kalimat ringkasan materi" />
+                  <Field label="Deskripsi Singkat" name="desc" rows={2} hint="1-2 kalimat ringkasan materi" formData={formData} setFormData={setFormData} />
                 </div>
               </div>
 
