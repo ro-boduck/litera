@@ -4,6 +4,40 @@ import Link from "next/link";
 import Image from "next/image";
 import { ScrollProgressBar } from "../../components/ScrollProgressBar";
 
+/**
+ * Convert any YouTube URL format to its embed-friendly form.
+ * Supports:
+ *   - https://www.youtube.com/watch?v=VIDEO_ID
+ *   - https://youtu.be/VIDEO_ID
+ *   - https://www.youtube.com/embed/VIDEO_ID  (already correct)
+ *   - https://youtube.com/shorts/VIDEO_ID
+ * Returns the original URL if it doesn't match any YouTube pattern.
+ */
+function toEmbedUrl(url) {
+  if (!url) return url;
+  try {
+    const u = new URL(url);
+    // Already an embed URL
+    if (u.pathname.startsWith('/embed/')) return url;
+    // youtube.com/watch?v=...
+    if ((u.hostname === 'www.youtube.com' || u.hostname === 'youtube.com') && u.searchParams.has('v')) {
+      return `https://www.youtube.com/embed/${u.searchParams.get('v')}`;
+    }
+    // youtu.be/VIDEO_ID
+    if (u.hostname === 'youtu.be') {
+      return `https://www.youtube.com/embed${u.pathname}`;
+    }
+    // youtube.com/shorts/VIDEO_ID
+    if ((u.hostname === 'www.youtube.com' || u.hostname === 'youtube.com') && u.pathname.startsWith('/shorts/')) {
+      const videoId = u.pathname.replace('/shorts/', '');
+      return `https://www.youtube.com/embed/${videoId}`;
+    }
+  } catch {
+    // Not a valid URL, return as-is
+  }
+  return url;
+}
+
 /* ── Slide Carousel for educational content ── */
 function SlideBlock({ slides }) {
   const [current, setCurrent] = useState(0);
@@ -12,12 +46,11 @@ function SlideBlock({ slides }) {
   return (
     <div className="slide-container mb-6">
       <div className="relative aspect-video bg-canvas-warm">
-        <Image
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
           src={slides[current].url}
           alt={slides[current].caption || `Slide ${current + 1}`}
-          fill
-          sizes="720px"
-          className="object-contain"
+          className="absolute inset-0 w-full h-full object-contain"
         />
       </div>
       {slides.length > 1 && (
@@ -179,10 +212,11 @@ export default function MateriDetailPage({ params }) {
                   {block.caption && <p className="text-sm font-medium text-text-secondary mb-3">{block.caption}</p>}
                   <div className="video-embed">
                     <iframe
-                      src={block.url}
+                      src={toEmbedUrl(block.url)}
                       title={block.caption || "Video edukatif"}
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                       allowFullScreen
+                      referrerPolicy="no-referrer"
                     />
                   </div>
                 </div>
@@ -190,7 +224,8 @@ export default function MateriDetailPage({ params }) {
               case "image": return (
                 <figure key={i} className="mb-6 rounded-2xl overflow-hidden shadow-lg">
                   <div className="relative aspect-video bg-canvas-warm">
-                    <Image src={block.url} alt={block.caption || "Ilustrasi materi"} fill sizes="720px" className="object-cover" />
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={block.url} alt={block.caption || "Ilustrasi materi"} className="absolute inset-0 w-full h-full object-cover" />
                   </div>
                   {block.caption && <figcaption className="text-xs text-text-tertiary text-center py-3 px-4 bg-canvas-warm">{block.caption}</figcaption>}
                 </figure>
