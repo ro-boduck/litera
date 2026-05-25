@@ -28,6 +28,98 @@ const HomeCta = dynamic(
   { ssr: false }
 );
 
+/* ═══ CONTENT-AWARE SKELETON LOADERS ═══ */
+const StatsSkeleton = () => (
+  <div className="max-w-6xl mx-auto px-6 lg:px-8 py-16 pb-24 lg:py-24 lg:pb-32 bg-[#FAFAF8] relative z-10 animate-pulse">
+    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
+      {[...Array(4)].map((_, i) => (
+        <div key={i} className="bg-white border border-slate-100 shadow-sm rounded-3xl p-6 sm:p-8">
+          <div className="w-14 h-14 rounded-2xl bg-slate-200 mb-5" />
+          <div className="h-8 w-20 bg-slate-200 rounded mb-2" />
+          <div className="h-4 w-32 bg-slate-200 rounded" />
+        </div>
+      ))}
+    </div>
+  </div>
+);
+
+const FeaturesSkeleton = () => (
+  <div className="max-w-6xl mx-auto px-6 lg:px-8 py-16 lg:py-24 bg-[#FAFAF8] animate-pulse">
+    <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 items-center">
+      <div className="lg:w-2/5 w-full space-y-4">
+        <div className="h-4 w-28 bg-slate-200 rounded" />
+        <div className="h-10 w-4/5 bg-slate-200 rounded" />
+        <div className="h-10 w-2/3 bg-slate-200 rounded" />
+        <div className="space-y-2 mt-6">
+          <div className="h-4 w-full bg-slate-200 rounded" />
+          <div className="h-4 w-5/6 bg-slate-200 rounded" />
+          <div className="h-4 w-4/5 bg-slate-200 rounded" />
+        </div>
+      </div>
+      <div className="lg:w-3/5 w-full">
+        <div className="bg-white border border-slate-100 rounded-[2.5rem] p-8 md:p-12 lg:p-14 space-y-8">
+          <div className="flex justify-between items-center relative">
+            {[...Array(3)].map((_, i) => (
+              <div key={i} className="flex flex-col items-center space-y-3 w-1/3">
+                <div className="w-20 h-20 lg:w-24 lg:h-24 rounded-full bg-slate-200" />
+                <div className="h-6 w-12 bg-slate-200 rounded" />
+                <div className="h-4 w-16 bg-slate-200 rounded" />
+              </div>
+            ))}
+          </div>
+          <div className="h-14 w-full bg-slate-200 rounded-xl" />
+        </div>
+      </div>
+    </div>
+  </div>
+);
+
+const ProfileSkeleton = () => (
+  <div className="max-w-6xl mx-auto px-6 lg:px-8 py-16 lg:py-24 bg-[#FAFAF8] animate-pulse">
+    <div className="flex flex-col md:flex-row items-center gap-12 lg:gap-20">
+      <div className="w-full md:w-1/2 rounded-3xl bg-slate-200 aspect-[4/3]" />
+      <div className="w-full md:w-1/2 space-y-4">
+        <div className="h-4 w-24 bg-slate-200 rounded" />
+        <div className="h-10 w-2/3 bg-slate-200 rounded" />
+        <div className="space-y-2 mt-6">
+          <div className="h-4 w-full bg-slate-200 rounded" />
+          <div className="h-4 w-full bg-slate-200 rounded" />
+          <div className="h-4 w-5/6 bg-slate-200 rounded" />
+          <div className="h-4 w-4/5 bg-slate-200 rounded" />
+        </div>
+        <div className="h-6 w-36 bg-slate-200 rounded mt-6" />
+      </div>
+    </div>
+  </div>
+);
+
+const FaqSkeleton = () => (
+  <div className="max-w-4xl mx-auto px-6 lg:px-8 py-16 lg:py-24 bg-[#FAFAF8] animate-pulse">
+    <div className="text-center mb-12 space-y-3">
+      <div className="h-4 w-12 bg-slate-200 rounded mx-auto" />
+      <div className="h-8 w-48 bg-slate-200 rounded mx-auto" />
+    </div>
+    <div className="space-y-4">
+      {[...Array(5)].map((_, i) => (
+        <div key={i} className="bg-white rounded-2xl border border-slate-100 p-6 flex justify-between items-center">
+          <div className="h-6 w-2/3 bg-slate-200 rounded" />
+          <div className="w-6 h-6 rounded-full bg-slate-200" />
+        </div>
+      ))}
+    </div>
+  </div>
+);
+
+const CtaSkeleton = () => (
+  <div className="max-w-4xl mx-auto px-6 lg:px-8 py-16 animate-pulse">
+    <div className="bg-slate-200 rounded-3xl p-12 lg:p-16 flex flex-col items-center space-y-6">
+      <div className="h-8 w-64 bg-slate-300 rounded" />
+      <div className="h-4 w-96 bg-slate-300 rounded" />
+      <div className="h-10 w-36 bg-slate-300 rounded-full" />
+    </div>
+  </div>
+);
+
 export default function Home() {
   const heroRef = useScrollReveal();
 
@@ -60,7 +152,7 @@ export default function Home() {
         </div>
 
         {/* Karakter Kang Umen (Kiri) */}
-        <div className="hidden lg:block absolute left-4 xl:left-12 top-1/2 -translate-y-1/2 w-[140px] h-[240px] xl:w-[180px] xl:h-[300px] z-10 select-none transition-transform duration-500 hover:scale-105 pointer-events-none">
+        <div className="hidden xl:block absolute left-4 xl:left-12 top-1/2 -translate-y-1/2 w-[140px] h-[240px] xl:w-[180px] xl:h-[300px] z-10 select-none transition-transform duration-500 hover:scale-105 pointer-events-none">
           <Image
             src="/KangUmen.png"
             alt="Karakter Kang Umen"
@@ -72,7 +164,7 @@ export default function Home() {
         </div>
 
         {/* Karakter Neng Euis (Kanan) */}
-        <div className="hidden lg:block absolute right-4 xl:right-12 top-1/2 -translate-y-1/2 w-[140px] h-[240px] xl:w-[180px] xl:h-[300px] z-10 select-none transition-transform duration-500 hover:scale-105 pointer-events-none">
+        <div className="hidden xl:block absolute right-4 xl:right-12 top-1/2 -translate-y-1/2 w-[140px] h-[240px] xl:w-[180px] xl:h-[300px] z-10 select-none transition-transform duration-500 hover:scale-105 pointer-events-none">
           <Image
             src="/NengEuis.png"
             alt="Karakter Neng Euis"
@@ -135,19 +227,19 @@ export default function Home() {
       </section>
 
       {/* ═══ LAZY LOADED SECTIONS ═══ */}
-      <LazyLoad minHeight="500px">
+      <LazyLoad minHeight="500px" skeleton={<StatsSkeleton />}>
         <HomeStats />
       </LazyLoad>
-      <LazyLoad minHeight="700px">
+      <LazyLoad minHeight="700px" skeleton={<FeaturesSkeleton />}>
         <HomeFeatures />
       </LazyLoad>
-      <LazyLoad minHeight="600px">
+      <LazyLoad minHeight="600px" skeleton={<ProfileSkeleton />}>
         <HomeProfile />
       </LazyLoad>
-      <LazyLoad minHeight="500px">
+      <LazyLoad minHeight="500px" skeleton={<FaqSkeleton />}>
         <HomeFaq />
       </LazyLoad>
-      <LazyLoad minHeight="500px">
+      <LazyLoad minHeight="500px" skeleton={<CtaSkeleton />}>
         <HomeCta />
       </LazyLoad>
     </>

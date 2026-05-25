@@ -628,8 +628,9 @@ body {
 @media (hover: hover) {
   .chatbot-fab-button:hover {
     width: 180px;
-    padding: 0 16px 0 6px;
+    padding: 0 20px;
     gap: 8px;
+    transform: scale(1.05); /* Subtle scale up bounce effect */
   }
 }
 
@@ -719,6 +720,9 @@ body {
   .chatbot-fab-button:hover .chatbot-fab-mascot {
     opacity: 0 !important;
     transform: scale(0) !important;
+    width: 0 !important;
+    height: 0 !important;
+    margin: 0 !important;
   }
 }
 

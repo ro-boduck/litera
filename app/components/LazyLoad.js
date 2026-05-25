@@ -1,7 +1,7 @@
 'use client';
 import { useState, useEffect, useRef } from 'react';
 
-export default function LazyLoad({ children, minHeight = '400px', rootMargin = '300px' }) {
+export default function LazyLoad({ children, minHeight = '400px', rootMargin = '300px', skeleton }) {
   const [isIntersecting, setIsIntersecting] = useState(false);
   const ref = useRef(null);
 
@@ -24,6 +24,13 @@ export default function LazyLoad({ children, minHeight = '400px', rootMargin = '
   }, [rootMargin]);
 
   if (!isIntersecting) {
+    if (skeleton) {
+      return (
+        <div ref={ref} className="w-full relative overflow-hidden">
+          {skeleton}
+        </div>
+      );
+    }
     return (
       <div 
         ref={ref} 
