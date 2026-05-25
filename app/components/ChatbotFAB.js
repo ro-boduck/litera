@@ -24,12 +24,10 @@ export default function ChatbotFAB() {
 
   const messagesEndRef = useRef(null);
 
-  // Close chatbot when navigating to a new page (only if open to avoid cascading renders)
+  // Close chatbot when navigating to a new page
   useEffect(() => {
-    if (isOpen) {
-      setIsOpen(false);
-    }
-  }, [pathname, isOpen]);
+    setIsOpen(false);
+  }, [pathname]);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
