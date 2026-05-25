@@ -259,13 +259,6 @@ export default function ChatbotFAB() {
       {/* Floating Action Button — Always visible, morphs on hover/click */}
       <div className="pointer-events-auto relative z-50 mt-2 flex items-center gap-3">
         
-        {/* Hover Tooltip Label */}
-        <div className="chatbot-fab-tooltip hidden sm:flex items-center bg-[#1B2D4F] text-white text-[13px] font-semibold px-4 py-2.5 rounded-2xl shadow-xl shadow-[#1B2D4F]/20 opacity-0 translate-x-3 pointer-events-none transition-all duration-300 whitespace-nowrap select-none">
-          <span>Tanya Kang Umen & Neng Euis</span>
-          {/* Tooltip Arrow */}
-          <div className="absolute -right-1.5 top-1/2 -translate-y-1/2 w-3 h-3 bg-[#1B2D4F] rotate-45 rounded-sm" />
-        </div>
-
         {/* Button Wrapper to prevent overflow:hidden clipping of the online dot */}
         <div className="relative">
           {/* Button Core */}
