@@ -18,10 +18,6 @@ export default function ChatbotFAB() {
   const [activeResponder, setActiveResponder] = useState("Kang Umen & Neng Euis");
   
   const pathname = usePathname();
-  const isAdmin = pathname?.startsWith("/kelola-8f2k9x3m");
-  const isQuiz = /^\/materi\/[^/]+\/kuis/.test(pathname || "");
-  if (isAdmin || isQuiz) return null;
-
   const messagesEndRef = useRef(null);
 
   // Close chatbot when navigating to a new page
@@ -55,6 +51,11 @@ export default function ChatbotFAB() {
       setIsAnimating(false);
     }, 400);
   }, [isOpen, isAnimating]);
+
+  // Hide on admin/quiz pages — AFTER all hooks to respect Rules of Hooks
+  const isAdmin = pathname?.startsWith("/kelola-8f2k9x3m");
+  const isQuiz = /^\/materi\/[^/]+\/kuis/.test(pathname || "");
+  if (isAdmin || isQuiz) return null;
 
   const handleOptionClick = (option) => {
     // Hide options immediately
