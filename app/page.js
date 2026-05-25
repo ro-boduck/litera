@@ -67,7 +67,7 @@ export default function Home() {
             fill
             sizes="(max-width: 1280px) 140px, 180px"
             className="object-contain"
-            loading="lazy"
+            priority
           />
         </div>
 
@@ -79,7 +79,7 @@ export default function Home() {
             fill
             sizes="(max-width: 1280px) 140px, 180px"
             className="object-contain"
-            loading="lazy"
+            priority
           />
         </div>
 
