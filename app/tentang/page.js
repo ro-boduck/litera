@@ -200,7 +200,7 @@ export default function TentangPage() {
                 <div className="absolute top-0 right-0 w-[200px] h-[200px] bg-amber-500/5 rounded-full translate-x-1/4 -translate-y-1/4 pointer-events-none" />
                 
                 <div className="w-14 h-14 rounded-2xl bg-white border border-amber-100 shadow-sm flex items-center justify-center mb-8 text-[#0a4d94]">
-                  <span className="material-symbols-outlined text-[32px]">manage_search</span>
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg>
                 </div>
                 <div>
                   <h4 className="font-extrabold text-xl mb-3 tracking-wider text-amber-600">KENALI</h4>
@@ -215,7 +215,7 @@ export default function TentangPage() {
                 <div className="absolute top-0 right-0 w-[200px] h-[200px] bg-emerald-500/5 rounded-full translate-x-1/4 -translate-y-1/4 pointer-events-none" />
                 
                 <div className="w-14 h-14 rounded-2xl bg-white border border-emerald-100 shadow-sm flex items-center justify-center shrink-0 text-[#0a4d94]">
-                  <span className="material-symbols-outlined text-[32px]">campaign</span>
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="m3 11 18-5v12L3 13v-2z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg>
                 </div>
                 <div>
                   <h4 className="font-extrabold text-xl mb-3 tracking-wider text-emerald-600">ADUKAN</h4>

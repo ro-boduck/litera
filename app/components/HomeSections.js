@@ -86,8 +86,8 @@ export function HomeStats() {
     <section ref={revealRef} className="relative z-30 overflow-hidden">
       <style>{`
         @keyframes fill-progress {
-          from { width: 0%; }
-          to { width: 100%; }
+          from { transform: scaleX(0); }
+          to { transform: scaleX(1); }
         }
       `}</style>
 
@@ -133,7 +133,7 @@ export function HomeStats() {
               {isActive && (
                 <div
                   key={currentSlide}
-                  className="absolute left-0 top-0 h-full bg-white rounded-full"
+                  className="absolute left-0 top-0 h-full w-full bg-white rounded-full origin-left"
                   style={{ animation: 'fill-progress 8s linear forwards' }}
                 />
               )}

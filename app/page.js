@@ -43,6 +43,7 @@ export default function Home() {
             sizes="100vw"
             quality={30}
             className="object-cover opacity-[0.03] mix-blend-multiply"
+            priority
           />
         </div>
 
