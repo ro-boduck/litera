@@ -23,7 +23,7 @@ export default function Footer() {
     {
       title: "Informasi",
       links: [
-        { label: "Tentang LITERA", href: "/tentang" },
+        { label: "Tentang Ruang PeKA JABAR", href: "/tentang" },
         { label: "Hubungi Kami", href: "/kontak" },
         { label: "Bank Indonesia", href: "https://www.bi.go.id" },
       ],

@@ -31,7 +31,7 @@ export default function Navbar() {
   return (
     <div className="fixed top-6 left-0 right-0 z-50 flex justify-center px-4 pointer-events-none">
       <header
-        className="w-full max-w-4xl bg-white/90 backdrop-blur-md border border-white/50 shadow-2xl shadow-blue-900/10 rounded-full transition-all duration-500 pointer-events-auto"
+        className="w-full max-w-4xl bg-white/90 backdrop-blur-md border border-white/50 shadow-2xl shadow-blue-900/10 rounded-full transition-all duration-300 pointer-events-auto"
       >
       <nav className="max-w-6xl mx-auto px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
@@ -56,10 +56,10 @@ export default function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`relative px-4 py-2 rounded-full text-[14px] font-medium transition-all duration-200
+                className={`nav-item px-4 py-2 rounded-full text-[14px] font-medium
                   ${isActive(link.href)
-                    ? "text-civic-blue bg-civic-blue-mist"
-                    : "text-text-secondary hover:text-text-primary hover:bg-canvas-warm"
+                    ? "nav-item-active text-civic-blue bg-civic-blue-mist shadow-[0_4px_12px_rgba(37,99,235,0.06)]"
+                    : "text-text-secondary hover:text-text-primary"
                   }`}
               >
                 {link.label}
@@ -69,7 +69,7 @@ export default function Navbar() {
 
           {/* ── Desktop CTA ── */}
           <div className="hidden md:flex flex-1 items-center justify-end gap-3">
-            <Link href="/materi" className="bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-500/40 rounded-full px-6 py-2.5 text-[14px] font-medium transition-all duration-300 hover:-translate-y-0.5 hover:shadow-blue-500/60 hover:scale-105 active:scale-95">
+            <Link href="/materi" className="bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-500/40 rounded-full px-6 py-2.5 text-[14px] font-medium transition-all duration-150 ease-out hover:-translate-y-0.5 hover:shadow-blue-500/60 active:scale-95">
               Mulai Belajar
             </Link>
           </div>
@@ -94,7 +94,7 @@ export default function Navbar() {
 
       {/* ── Mobile Menu (Dropdown) ── */}
       <div
-        className={`absolute top-[80px] w-[calc(100%-2rem)] max-w-4xl bg-white/95 backdrop-blur-md border border-white/50 shadow-2xl shadow-blue-900/10 rounded-3xl pointer-events-auto transition-all duration-300 ease-out origin-top ${
+        className={`absolute top-[80px] w-[calc(100%-2rem)] max-w-4xl bg-white/95 backdrop-blur-md border border-white/50 shadow-2xl shadow-blue-900/10 rounded-3xl pointer-events-auto transition-all duration-200 ease-out origin-top ${
           mobileOpen ? "opacity-100 scale-y-100" : "opacity-0 scale-y-95 pointer-events-none"
         }`}
       >
@@ -104,10 +104,10 @@ export default function Navbar() {
               key={link.href}
               href={link.href}
               onClick={() => setMobileOpen(false)}
-              className={`block px-4 py-3 rounded-xl text-[16px] font-medium transition-colors
+              className={`block px-4 py-3 rounded-xl text-[16px] font-medium transition-all duration-200 active:scale-[0.98]
                 ${isActive(link.href)
-                  ? "text-blue-600 bg-blue-50"
-                  : "text-slate-600 hover:text-slate-900 hover:bg-slate-50"
+                  ? "text-blue-600 bg-blue-50 shadow-sm"
+                  : "text-slate-600 hover:text-slate-900 hover:bg-slate-50/50"
                 }`}
             >
               {link.label}

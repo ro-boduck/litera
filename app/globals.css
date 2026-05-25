@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 /* ═══════════════════════════════════════════════════════════
-   LITERA — Design System v3.0
+   Ruang PeKA JABAR — Design System v3.0
    "Civic Elegance" — Fusing Apple precision with Claude warmth
    and West Java cultural identity
    
@@ -9,7 +9,7 @@
    - ui-ux-pro-max (color-contrast ≥4.5:1, touch targets ≥44px,
      no-emoji-icons, SVG-only, consistent spacing 8dp rhythm)
    - Apple DESIGN.md (typography discipline, single-accent grammar)
-   - LITERA PROMPTS.md (content structure, Mega Mendung motif)
+   - Ruang PeKA JABAR PROMPTS.md (content structure, Mega Mendung motif)
    
    Color Philosophy: WARM navy (#1B2D4F) not black.
    Accent: Civic Blue (#2563EB). Surface: Warm canvas.
@@ -69,6 +69,33 @@
 /* ── Base Reset ── */
 html {
   scroll-behavior: smooth;
+}
+@layer base {
+  :root {
+    --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+    --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+    --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+    
+    /* Impeccable Easing Curves */
+    --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+    --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+    --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  body {
+    background-color: #f0f6fc;
+    color: #1B2D4F;
+    @apply antialiased;
+  }
+
+  /* Tactile Buttons */
+  button, a.btn-primary, .btn-primary {
+    transition: transform 160ms var(--ease-out), filter 200ms ease, opacity 200ms ease;
+  }
+  
+  button:active, a.btn-primary:active, .btn-primary:active {
+    transform: scale(0.97);
+  }
 }
 
 body {
@@ -364,20 +391,41 @@ body {
 }
 
 .animate-fade-up {
-  animation: fadeUp 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  animation: fadeUp 0.8s var(--ease-out-quart) both;
 }
 
 .animate-scale-in {
-  animation: scaleIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  animation: scaleIn 0.8s var(--ease-out-quart) both;
 }
 
-/* ── Stagger delays ── */
-.delay-1 { animation-delay: 0.1s; }
-.delay-2 { animation-delay: 0.15s; }
-.delay-3 { animation-delay: 0.2s; }
-.delay-4 { animation-delay: 0.25s; }
-.delay-5 { animation-delay: 0.3s; }
-.delay-6 { animation-delay: 0.35s; }
+.animate-fade-in {
+  animation: fade-in 0.8s var(--ease-out-quart) both;
+}
+
+@keyframes revealUpAnim {
+  from { opacity: 0; transform: translateY(60px); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* ═══ SCROLL REVEAL (IMPECCABLE) ═══ */
+.reveal-base {
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+.reveal-base.reveal-up.is-revealed {
+  animation: revealUpAnim 0.8s var(--ease-out-quart) forwards;
+}
+
+/* ── Stagger delays (must come after .reveal-up) ── */
+.delay-1 { animation-delay: 0.1s !important; }
+.delay-2 { animation-delay: 0.15s !important; }
+.delay-3 { animation-delay: 0.2s !important; }
+.delay-4 { animation-delay: 0.25s !important; }
+.delay-5 { animation-delay: 0.3s !important; }
+.delay-6 { animation-delay: 0.35s !important; }
+.delay-7 { animation-delay: 0.4s !important; }
+.delay-8 { animation-delay: 0.45s !important; }
 
 /* ═══ INTERACTIVE ELEMENTS ═══ */
 
@@ -550,4 +598,181 @@ body {
 }
 .slide-nav-prev { left: 12px; }
 .slide-nav-next { right: 12px; }
+
+@keyframes shimmer {
+  100% { transform: translateX(100%); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ═══ CHATBOT FAB — Pill Morph & Bounce ═══ */
+
+/* Base button: circle shape, transitions to pill on hover */
+.chatbot-fab-button {
+  width: 64px;
+  height: 64px;
+  border-radius: 9999px !important;
+  padding: 0;
+  gap: 0;
+  transition:
+    width 350ms cubic-bezier(0.34, 1.56, 0.64, 1),
+    height 350ms cubic-bezier(0.34, 1.56, 0.64, 1),
+    padding 350ms cubic-bezier(0.34, 1.56, 0.64, 1),
+    gap 350ms cubic-bezier(0.34, 1.56, 0.64, 1),
+    transform 200ms cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 300ms ease;
+}
+
+/* Hover: morph into pill (desktop only) */
+@media (hover: hover) {
+  .chatbot-fab-button:hover {
+    width: 180px;
+    height: 64px;
+    padding: 0 16px 0 6px;
+    gap: 8px;
+  }
+}
+
+/* Active press */
+.chatbot-fab-button:active {
+  transform: scale(0.93);
+}
+
+/* Background layers remain perfectly rounded pills at all times */
+.chatbot-fab-bg {
+  border-radius: 9999px !important;
+  transition:
+    border-color 300ms ease,
+    box-shadow 300ms ease;
+}
+
+/* Inline label inside pill — revealed on hover (desktop only) */
+.chatbot-fab-label {
+  max-width: 0;
+  opacity: 0;
+  transition:
+    max-width 350ms cubic-bezier(0.34, 1.56, 0.64, 1),
+    opacity 250ms ease 100ms;
+}
+
+@media (hover: hover) {
+  .chatbot-fab-button:hover .chatbot-fab-label {
+    max-width: 140px;
+    opacity: 1;
+  }
+}
+
+/* Premium, soft, elastic bounce animation on click */
+@keyframes chatbot-fab-bounce {
+  0% { transform: scale(1); }
+  30% { transform: scale(0.93); }
+  60% { transform: scale(1.04); }
+  85% { transform: scale(0.98); }
+  100% { transform: scale(1); }
+}
+
+.chatbot-fab-bounce {
+  animation: chatbot-fab-bounce 400ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* When chat is open, slightly shrink the button and keep it circular */
+.chatbot-fab-open {
+  transform: scale(0.9);
+  opacity: 0.95;
+}
+.chatbot-fab-open:hover {
+  width: 64px !important;
+  height: 64px !important;
+  padding: 0 !important;
+  gap: 0 !important;
+  transform: scale(0.95);
+}
+.chatbot-fab-open .chatbot-fab-label {
+  max-w: 0 !important;
+  max-width: 0 !important;
+  opacity: 0 !important;
+}
+
+/* Tooltip reveal: show tooltip on desktop when hovering near the button, hide when button morphs */
+@media (hover: hover) {
+  .pointer-events-auto:hover .chatbot-fab-tooltip {
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: auto;
+  }
+  .pointer-events-auto:has(.chatbot-fab-button:hover) .chatbot-fab-tooltip {
+    opacity: 0 !important;
+    pointer-events: none !important;
+    transform: translateX(12px);
+  }
+}
+
+/* Mascot shrink-and-fade in pill state */
+.chatbot-fab-mascot {
+  transition:
+    width 350ms cubic-bezier(0.34, 1.56, 0.64, 1),
+    height 350ms cubic-bezier(0.34, 1.56, 0.64, 1),
+    opacity 250ms ease,
+    transform 350ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@media (hover: hover) {
+  .chatbot-fab-button:hover .chatbot-fab-mascot {
+    width: 0 !important;
+    height: 0 !important;
+    opacity: 0 !important;
+    transform: scale(0) !important;
+  }
+}
+
+
+
+/* Fade out closed FAB button and tooltip when hovering the footer to prevent overlapping */
+body:has(footer:hover) .chatbot-fab-button:not(.chatbot-fab-open),
+body:has(footer:hover) .chatbot-fab-tooltip {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  transform: translateY(20px) scale(0.95) !important;
+  transition: all 400ms cubic-bezier(0.25, 1, 0.5, 1) !important;
+}
+
+/* ═══ PREMIUM NAVBAR INTERACTION ═══ */
+.nav-item {
+  position: relative;
+  transition: all 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  z-index: 10;
+}
+.nav-item:hover {
+  transform: translateY(-1.5px);
+}
+.nav-item:active {
+  transform: scale(0.92) translateY(0);
+}
+.nav-item::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  background-color: rgba(37, 99, 235, 0.05);
+  transform: scale(0.85);
+  opacity: 0;
+  transition: transform 300ms cubic-bezier(0.34, 1.56, 0.64, 1), opacity 200ms ease;
+  z-index: -1;
+}
+.nav-item:hover::before {
+  transform: scale(1);
+  opacity: 1;
+}
+.nav-item-active {
+  color: #2563eb !important;
+}
+.nav-item-active::before {
+  background-color: rgba(37, 99, 235, 0.08) !important;
+  transform: scale(1) !important;
+  opacity: 1 !important;
+  box-shadow: inset 0 0 0 1px rgba(37, 99, 235, 0.1);
+}
 

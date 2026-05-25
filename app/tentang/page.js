@@ -1,9 +1,11 @@
-import Link from "next/link";
+import Link from 'next/link';
+import Image from 'next/image';
+import RevealWrapper from '../components/RevealWrapper';
 
 export const metadata = {
-  title: "Tentang Kami — LITERA",
+  title: 'Tentang Kami — Ruang PeKA',
   description:
-    "Pelajari tentang LITERA dan Kantor Perwakilan Bank Indonesia Provinsi Jawa Barat.",
+    'Pelajari tentang Ruang PeKA dan Kantor Perwakilan Bank Indonesia Provinsi Jawa Barat.',
 };
 
 const missions = [
@@ -20,8 +22,8 @@ const missions = [
         <path d="M18 20V10M12 20V4M6 20v-6" />
       </svg>
     ),
-    title: "Meningkatkan Literasi Keuangan",
-    desc: "Meningkatkan pemahaman masyarakat Jawa Barat terhadap produk dan layanan keuangan yang aman dan legal.",
+    title: 'Ekosistem Pelindungan',
+    desc: 'Menciptakan ekosistem Pelindungan Konsumen yang mewujudkan kepastian hukum serta penanganan pengaduan dan penyelesaian sengketa yang efektif dan efisien',
   },
   {
     icon: (
@@ -37,8 +39,8 @@ const missions = [
         <path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z" />
       </svg>
     ),
-    title: "Akses Edukasi Terbuka",
-    desc: "Menyediakan platform edukasi keuangan gratis, mudah diakses, dan relevan dengan kebutuhan masyarakat digital.",
+    title: 'Tanggung Jawab Penyelenggara',
+    desc: 'Menumbuhkan kesadaran Penyelenggara mengenai perilaku bisnis yang bertanggung jawab, perlakuan yang adil, memberikan pelindungan aset, privasi, dan data Konsumen, serta meningkatkan kualitas produk dan/atau layanan Penyelenggara',
   },
   {
     icon: (
@@ -54,95 +56,43 @@ const missions = [
         <path d="M9 12l2 2 4-4" />
       </svg>
     ),
-    title: "Stabilitas Sistem Keuangan",
-    desc: "Mendukung stabilitas keuangan regional melalui masyarakat yang cerdas dan terliterasi secara finansial.",
+    title: 'Pemberdayaan Konsumen',
+    desc: 'Meningkatkan kesadaran, kemampuan, dan kemandirian Konsumen mengenai produk dan/atau layanan Penyelenggara serta meningkatkan pemberdayaan Konsumen',
   },
 ];
 
-const values = [
-  {
-    icon: (
-      <svg
-        width="28"
-        height="28"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.5"
-      >
-        <circle cx="12" cy="12" r="10" />
-        <path d="M12 16v-4M12 8h.01" />
-      </svg>
-    ),
-    title: "Transparansi",
-    desc: "Informasi keuangan yang jelas, akurat, dan dapat dipertanggungjawabkan berdasarkan data resmi Bank Indonesia.",
-  },
-  {
-    icon: (
-      <svg
-        width="28"
-        height="28"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.5"
-      >
-        <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" />
-        <path d="M9 12l2 2 4-4" />
-      </svg>
-    ),
-    title: "Profesionalisme",
-    desc: "Materi disusun oleh tim ahli keuangan dan dikurasi sesuai standar edukasi literasi keuangan nasional.",
-  },
-  {
-    icon: (
-      <svg
-        width="28"
-        height="28"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.5"
-      >
-        <path d="M12 2L2 7l10 5 10-5-10-5z" />
-        <path d="M2 17l10 5 10-5" />
-        <path d="M2 12l10 5 10-5" />
-      </svg>
-    ),
-    title: "Inovasi",
-    desc: "Menggunakan teknologi modern dan pendekatan interaktif untuk edukasi keuangan yang efektif.",
-  },
-];
 
 export default function TentangPage() {
   return (
     <>
       {/* ═══ HERO ═══ */}
-      <section className="hero-gradient mega-mendung pt-[140px] md:pt-[160px] pb-20 relative overflow-hidden">
+      <RevealWrapper className="hero-gradient mega-mendung pt-[140px] md:pt-[160px] pb-20 relative overflow-hidden">
         <div className="ornament-cloud w-[500px] h-[500px] -top-40 -right-40" />
-        <div className="relative max-w-6xl mx-auto px-6 lg:px-8 text-center">
+        <div className="relative max-w-6xl mx-auto px-6 lg:px-8 text-center reveal-base reveal-up delay-1">
           <p className="text-overline text-blue-300 mb-4">Tentang Kami</p>
-          <h1 className="text-hero-light mb-6 max-w-3xl mx-auto">
-            Membangun masyarakat yang
+          <h1 className="text-hero-light mb-6 max-w-5xl mx-auto px-4">
+            Ruang Edukasi dan Literasi Pelindungan Konsumen untuk Mewujudkan
+            Masyarakat Jawa Barat yang
             <span className="bg-gradient-to-r from-blue-300 to-blue-100 bg-clip-text text-transparent">
-              {" "}
-              cerdas finansial.
+              {' '}
+              Cerdas, Waspada dan Terlindungi.
             </span>
           </h1>
-          <p className="text-[18px] text-white/70 leading-relaxed max-w-xl mx-auto">
-            LITERA adalah inisiatif edukasi digital oleh Kantor Perwakilan Bank
+          <p className="text-[18px] text-white/70 leading-relaxed max-w-xl mx-auto reveal-base reveal-up delay-2">
+            Ruang PeKA Jawa Barat adalah platform edukasi digital terkait
+            Pelindungan Konsumen yang diinisiasi oleh Kantor Perwakilan Bank
             Indonesia Provinsi Jawa Barat.
           </p>
         </div>
-      </section>
+      </RevealWrapper>
 
       {/* ═══ MISSION ═══ */}
-      <section className="bg-canvas section-padding">
+      <RevealWrapper className="bg-canvas section-padding">
         <div className="max-w-6xl mx-auto px-6 lg:px-8">
-          <div className="text-center mb-16">
+          <div className="text-center mb-16 reveal-base reveal-up delay-1">
             <p className="text-overline text-civic-blue mb-3">Visi & Misi</p>
             <h2 className="text-display text-text-primary mb-4">
-              Tiga pilar utama kami.
+              Tujuan Pelindungan Konsumen BI
             </h2>
             <p className="text-body text-text-secondary max-w-xl mx-auto">
               Mewujudkan masyarakat yang memahami keuangan, mampu mengambil
@@ -150,16 +100,16 @@ export default function TentangPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 reveal-base reveal-up delay-2">
             {missions.map((m, i) => (
               <div
                 key={i}
-                className="bg-surface-card border border-border rounded-2xl p-8 hover:shadow-lg hover:border-civic-blue-subtle transition-all group"
+                className="bg-surface-card border border-border rounded-2xl p-8 hover:shadow-lg hover:border-civic-blue-subtle transition-all group flex flex-col items-center text-center h-full"
               >
-                <div className="w-12 h-12 rounded-xl bg-civic-blue-mist flex items-center justify-center text-civic-blue mb-5 group-hover:bg-civic-blue group-hover:text-white transition-colors">
+                <div className="w-14 h-14 rounded-xl bg-civic-blue-mist flex items-center justify-center text-civic-blue mb-6 group-hover:bg-civic-blue group-hover:text-white transition-colors">
                   {m.icon}
                 </div>
-                <h3 className="text-subheading text-text-primary mb-3">
+                <h3 className="text-subheading text-text-primary mb-4">
                   {m.title}
                 </h3>
                 <p className="text-caption text-text-tertiary leading-relaxed">
@@ -169,11 +119,11 @@ export default function TentangPage() {
             ))}
           </div>
         </div>
-      </section>
+      </RevealWrapper>
 
       {/* ═══ INSTITUTION ═══ */}
-      <section className="bg-canvas-warm section-padding mega-mendung-blue">
-        <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center">
+      <RevealWrapper className="bg-canvas-warm section-padding mega-mendung-blue">
+        <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center reveal-base reveal-up delay-1">
           <p className="text-overline text-civic-blue mb-3">
             Tentang Institusi
           </p>
@@ -192,58 +142,93 @@ export default function TentangPage() {
             keuangan.
           </p>
         </div>
-      </section>
+      </RevealWrapper>
 
-      {/* ═══ VALUES ═══ */}
-      <section className="bg-canvas section-padding">
+      {/* ── Overhauled Bento Grid Design ── */}
+      <RevealWrapper className="bg-canvas section-padding">
         <div className="max-w-6xl mx-auto px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <p className="text-overline text-civic-blue mb-3">Nilai-Nilai</p>
-            <h2 className="text-display text-text-primary">
-              Yang kami pegang teguh.
+          <div className="text-center mb-12 reveal-base reveal-up delay-1">
+            <p className="text-overline text-civic-blue mb-3">Pilar Utama</p>
+            <h2 className="text-display text-text-primary mb-4">
+              Nilai-Nilai Edukasi & Literasi
             </h2>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {values.map((v, i) => (
-              <div key={i} className="text-center p-8">
-                <div className="w-16 h-16 rounded-2xl bg-civic-blue-mist flex items-center justify-center text-civic-blue mx-auto mb-5">
-                  {v.icon}
-                </div>
-                <h3 className="text-subheading text-text-primary mb-3">
-                  {v.title}
-                </h3>
-                <p className="text-caption text-text-tertiary leading-relaxed">
-                  {v.desc}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
-      {/* ═══ CTA ═══ */}
-      <section className="bg-canvas section-padding pt-0">
-        <div className="max-w-4xl mx-auto px-6 lg:px-8">
-          <div className="hero-gradient mega-mendung rounded-3xl p-12 lg:p-16 text-center relative overflow-hidden">
-            <div className="ornament-cloud w-[300px] h-[300px] -top-20 -right-20" />
-            <div className="relative">
-              <h2 className="text-display text-white mb-4">
-                Mulai perjalanan Anda.
-              </h2>
-              <p className="text-body text-text-on-dark-muted max-w-md mx-auto mb-8">
-                Jelajahi materi edukasi dan tingkatkan pemahaman keuangan Anda
-                secara gratis.
-              </p>
-              <Link
-                href="/materi"
-                className="btn-primary px-10 py-4 text-[16px]"
-              >
-                Jelajahi Materi
-              </Link>
+          <div className="max-w-6xl mx-auto mb-16 reveal-base reveal-up delay-2">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+              
+              {/* 1. PeKA Intro Card (col-span-2) */}
+              <div className="md:col-span-2 bg-gradient-to-br from-blue-50 via-white to-blue-50/20 border border-slate-100 rounded-[2.5rem] p-8 md:p-10 flex flex-col justify-between relative overflow-hidden shadow-xl shadow-blue-900/5 group hover:shadow-2xl hover:shadow-blue-900/10 transition-all duration-300 hover:-translate-y-1">
+                {/* Decorative Elements */}
+                <div className="absolute top-0 right-0 w-[300px] h-[300px] border border-blue-200/30 rounded-full translate-x-1/3 -translate-y-1/3 border-dashed pointer-events-none" />
+                <div className="absolute -bottom-10 left-10 w-[150px] h-[150px] bg-blue-100/40 rounded-full blur-3xl opacity-60 pointer-events-none" />
+                
+                <div className="relative z-10">
+                  {/* Brand Logo Container */}
+                  <div className="relative w-[180px] h-[60px] mb-6">
+                    <Image src="/FullLogoPeKa.png" alt="PeKA" fill sizes="(max-width: 768px) 180px, 180px" className="object-contain object-left" priority />
+                  </div>
+                  <h3 className="text-xl md:text-2xl font-black text-slate-800 mb-4 tracking-tight leading-tight">
+                    Cerdas, Waspada, dan Terlindungi.
+                  </h3>
+                  <p className="text-slate-600 text-sm md:text-base leading-relaxed max-w-xl">
+                    Bikin kamu jadi lebih sadar dan paham tentang berbagai produk dan layanan keuangan. Kamu jadi konsumen cerdas yang bisa buat keputusan keuangan dengan tepat.
+                  </p>
+                </div>
+              </div>
+
+              {/* 2. PEDULI Pillar Card (col-span-1) */}
+              <div className="md:col-span-1 bg-gradient-to-br from-blue-600 to-[#0a4d94] rounded-[2.5rem] p-8 md:p-10 flex flex-col items-start justify-between text-white shadow-xl shadow-blue-900/10 group hover:shadow-2xl hover:shadow-blue-500/20 transition-all duration-300 hover:-translate-y-1 relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-[200px] h-[200px] bg-white/5 rounded-full translate-x-1/4 -translate-y-1/4 pointer-events-none" />
+                
+                <div className="w-14 h-14 rounded-2xl bg-white/10 backdrop-blur-md flex items-center justify-center mb-8 border border-white/20 text-white [&_svg]:stroke-[2px] [&_svg]:w-7 [&_svg]:h-7">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M19.5 12.572L12 20l-7.5-7.428A5 5 0 1 1 12 6.006a5 5 0 1 1 7.5 6.572"/>
+                    <path d="M12 6L8.707 9.293a1 1 0 0 0 0 1.414l.543.543c.69.69 1.81.69 2.5 0l1-1a3.18 3.18 0 0 1 4.5 0l2.25 2.25m-7 3l2 2M15 13l2 2"/>
+                  </svg>
+                </div>
+                <div>
+                  <h4 className="font-extrabold text-xl mb-3 tracking-wider text-blue-100">PEDULI</h4>
+                  <p className="text-blue-50/80 text-sm leading-relaxed">
+                    Peduli manfaat, risiko dan keamanan transaksi pembayaran kamu.
+                  </p>
+                </div>
+              </div>
+
+              {/* 3. KENALI Pillar Card (col-span-1) */}
+              <div className="md:col-span-1 bg-gradient-to-br from-amber-50 to-orange-50/40 border border-amber-100/60 rounded-[2.5rem] p-8 md:p-10 flex flex-col items-start justify-between text-slate-800 shadow-xl shadow-amber-900/5 group hover:shadow-2xl hover:shadow-amber-500/10 transition-all duration-300 hover:-translate-y-1 relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-[200px] h-[200px] bg-amber-500/5 rounded-full translate-x-1/4 -translate-y-1/4 pointer-events-none" />
+                
+                <div className="w-14 h-14 rounded-2xl bg-white border border-amber-100 shadow-sm flex items-center justify-center mb-8 text-[#0a4d94]">
+                  <span className="material-symbols-outlined text-[32px]">manage_search</span>
+                </div>
+                <div>
+                  <h4 className="font-extrabold text-xl mb-3 tracking-wider text-amber-600">KENALI</h4>
+                  <p className="text-slate-600 text-sm leading-relaxed">
+                    Kenali penyelenggara dan regulatornya. Pilih yang resmi dan terpercaya.
+                  </p>
+                </div>
+              </div>
+
+              {/* 4. ADUKAN Pillar Card (col-span-2) */}
+              <div className="md:col-span-2 bg-gradient-to-br from-emerald-50 to-teal-50/40 border border-emerald-100/60 rounded-[2.5rem] p-8 md:p-10 flex flex-col md:flex-row items-start gap-6 md:gap-8 justify-between text-slate-800 shadow-xl shadow-emerald-900/5 group hover:shadow-2xl hover:shadow-emerald-500/10 transition-all duration-300 hover:-translate-y-1 relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-[200px] h-[200px] bg-emerald-500/5 rounded-full translate-x-1/4 -translate-y-1/4 pointer-events-none" />
+                
+                <div className="w-14 h-14 rounded-2xl bg-white border border-emerald-100 shadow-sm flex items-center justify-center shrink-0 text-[#0a4d94]">
+                  <span className="material-symbols-outlined text-[32px]">campaign</span>
+                </div>
+                <div>
+                  <h4 className="font-extrabold text-xl mb-3 tracking-wider text-emerald-600">ADUKAN</h4>
+                  <p className="text-slate-600 text-sm md:text-base leading-relaxed max-w-xl">
+                    Adukan masalah ke Bank Indonesia untuk ditindaklanjuti secara cepat, transparan, dan berkeadilan bagi seluruh konsumen jasa sistem pembayaran.
+                  </p>
+                </div>
+              </div>
+
             </div>
           </div>
         </div>
-      </section>
+      </RevealWrapper>
     </>
   );
 }

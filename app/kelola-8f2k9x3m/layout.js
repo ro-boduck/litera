@@ -4,7 +4,7 @@
  */
 
 export const metadata = {
-  title: "LITERA CMS — Admin Dashboard",
+  title: "Ruang PeKA JABAR CMS — Admin Dashboard",
   robots: "noindex, nofollow",
 };
 

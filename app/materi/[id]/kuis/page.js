@@ -44,8 +44,13 @@ export default function QuizPage({ params }) {
   const handleSubmit = () => {
     let correct = 0;
     quiz.forEach((q, i) => { if (answers[i] === q.answer) correct++; });
-    setScore(Math.round((correct / quiz.length) * 100));
+    const scoreVal = Math.round((correct / quiz.length) * 100);
+    setScore(scoreVal);
     setSubmitted(true);
+    
+    // Save progress to localStorage: completed if passed (score >= 80), otherwise on progress
+    const status = scoreVal >= 80 ? "completed" : "on progress";
+    localStorage.setItem(`progress_${id}`, status);
   };
 
 
@@ -74,7 +79,7 @@ export default function QuizPage({ params }) {
                   <span className="text-blue-600">{answeredCount} / {quiz.length}</span>
                 </div>
                 <div className="h-2 w-full bg-slate-100 rounded-full overflow-hidden">
-                  <div className="h-full bg-blue-500 rounded-full transition-all duration-500" style={{ width: `${progress}%` }}></div>
+                  <div className="h-full bg-blue-500 rounded-full transition-all duration-300 ease-out" style={{ width: `${progress}%` }}></div>
                 </div>
               </div>
             </div>
@@ -82,7 +87,7 @@ export default function QuizPage({ params }) {
 
           <div className="space-y-8">
             {quiz.map((q, qi) => (
-              <div key={qi} className="bg-white/80 backdrop-blur-xl rounded-3xl p-6 md:p-8 border border-white shadow-xl shadow-blue-900/5 transition-all duration-300 hover:shadow-2xl hover:shadow-blue-500/10 animate-fade-up delay-1">
+              <div key={qi} className="bg-white/80 backdrop-blur-xl rounded-3xl p-6 md:p-8 border border-white shadow-xl shadow-blue-900/5 transition-all duration-200 ease-out hover:shadow-2xl hover:shadow-blue-500/10 animate-fade-up delay-1">
                 <div className="flex gap-4 mb-6">
                   <span className="w-10 h-10 rounded-2xl bg-blue-50 text-blue-600 text-[14px] font-bold flex items-center justify-center flex-shrink-0 border border-blue-100">{qi + 1}</span>
                   <p className="text-lg md:text-xl font-bold text-slate-800 leading-snug pt-1.5">{q.q}</p>
@@ -90,7 +95,7 @@ export default function QuizPage({ params }) {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3 ml-0 md:ml-14">
                   {q.options.map((opt, oi) => (
                     <button key={oi} onClick={() => !submitted && setAnswers({ ...answers, [qi]: oi })}
-                      className={`w-full text-left px-5 py-4 rounded-2xl text-sm md:text-base font-medium transition-all duration-300 border-2
+                      className={`w-full text-left px-5 py-4 rounded-2xl text-sm md:text-base font-medium transition-all duration-150 ease-out border-2
                         ${submitted
                           ? oi === q.answer
                             ? "bg-emerald-50 text-emerald-700 border-emerald-400"
@@ -123,7 +128,7 @@ export default function QuizPage({ params }) {
           {!submitted && (
             <div className="mt-12 flex justify-end">
               <button onClick={handleSubmit} disabled={answeredCount < quiz.length}
-                className={`px-8 py-4 rounded-full font-bold text-lg transition-all duration-300 flex items-center gap-2 ${
+                className={`px-8 py-4 rounded-full font-bold text-lg transition-all duration-150 ease-out flex items-center gap-2 ${
                   answeredCount < quiz.length
                   ? "bg-slate-200 text-slate-400 cursor-not-allowed"
                   : "bg-blue-600 text-white hover:bg-blue-500 shadow-xl shadow-blue-600/30 hover:scale-105 active:scale-95"
@@ -164,11 +169,11 @@ export default function QuizPage({ params }) {
               </p>
 
               <div className="flex flex-col gap-3">
-                <Link href="/materi" className="bg-blue-600 hover:bg-blue-500 text-white font-bold py-3.5 md:py-4 rounded-full transition-all duration-300">
+                <Link href="/materi" className="bg-blue-600 hover:bg-blue-500 text-white font-bold py-3.5 md:py-4 rounded-full transition-all duration-150 ease-out">
                   Lanjut ke Katalog Materi
                 </Link>
                 <button onClick={() => { setSubmitted(false); setAnswers({}); window.scrollTo({top: 0, behavior: 'smooth'}); }}
-                  className="bg-slate-100 hover:bg-slate-200 text-slate-600 font-bold py-3.5 md:py-4 rounded-full transition-all duration-300">
+                  className="bg-slate-100 hover:bg-slate-200 text-slate-600 font-bold py-3.5 md:py-4 rounded-full transition-all duration-150 ease-out">
                   Ulangi Evaluasi
                 </button>
               </div>

@@ -112,6 +112,16 @@ export default function MateriDetailPage({ params }) {
     fetchData();
   }, [id]);
 
+  // Initialize progress in localStorage
+  useEffect(() => {
+    if (id) {
+      const existing = localStorage.getItem(`progress_${id}`);
+      if (!existing) {
+        localStorage.setItem(`progress_${id}`, "on progress");
+      }
+    }
+  }, [id]);
+
   if (loading) {
     return (
       <div className="min-h-screen bg-canvas-warm pt-[120px] pb-20">
@@ -170,7 +180,10 @@ export default function MateriDetailPage({ params }) {
               {data.time}
             </span>
             <span>•</span>
-            <span>{data.date}</span>
+            <span className="flex items-center gap-1.5">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /></svg>
+              {data.level}
+            </span>
           </div>
         </div>
       </section>
@@ -242,7 +255,7 @@ export default function MateriDetailPage({ params }) {
           <div className="relative bg-civic-navy rounded-3xl p-12 text-center overflow-hidden shadow-2xl shadow-blue-900/20">
             {/* Background Image - Mega Mendung Layer 3 */}
             <div className="absolute inset-0 z-0 pointer-events-none">
-              <Image src="/mega_mendung.jpeg" alt="Motif Mega Mendung" fill className="object-cover opacity-[0.12] mix-blend-color-dodge -scale-y-100" />
+              <Image src="/mega_mendung.jpeg" alt="Motif Mega Mendung" fill sizes="(max-width: 768px) 100vw, 720px" className="object-cover opacity-[0.12] mix-blend-color-dodge -scale-y-100" />
               <div className="absolute inset-0 bg-civic-navy/85 mix-blend-multiply" />
             </div>
             <div className="ornament-cloud w-[400px] h-[400px] -top-20 -left-20 z-10" />
