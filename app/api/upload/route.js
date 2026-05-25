@@ -14,6 +14,18 @@ export async function POST(request) {
       return NextResponse.json({ error: "Tidak ada file yang diunggah" }, { status: 400 });
     }
 
+    // Validate file type & extension to prevent malicious uploads (XSS/RCE)
+    const allowedExtensions = [".png", ".jpg", ".jpeg", ".webp", ".svg", ".gif"];
+    const allowedMimeTypes = ["image/png", "image/jpeg", "image/webp", "image/svg+xml", "image/gif"];
+
+    const fileExt = path.extname(file.name).toLowerCase();
+    if (!allowedExtensions.includes(fileExt) || !allowedMimeTypes.includes(file.type)) {
+      return NextResponse.json(
+        { error: "Format file tidak valid. Hanya diperbolehkan mengunggah file gambar (PNG, JPG, JPEG, WEBP, SVG, GIF)." },
+        { status: 400 }
+      );
+    }
+
     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
     const filename = uniqueSuffix + '-' + file.name.replace(/[^a-zA-Z0-9.-]/g, '');
 

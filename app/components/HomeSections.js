@@ -52,7 +52,7 @@ function StatCard({ stat, delay }) {
       className={`bg-white/20 backdrop-blur-2xl border border-white/20 shadow-xl shadow-blue-900/10 rounded-3xl p-6 sm:p-8 transform transition-all duration-200 ease-out hover:-translate-y-1 hover:scale-[1.02] hover:shadow-2xl hover:shadow-blue-400/20 hover:border-white/40 hover:bg-white/30 group animate-fade-up delay-${delay}`}
     >
       <div className="w-14 h-14 rounded-2xl bg-white/40 border border-white/30 flex items-center justify-center text-blue-100 mb-5 group-hover:scale-110 group-hover:bg-blue-500 group-hover:text-white group-hover:border-blue-400 transition-all duration-200 ease-out [&_svg]:stroke-[2.5px] [&_svg]:w-7 [&_svg]:h-7 shadow-inner">
-        <div dangerouslySetInnerHTML={{ __html: stat.icon }} className="flex items-center justify-center" />
+        <div className="flex items-center justify-center">{stat.icon}</div>
       </div>
       <p className="text-3xl sm:text-4xl font-bold text-white mb-2">
         {display}

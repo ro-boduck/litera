@@ -188,16 +188,17 @@ export default function AdminCMS() {
 
   useEffect(() => {
     if (adminUser) {
-      fetchMaterials();
-      fetchMessages();
-
-      // Read lastViewedMessagesTime from localStorage, baseline to current time if missing
-      let val = localStorage.getItem('lastViewedMessagesTime');
-      if (!val) {
-        val = String(Date.now());
-        localStorage.setItem('lastViewedMessagesTime', val);
-      }
-      setLastViewed(Number(val));
+      const initDashboard = async () => {
+        await Promise.all([fetchMaterials(), fetchMessages()]);
+        
+        let val = localStorage.getItem('lastViewedMessagesTime');
+        if (!val) {
+          val = String(Date.now());
+          localStorage.setItem('lastViewedMessagesTime', val);
+        }
+        setLastViewed(Number(val));
+      };
+      initDashboard();
     }
   }, [adminUser, fetchMaterials, fetchMessages]);
 
@@ -209,11 +210,15 @@ export default function AdminCMS() {
         const msgTime = new Date(msg.created_at).getTime();
         return isNaN(msgTime) ? false : msgTime > lastViewed;
       });
-      setHasUnread(unread);
+      if (hasUnread !== unread) {
+        setHasUnread(unread);
+      }
     } else {
-      setHasUnread(false);
+      if (hasUnread !== false) {
+        setHasUnread(false);
+      }
     }
-  }, [messages, lastViewed]);
+  }, [messages, lastViewed, hasUnread]);
 
   const handleMarkAsRead = () => {
     if (!hasUnread) return;

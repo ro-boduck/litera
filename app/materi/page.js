@@ -39,15 +39,21 @@ export default function MateriPage() {
   useEffect(() => {
     if (allMaterials.length > 0) {
       const data = {};
+      let changed = false;
       allMaterials.forEach((m) => {
         const prog = localStorage.getItem(`progress_${m.id}`);
         if (prog) {
           data[m.id] = prog;
+          if (progressData[m.id] !== prog) {
+            changed = true;
+          }
         }
       });
-      setProgressData(data);
+      if (changed || Object.keys(data).length !== Object.keys(progressData).length) {
+        setProgressData(data);
+      }
     }
-  }, [allMaterials]);
+  }, [allMaterials, progressData]);
 
   useEffect(() => {
     const fetchData = async () => {

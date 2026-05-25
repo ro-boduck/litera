@@ -95,7 +95,9 @@ export default function PremiumSplitVisualBuilder({ params }) {
   useEffect(() => {
     if (!adminUser) return;
     if (id === "new") {
-      setLoading(false);
+      setTimeout(() => {
+        setLoading(false);
+      }, 0);
       return;
     }
 
