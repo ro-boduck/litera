@@ -266,67 +266,68 @@ export default function ChatbotFAB() {
           <div className="absolute -right-1.5 top-1/2 -translate-y-1/2 w-3 h-3 bg-[#1B2D4F] rotate-45 rounded-sm" />
         </div>
 
-        {/* Button Core */}
-        <button 
-          onClick={handleFabClick}
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
-          className={`chatbot-fab-button group relative flex items-center justify-center cursor-pointer transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] ${isAnimating ? 'chatbot-fab-bounce' : ''} ${isOpen ? 'chatbot-fab-open' : ''}`}
-          aria-label="Buka Asisten Virtual PeKA"
-        >
-          {/* Gradient Background — morphs from circle to pill on hover */}
-          <div className="chatbot-fab-bg absolute inset-0 rounded-full bg-gradient-to-br from-[#2563EB] via-[#1D4ED8] to-[#1B2D4F] shadow-[0_8px_32px_rgba(37,99,235,0.4)] group-hover:shadow-[0_12px_40px_rgba(37,99,235,0.55)] transition-all duration-300" />
-          
-          {/* Subtle Border Ring */}
-          <div className="chatbot-fab-bg absolute inset-0 rounded-full border-[2.5px] border-white/30 group-hover:border-white/50 transition-all duration-300" />
-
-          {/* Mascot Icon Container */}
-          <div 
-            className="chatbot-fab-mascot relative w-[50px] h-[50px] rounded-full flex items-center justify-center z-10 transition-all duration-300 overflow-hidden"
-            style={{
-              transform: isOpen && isHovered ? 'scale(0)' : (isHovered ? 'scale(1.05)' : 'scale(1)'),
-              opacity: isOpen && isHovered ? 0 : 1,
-              width: isOpen && isHovered ? 0 : 50,
-              height: isOpen && isHovered ? 0 : 50,
-            }}
+        {/* Button Wrapper to prevent overflow:hidden clipping of the online dot */}
+        <div className="relative">
+          {/* Button Core */}
+          <button 
+            onClick={handleFabClick}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+            className={`chatbot-fab-button group relative flex items-center justify-center cursor-pointer transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] ${isAnimating ? 'chatbot-fab-bounce' : ''} ${isOpen ? 'chatbot-fab-open' : ''}`}
+            aria-label="Buka Asisten Virtual PeKA"
           >
-            <Image 
-              src="/KangNeng.svg" 
-              alt="Asisten PeKA" 
-              fill 
-              sizes="50px"
-              className="object-cover object-top scale-[1.25] translate-y-1" 
-              priority 
-              unoptimized
-            />
-          </div>
+            {/* Gradient Background — morphs from circle to pill on hover */}
+            <div className="chatbot-fab-bg absolute inset-0 rounded-full bg-gradient-to-br from-[#2563EB] via-[#1D4ED8] to-[#1B2D4F] shadow-[0_8px_32px_rgba(37,99,235,0.4)] group-hover:shadow-[0_12px_40px_rgba(37,99,235,0.55)] transition-all duration-300" />
+            
+            {/* Subtle Border Ring */}
+            <div className="chatbot-fab-bg absolute inset-0 rounded-full border-[2.5px] border-white/30 group-hover:border-white/50 transition-all duration-300" />
 
-          {/* Close "X" Icon for when chatbox is open and hovered */}
-          <div 
-            className="chatbot-fab-close absolute w-[50px] h-[50px] flex items-center justify-center z-10 text-white pointer-events-none transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)]"
-            style={{
-              opacity: isOpen && isHovered ? 1 : 0,
-              transform: isOpen && isHovered ? 'scale(1)' : 'scale(0)',
-            }}
-          >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <line x1="18" y1="6" x2="6" y2="18" />
-              <line x1="6" y1="6" x2="18" y2="18" />
-            </svg>
-          </div>
+            {/* Mascot Icon Container */}
+            <div 
+              className="chatbot-fab-mascot absolute w-[50px] h-[50px] rounded-full flex items-center justify-center z-10 transition-all duration-300 overflow-hidden"
+              style={{
+                transform: isOpen && isHovered ? 'scale(0)' : (isHovered ? 'scale(1.05)' : 'scale(1)'),
+                opacity: isOpen && isHovered ? 0 : 1,
+              }}
+            >
+              <Image 
+                src="/KangNeng.svg" 
+                alt="Asisten PeKA" 
+                fill 
+                sizes="50px"
+                className="object-cover object-top scale-[1.25] translate-y-1" 
+                priority 
+                unoptimized
+              />
+            </div>
 
-          {/* Hover label inside the pill — transition handled in globals.css */}
-          <span className="chatbot-fab-label relative z-10 text-white text-[13px] font-semibold whitespace-nowrap overflow-hidden">
-            Tanya Kami
-          </span>
+            {/* Close "X" Icon for when chatbox is open and hovered */}
+            <div 
+              className="chatbot-fab-close absolute w-[50px] h-[50px] flex items-center justify-center z-10 text-white pointer-events-none transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)]"
+              style={{
+                opacity: isOpen && isHovered ? 1 : 0,
+                transform: isOpen && isHovered ? 'scale(1)' : 'scale(0)',
+              }}
+            >
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+              </svg>
+            </div>
 
-          {/* Online Indicator Dot */}
-          <div className="absolute -top-0.5 -right-0.5 z-20">
+            {/* Hover label inside the pill — transition handled in globals.css */}
+            <span className="chatbot-fab-label absolute z-10 text-white text-[13px] font-semibold whitespace-nowrap overflow-hidden">
+              Tanya Kami
+            </span>
+          </button>
+
+          {/* Online Indicator Dot — Placed OUTSIDE the button so it is never clipped */}
+          <div className="absolute -top-0.5 -right-0.5 z-20 pointer-events-none">
             <span className="flex h-3.5 w-3.5">
               <span className="relative inline-flex rounded-full h-3.5 w-3.5 bg-emerald-500 border-2 border-white shadow-sm" />
             </span>
           </div>
-        </button>
+        </div>
       </div>
     </div>
   );

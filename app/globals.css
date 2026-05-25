@@ -618,9 +618,10 @@ body {
   padding: 0;
   gap: 0;
   overflow: hidden;
-  will-change: transform;
+  will-change: transform, width;
   transition:
-    transform 200ms cubic-bezier(0.34, 1.56, 0.64, 1),
+    width 450ms cubic-bezier(0.34, 1.56, 0.64, 1),
+    transform 300ms cubic-bezier(0.34, 1.56, 0.64, 1),
     box-shadow 300ms ease;
 }
 
@@ -649,18 +650,18 @@ body {
 
 /* Inline label inside pill — revealed on hover (desktop only) */
 .chatbot-fab-label {
-  max-width: 0;
   opacity: 0;
-  overflow: hidden;
+  transform: scale(0.8);
+  pointer-events: none;
   transition:
-    max-width 350ms cubic-bezier(0.34, 1.56, 0.64, 1),
-    opacity 250ms ease 100ms;
+    transform 300ms cubic-bezier(0.34, 1.56, 0.64, 1) 150ms,
+    opacity 200ms ease 150ms;
 }
 
 @media (hover: hover) {
   .chatbot-fab-button:hover .chatbot-fab-label {
-    max-width: 140px;
     opacity: 1;
+    transform: scale(1);
   }
 }
 
