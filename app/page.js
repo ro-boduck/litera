@@ -42,7 +42,7 @@ export default function Home() {
             fill
             sizes="100vw"
             className="object-cover opacity-[0.03] mix-blend-multiply"
-            priority
+            loading="lazy"
           />
         </div>
 
@@ -66,7 +66,7 @@ export default function Home() {
             fill
             sizes="(max-width: 1280px) 140px, 180px"
             className="object-contain"
-            priority
+            loading="lazy"
           />
         </div>
 
@@ -78,7 +78,7 @@ export default function Home() {
             fill
             sizes="(max-width: 1280px) 140px, 180px"
             className="object-contain"
-            priority
+            loading="lazy"
           />
         </div>
 

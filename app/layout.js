@@ -4,7 +4,6 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import CursorGlow from "./components/CursorGlow";
 import ChatbotFAB from "./components/ChatbotFAB";
-import { headers } from "next/headers";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -19,24 +18,18 @@ export const metadata = {
   keywords: ["literasi keuangan", "edukasi", "bank indonesia", "jawa barat", "Ruang PeKA"],
 };
 
-export default async function RootLayout({ children }) {
-  const headersList = await headers();
-  const pathname = headersList.get("x-next-pathname") || headersList.get("x-invoke-path") || "";
-  const isAdmin = pathname.startsWith("/kelola-8f2k9x3m");
-  const isQuiz = /^\/materi\/[^/]+\/kuis/.test(pathname);
-  const hideFooter = isAdmin || isQuiz;
-
+export default function RootLayout({ children }) {
   return (
     <html lang="id" className={inter.variable} data-scroll-behavior="smooth" suppressHydrationWarning>
       <head>
         <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet" />
       </head>
       <body className="min-h-screen flex flex-col">
-        {!isAdmin && <Navbar />}
-        {!isAdmin && <CursorGlow />}
+        <Navbar />
+        <CursorGlow />
         <main className="flex-grow">{children}</main>
-        {!hideFooter && <Footer />}
-        {!isAdmin && <ChatbotFAB />}
+        <Footer />
+        <ChatbotFAB />
       </body>
     </html>
   );

@@ -18,6 +18,10 @@ export default function ChatbotFAB() {
   const [activeResponder, setActiveResponder] = useState("Kang Umen & Neng Euis");
   
   const pathname = usePathname();
+  const isAdmin = pathname?.startsWith("/kelola-8f2k9x3m");
+  const isQuiz = /^\/materi\/[^/]+\/kuis/.test(pathname || "");
+  if (isAdmin || isQuiz) return null;
+
   const messagesEndRef = useRef(null);
 
   // Close chatbot when navigating to a new page (only if open to avoid cascading renders)
