@@ -1,10 +1,11 @@
 "use client";
-import { useState, useEffect, use } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
+import { useParams } from "next/navigation";
 
-export default function QuizPage({ params }) {
-  const resolvedParams = use(params);
-  const { id } = resolvedParams;
+export default function QuizPage() {
+  const params = useParams();
+  const id = params?.id;
 
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);

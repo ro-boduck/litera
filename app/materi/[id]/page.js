@@ -1,7 +1,8 @@
 "use client";
-import { useState, useEffect, use } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { useParams } from "next/navigation";
 import { ScrollProgressBar } from "../../components/ScrollProgressBar";
 
 /**
@@ -88,9 +89,9 @@ function SlideBlock({ slides }) {
   );
 }
 
-export default function MateriDetailPage({ params }) {
-  const unwrappedParams = use(params);
-  const { id } = unwrappedParams;
+export default function MateriDetailPage() {
+  const params = useParams();
+  const id = params?.id;
   
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);

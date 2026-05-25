@@ -26,7 +26,7 @@ export default function Navbar() {
   ];
 
   const isActive = (href) =>
-    href === "/" ? pathname === "/" : pathname.startsWith(href);
+    href === "/" ? pathname === "/" : (pathname ? pathname.startsWith(href) : false);
 
   return (
     <div className="fixed top-6 left-0 right-0 z-50 flex justify-center px-4 pointer-events-none">
