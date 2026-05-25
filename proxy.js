@@ -58,7 +58,7 @@ const HONEYPOT_PATHS = [
   "/install",
 ];
 
-export function middleware(request) {
+export function proxy(request) {
   const { pathname } = request.nextUrl;
 
   // ── Honeypot: fake 404 for known scanner targets ──
