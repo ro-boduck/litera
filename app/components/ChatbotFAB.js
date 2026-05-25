@@ -130,7 +130,7 @@ export default function ChatbotFAB() {
         <div className="bg-white px-5 py-4 flex items-center justify-between border-b border-slate-100 relative z-20 shadow-sm">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-full bg-blue-50 border border-blue-100 flex-shrink-0 flex items-center justify-center relative overflow-hidden">
-              <Image src="/KangNeng.png" alt="Profile" fill sizes="40px" className="object-cover object-top scale-[1.3] translate-y-1" priority />
+              <Image src="/KangNengNew.png" alt="Profile" fill sizes="40px" className="object-cover object-top scale-[1.3] translate-y-1" priority />
             </div>
             <div className="flex flex-col">
               <h3 className="font-bold text-slate-800 text-sm">Kang Umen & Neng Euis</h3>
@@ -291,7 +291,7 @@ export default function ChatbotFAB() {
             }}
           >
             <Image 
-              src="/KangNeng.png" 
+              src="/KangNengNew.png" 
               alt="Asisten PeKA" 
               fill 
               sizes="50px"
