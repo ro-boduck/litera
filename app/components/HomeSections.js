@@ -94,13 +94,17 @@ export function HomeStats() {
       {/* Background Slideshow */}
       <div className="absolute inset-0 z-0 bg-civic-navy">
         {slides.map((src, idx) => (
-          <img
+          <Image
             key={src}
             src={src}
             alt={`Dokumentasi ${idx + 1}`}
-            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ease-in-out ${
+            fill
+            sizes="100vw"
+            quality={60}
+            className={`object-cover transition-opacity duration-500 ease-in-out ${
               currentSlide === idx ? 'opacity-100 z-10' : 'opacity-0 z-0'
             }`}
+            loading={idx === 0 ? "eager" : "lazy"}
           />
         ))}
         {/* Transparent Overlay */}

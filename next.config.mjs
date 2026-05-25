@@ -2,6 +2,8 @@
 const nextConfig = {
   serverExternalPackages: ["better-sqlite3"],
   images: {
+    dangerouslyAllowSVG: true,
+    contentDispositionType: 'inline',
     remotePatterns: [
       {
         protocol: 'https',

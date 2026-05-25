@@ -41,8 +41,8 @@ export default function Home() {
             alt="Motif Mega Mendung"
             fill
             sizes="100vw"
+            quality={30}
             className="object-cover opacity-[0.03] mix-blend-multiply"
-            loading="lazy"
           />
         </div>
 
