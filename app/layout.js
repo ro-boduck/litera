@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import CursorGlow from "./components/CursorGlow";
 import { headers } from "next/headers";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -32,6 +33,7 @@ export default async function RootLayout({ children }) {
         {!isAdmin && <CursorGlow />}
         <main className="flex-grow">{children}</main>
         {!hideFooter && <Footer />}
+        <SpeedInsights />
       </body>
     </html>
   );
