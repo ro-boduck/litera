@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import CursorGlow from "./components/CursorGlow";
 import ChatbotFAB from "./components/ChatbotFAB";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -30,6 +31,7 @@ export default function RootLayout({ children }) {
         <main className="flex-grow">{children}</main>
         <Footer />
         <ChatbotFAB />
+        <SpeedInsights />
       </body>
     </html>
   );
