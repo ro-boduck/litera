@@ -1,7 +1,7 @@
 /**
- * POST /api/auth/login
- * Body: { username, password }
- * Response: sets HttpOnly cookie on success
+ * @fileoverview Authentication Endpoint: Admin Login.
+ * Handles credential verification, triggers automatic initial administrator seeding if zero accounts exist,
+ * signs JWT session tokens, and exposes a secure HttpOnly cookie session mechanism.
  */
 
 import { NextResponse } from "next/server";
@@ -9,6 +9,13 @@ import bcrypt from "bcryptjs";
 import { getAdminByUsername, adminCount, createAdmin } from "../../../../lib/db";
 import { signToken, COOKIE_NAME, MAX_AGE_SECONDS } from "../../../../lib/auth";
 
+/**
+ * Handles POST requests for administrator authentication.
+ * If no administrators exist in the database, the credentials provided in the request body
+ * are automatically registered as the primary administrator account (seeding setup mode).
+ * @param {Request} request The Next.js incoming request object containing `{ username, password }` in the JSON body.
+ * @returns {Promise<NextResponse>} Clean HTTP response containing success status and HTTP cookie configuration.
+ */
 export async function POST(request) {
   try {
     const { username, password } = await request.json();

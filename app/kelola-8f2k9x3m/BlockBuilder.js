@@ -27,7 +27,7 @@ export default function BlockBuilder({ blocks, onChange }) {
     onChange(newBlocks);
   };
 
-  // Move block up/down
+  // Swap adjacent blocks to rearrange layout index positions
   const moveBlock = (idx, dir) => {
     if (idx + dir < 0 || idx + dir >= blocks.length) return;
     const newBlocks = [...blocks];
@@ -37,7 +37,7 @@ export default function BlockBuilder({ blocks, onChange }) {
     onChange(newBlocks);
   };
 
-  // Handle Image Upload
+  // Initiate administrative image asset upload sequences
   const triggerUpload = (blockIdx, slideIdx = null) => {
     setUploadingIdx(blockIdx);
     setUploadingSlideIdx(slideIdx);
@@ -300,7 +300,7 @@ export default function BlockBuilder({ blocks, onChange }) {
 
   return (
     <div className="space-y-4">
-      {/* Hidden file input for uploads */}
+      {/* Invisible native input for upload orchestration */}
       <input type="file" ref={fileInputRef} onChange={handleFileUpload} accept="image/*" className="hidden" />
 
       {blocks.length === 0 ? (
@@ -316,7 +316,7 @@ export default function BlockBuilder({ blocks, onChange }) {
         </div>
       )}
 
-      {/* Visual Block Toolbox Grid */}
+      {/* Block Element Toolbox Control Group */}
       <div className="border border-dashed border-blue-300 bg-blue-50/30 p-5 rounded-[2rem] shadow-inner">
         <p className="text-[11px] font-extrabold text-blue-800 mb-3 uppercase tracking-widest flex items-center gap-1.5 ml-1">
           <span className="w-1.5 h-1.5 rounded-full bg-blue-600 inline-block animate-ping" />

@@ -1,13 +1,19 @@
 "use client";
 
+/**
+ * @fileoverview Custom React hook for scroll-triggered reveal animations.
+ * Uses the Intersection Observer API to detect when elements enter the viewport and appends CSS active states.
+ */
+
 import { useEffect, useRef } from 'react';
 
 /**
- * Hook to trigger animations when elements scroll into view.
- * Attach the returned ref to a container element.
- * 
- * Elements inside the container with `.reveal-base` will have the `.is-revealed` class
- * added when the container enters the viewport, triggering their CSS transitions.
+ * Observes a target element's visibility in the viewport. When visible,
+ * appends active CSS transition classes to reveal base elements.
+ * @param {object} [options] - Configuration options for the Intersection Observer.
+ * @param {number} [options.threshold=0.1] - Percentage of visibility needed to trigger (0.0 to 1.0).
+ * @param {boolean} [options.triggerOnce=true] - Whether to stop observing after the initial reveal.
+ * @returns {React.RefObject} Ref object to be attached to the DOM element to observe.
  */
 export function useScrollReveal(options = { threshold: 0.1, triggerOnce: true }) {
   const ref = useRef(null);
@@ -17,9 +23,9 @@ export function useScrollReveal(options = { threshold: 0.1, triggerOnce: true })
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            // Find all revealable children
+            // Locate all target descendant elements that support scroll reveal transitions
             const elements = entry.target.querySelectorAll('.reveal-base');
-            // Delay class addition to ensure the browser paints the initial state (opacity: 0)
+            // Delay state application by double-frame animation frames to ensure initial opacity paint is registered
             requestAnimationFrame(() => {
               requestAnimationFrame(() => {
                 if (entry.target.classList.contains('reveal-base')) {
@@ -36,7 +42,7 @@ export function useScrollReveal(options = { threshold: 0.1, triggerOnce: true })
               observer.unobserve(entry.target);
             }
           } else if (!options.triggerOnce) {
-             // Optional: remove class if we want it to animate every time it enters
+             // Reset visibility state if triggerOnce is explicitly disabled
              const elements = entry.target.querySelectorAll('.reveal-base');
              if (entry.target.classList.contains('reveal-base')) {
                entry.target.classList.remove('is-revealed');

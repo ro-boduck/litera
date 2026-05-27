@@ -39,7 +39,7 @@ function toEmbedUrl(url) {
   return url;
 }
 
-/* ── Slide Carousel for educational content ── */
+/* --- Slide Carousel Component (Client-side interactive slide gallery) --- */
 function SlideBlock({ slides }) {
   const [current, setCurrent] = useState(0);
   if (!slides || slides.length === 0) return null;
@@ -163,7 +163,7 @@ export default function MateriDetailPage() {
       {/* Progress Bar */}
       <ScrollProgressBar />
 
-      {/* ── Header ── */}
+      {/* Section: Article Header & Breadcrumbs navigation details */}
       <section className="bg-canvas-warm pt-[140px] md:pt-[160px] pb-12">
         <div className="max-w-[720px] mx-auto px-6">
           <nav className="flex items-center gap-2 text-fine text-text-tertiary mb-8">
@@ -189,7 +189,7 @@ export default function MateriDetailPage() {
         </div>
       </section>
 
-      {/* ── Article ── */}
+      {/* Section: Dynamic Article Body Blocks (Renders blocks depending on database schema types) */}
       <section className="bg-canvas" id="article-body">
         <div className="max-w-[720px] mx-auto px-6 py-16">
           {data.content.map((block, i) => {
@@ -221,6 +221,28 @@ export default function MateriDetailPage() {
                   </div>
                 </div>
               );
+              case "table": return (
+                <div key={i} className="overflow-x-auto my-8 border border-slate-100 rounded-2xl shadow-sm">
+                  <table className="min-w-full divide-y divide-slate-100 text-left text-sm">
+                    <thead className="bg-slate-50/75 backdrop-blur-sm font-bold text-slate-700">
+                      <tr>
+                        {block.headers.map((h, j) => (
+                          <th key={j} className="px-5 py-4 font-semibold text-slate-800">{h}</th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-100 text-slate-600 bg-white">
+                      {block.rows.map((row, j) => (
+                        <tr key={j} className="hover:bg-slate-50/40 transition-colors">
+                          {row.map((cell, k) => (
+                            <td key={k} className="px-5 py-4 whitespace-pre-line text-[13px] leading-relaxed">{cell}</td>
+                          ))}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              );
               case "video": return (
                 <div key={i} className="mb-6">
                   {block.caption && <p className="text-sm font-medium text-text-secondary mb-3">{block.caption}</p>}
@@ -235,12 +257,20 @@ export default function MateriDetailPage() {
                 </div>
               );
               case "image": return (
-                <figure key={i} className="mb-6 rounded-2xl overflow-hidden shadow-lg">
-                  <div className="relative aspect-video bg-canvas-warm">
+                <figure key={i} className="mb-6 rounded-2xl overflow-hidden shadow-lg bg-canvas-warm border border-slate-100/50">
+                  <div className="w-full h-auto flex justify-center">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={block.url} alt={block.caption || "Ilustrasi materi"} className="absolute inset-0 w-full h-full object-cover" />
+                    <img 
+                      src={block.url} 
+                      alt={block.caption || "Ilustrasi materi"} 
+                      className="w-full h-auto block"
+                    />
                   </div>
-                  {block.caption && <figcaption className="text-xs text-text-tertiary text-center py-3 px-4 bg-canvas-warm">{block.caption}</figcaption>}
+                  {block.caption && (
+                    <figcaption className="text-xs text-text-tertiary text-center py-3.5 px-4 bg-canvas-warm border-t border-slate-100/60 font-semibold select-none">
+                      {block.caption}
+                    </figcaption>
+                  )}
                 </figure>
               );
               case "slides": return <SlideBlock key={i} slides={block.items} />;
@@ -250,7 +280,7 @@ export default function MateriDetailPage() {
         </div>
       </section>
 
-      {/* ═══ CTA POST-TEST ═══ */}
+      {/* Section: Post-Test CTA card box linked to the quiz route */}
       <section className="bg-canvas section-padding">
         <div className="max-w-[720px] mx-auto px-6 text-center">
           <div className="relative bg-civic-navy rounded-3xl p-12 text-center overflow-hidden shadow-2xl shadow-blue-900/20">

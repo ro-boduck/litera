@@ -1,11 +1,20 @@
 /**
- * DELETE /api/messages/[id]   — delete a specific user message (admin session only)
+ * @fileoverview Individual Contact Message API Endpoint.
+ * Serves authenticated DELETE requests for administrators to purge specific user messages/queries by ID.
  */
 
 import { NextResponse } from "next/server";
 import { deleteMessage } from "../../../../lib/db";
 import { getAdminSession } from "../../../../lib/auth";
 
+/**
+ * Handles DELETE requests to remove a user contact message record by ID.
+ * Requires active administrator authentication.
+ * @param {Request} request Next.js request object.
+ * @param {object} context Route handler context parameters.
+ * @param {Promise<{id: string}>} context.params Async route params containing the target message ID.
+ * @returns {Promise<NextResponse>} Success confirmation payload, or HTTP error status codes (401, 404, 500).
+ */
 export async function DELETE(request, { params }) {
   const session = await getAdminSession();
   if (!session) {

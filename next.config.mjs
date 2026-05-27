@@ -1,4 +1,5 @@
 /** @type {import('next').NextConfig} */
+// Trigger Next.js Dev Server Restart - Course 15 KKI Integrated
 const nextConfig = {
   serverExternalPackages: ["better-sqlite3"],
   images: {

@@ -1,7 +1,7 @@
 /**
- * Decoy admin layout — looks like a normal page with 404 content.
- * Intentionally uses the default site layout (Navbar/Footer visible)
- * so it appears like any other missing page on the site.
+ * @fileoverview Decoy admin layout.
+ * Leverages the default site layout (Navbar and Footer) so that scanned
+ * honeypot URLs appear visually identical to authentic missing pages.
  */
 
 export const metadata = {

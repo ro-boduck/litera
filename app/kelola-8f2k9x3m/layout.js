@@ -1,6 +1,6 @@
 /**
- * Admin layout — isolated from the public Navbar/Footer.
- * The admin section handles its own chrome.
+ * @fileoverview Main administrative dashboard portal layout.
+ * Isolated from the public header/footer shell. All subroutes handle their own chrome/navigation.
  */
 
 export const metadata = {

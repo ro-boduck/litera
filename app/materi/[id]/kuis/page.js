@@ -49,7 +49,7 @@ export default function QuizPage() {
     setScore(scoreVal);
     setSubmitted(true);
     
-    // Save progress to localStorage: completed if passed (score >= 80), otherwise on progress
+    // Persist reading progress to localStorage: mark as completed if pass threshold (>=80), else set as on progress
     const status = scoreVal >= 80 ? "completed" : "on progress";
     localStorage.setItem(`progress_${id}`, status);
   };
@@ -63,7 +63,7 @@ export default function QuizPage() {
         <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-blue-300/10 blur-[100px] rounded-full pointer-events-none z-0" />
 
         <div className="relative z-10 max-w-[800px] mx-auto px-6">
-          {/* Header */}
+          {/* Quiz metadata header & return breadcrumb link */}
           <div className="mb-8 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
             <div>
               <Link href={`/materi/${id}`} className="inline-flex items-center gap-2 text-slate-500 hover:text-blue-600 transition-colors mb-6 text-sm font-medium bg-white/50 px-4 py-2 rounded-full border border-slate-200">
@@ -125,7 +125,7 @@ export default function QuizPage() {
             ))}
           </div>
 
-          {/* Submit */}
+          {/* Submit Actions Control */}
           {!submitted && (
             <div className="mt-12 flex justify-end">
               <button onClick={handleSubmit} disabled={answeredCount < quiz.length}
@@ -142,7 +142,7 @@ export default function QuizPage() {
         </div>
       </section>
 
-      {/* Score Modal — fixed center, full-page blur overlay */}
+      {/* Overlay Modal: Displays dynamic grading result upon submission */}
       {submitted && (
         <div className="fixed inset-0 z-[9999] overflow-y-auto" style={{ background: "rgba(15,23,42,0.7)", backdropFilter: "blur(16px)", WebkitBackdropFilter: "blur(16px)" }}>
           <div className="flex min-h-full items-center justify-center p-4 text-center">

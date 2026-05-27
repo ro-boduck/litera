@@ -4,7 +4,7 @@ import { useScrollReveal } from "../hooks/useScrollReveal";
 import Link from "next/link";
 import Image from "next/image";
 
-/* ── SVG Icons ── */
+/* --- SVG Icons Mapping (Icons bound to specific categories or materials) --- */
 const CategoryIcons = {
   "Semua": <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><rect x="3" y="3" width="7" height="7" rx="1" /><rect x="14" y="3" width="7" height="7" rx="1" /><rect x="3" y="14" width="7" height="7" rx="1" /><rect x="14" y="14" width="7" height="7" rx="1" /></svg>,
   "Literasi Digital": <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><rect x="5" y="2" width="14" height="20" rx="2" /><line x1="12" y1="18" x2="12" y2="18" /></svg>,
@@ -24,6 +24,7 @@ const MaterialIcons = {
   shield: <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /></svg>,
   money: <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><line x1="12" y1="1" x2="12" y2="23" /><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6" /></svg>,
   percent: <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><line x1="19" y1="5" x2="5" y2="19" /><circle cx="6.5" cy="6.5" r="2.5" /><circle cx="17.5" cy="17.5" r="2.5" /></svg>,
+  card: <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="5" width="20" height="14" rx="2" /><line x1="2" y1="10" x2="22" y2="10" /></svg>,
 };
 
 const categories = ["Semua", "Literasi Digital", "Perencanaan Keuangan", "Investasi", "Perbankan", "UMKM"];
@@ -76,7 +77,7 @@ export default function MateriPage() {
 
   return (
     <>
-      {/* ── Header ── */}
+      {/* Section Header: public materials list metadata and catalog introductory context */}
       <section ref={revealRef1} className="bg-canvas-warm pt-[140px] md:pt-[160px] pb-12 relative overflow-hidden">
         <div className="absolute inset-0 z-0 pointer-events-none">
           <Image src="/batik_merak.png" alt="Motif Batik Merak" fill className="object-cover opacity-[0.04] mix-blend-multiply" />
@@ -91,11 +92,11 @@ export default function MateriPage() {
         </div>
       </section>
 
-      {/* ── Overhauled Filters (Responsive Hybrid Approach) ── */}
+      {/* Filter Controls: Interactive highlights grid filtering by learning topic */}
       <section className="border-b border-slate-100 bg-white py-4 md:py-6">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-8">
           
-          {/* ── Desktop Category Card Grid ── */}
+          {/* Category Filter Controls: Desktop view */}
           <div className="hidden md:grid grid-cols-6 gap-4">
             {categories.map((cat) => (
               <button
@@ -107,12 +108,12 @@ export default function MateriPage() {
                     : "border-slate-100 bg-white hover:border-blue-200 hover:-translate-y-1 hover:shadow-xl hover:shadow-slate-100/80 text-slate-500 hover:text-slate-800"
                   }`}
               >
-                {/* Visual Glass Background for Active */}
+                {/* Visual active card gradient styling backdrop */}
                 {active === cat && (
                   <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent pointer-events-none" />
                 )}
                 
-                {/* Category Icon Capsule */}
+                {/* Container housing the SVGs */}
                 <div className={`w-11 h-11 rounded-2xl flex items-center justify-center mb-3 transition-transform duration-300 group-hover:scale-110 z-10
                   ${active === cat
                     ? "bg-blue-600 text-white shadow-md shadow-blue-500/20"
@@ -125,7 +126,7 @@ export default function MateriPage() {
                 {/* Label text */}
                 <span className="text-[13px] font-bold tracking-tight whitespace-nowrap z-10">{cat}</span>
                 
-                {/* Selection Dot Indicator */}
+                {/* selection dot pulse layout indicator */}
                 {active === cat && (
                   <span className="absolute bottom-2.5 w-1.5 h-1.5 rounded-full bg-blue-600 animate-pulse" />
                 )}
@@ -133,7 +134,7 @@ export default function MateriPage() {
             ))}
           </div>
 
-          {/* ── Mobile Circular Highlights Bubble Bar ── */}
+          {/* Category Filter Controls: Mobile highlights swipable bubbles view */}
           <div className="flex md:hidden gap-5 overflow-x-auto no-scrollbar py-2 px-1 scroll-smooth justify-between">
             {categories.map((cat) => (
               <button
@@ -141,7 +142,7 @@ export default function MateriPage() {
                 onClick={() => setActive(cat)}
                 className="flex flex-col items-center gap-2 shrink-0 group focus:outline-none"
               >
-                {/* Rounded Highlights Circle */}
+                {/* Rounded highlight shape styling wrapper */}
                 <div className={`w-14 h-14 rounded-full flex items-center justify-center border transition-all duration-300 active:scale-90
                   ${active === cat
                     ? "border-blue-600 bg-blue-600 text-white shadow-lg shadow-blue-500/25 scale-105"
@@ -150,7 +151,7 @@ export default function MateriPage() {
                 >
                   {CategoryIcons[cat]}
                 </div>
-                {/* Highlights Label */}
+                {/* highlight dynamic title label */}
                 <span className={`text-[11px] font-bold tracking-tight text-center w-16 leading-tight transition-colors
                   ${active === cat ? "text-blue-600" : "text-slate-500"}`}
                 >
@@ -163,7 +164,7 @@ export default function MateriPage() {
         </div>
       </section>
 
-      {/* ── Grid ── */}
+      {/* Catalog Grid: List of interactive modules cards */}
       <section ref={revealRef2} className="bg-canvas section-padding pt-10">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-8 reveal-base reveal-up delay-1">
           {loading ? (
@@ -191,7 +192,7 @@ export default function MateriPage() {
                     <div className="w-14 h-14 rounded-2xl bg-white shadow-sm flex items-center justify-center text-civic-blue group-hover:scale-110 transition-transform duration-200 ease-out">
                       {MaterialIcons[m.icon]}
                     </div>
-                    {/* Progress Badge overlay on top-right of the card image */}
+                    {/* Progress indicator overlaid on thumbnail card header */}
                     {progressData[m.id] && (
                       <div className="absolute top-3 right-3 z-10">
                         <span className={`text-[9px] font-extrabold px-2.5 py-1 rounded-full uppercase tracking-wider shadow-sm backdrop-blur-md

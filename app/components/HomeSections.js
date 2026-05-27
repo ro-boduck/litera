@@ -1,3 +1,9 @@
+/**
+ * @fileoverview Collection of landing page layout sections (Stats, Features, Profile, FAQ, and CTA).
+ * Integrates Intersection Observer counters, auto-advancing slideshows, interactive tab flows,
+ * and custom scroll animations via useScrollReveal.
+ */
+
 'use client';
 import { useState, useEffect, useRef } from 'react';
 import { useScrollReveal } from '../hooks/useScrollReveal';
@@ -12,6 +18,13 @@ const stats = [
   { value: '27', label: 'Kota/Kabupaten', icon: Icons.map },
 ];
 
+/**
+ * Custom hook to animate numeric counter when scrolled into the viewport.
+ * Uses a cubic ease-out calculation over a customizable animation duration.
+ * @param {string} target The numeric target value (may contain suffixes like '+' or '.').
+ * @param {number} [duration=2000] Animation duration in milliseconds.
+ * @returns {object} Reference to pass to target DOM element and the formatted count string.
+ */
 function useCounter(target, duration = 2000) {
   const [count, setCount] = useState(0);
   const ref = useRef(null);
@@ -44,6 +57,12 @@ function useCounter(target, duration = 2000) {
   return { ref, display: count.toLocaleString('id-ID') + suffix };
 }
 
+/**
+ * Individual statistic card component featuring an ease-out animated counter and hover elevation effects.
+ * @param {object} props
+ * @param {object} props.stat The statistics data schema containing value, label, and SVG icon.
+ * @param {number} props.delay Animation delay multiplier for sequential entrance effect.
+ */
 function StatCard({ stat, delay }) {
   const { ref, display } = useCounter(stat.value);
   return (
@@ -71,6 +90,10 @@ const slides = [
   '/Dokumentasi4.png',
 ];
 
+/**
+ * Renders the landing page statistics section.
+ * Backed by a full-screen, self-advancing slideshow overlay featuring local event documentation.
+ */
 export function HomeStats() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const revealRef = useScrollReveal();
@@ -163,6 +186,11 @@ const features = [
   },
 ];
 
+/**
+ * Renders the "Stop, Cek, Lapor" interactive feature section.
+ * Provides tabs showing systematic actions users should take when experiencing suspicious financial activity,
+ * including a CSS-pulsing 30-second reminder banner.
+ */
 export function HomeFeatures() {
   const [activeStep, setActiveStep] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
@@ -374,6 +402,9 @@ export function HomeFeatures() {
   );
 }
 
+/**
+ * Renders the Bank Indonesia short profile block, explaining its monetary and administrative duties.
+ */
 export function HomeProfile() {
   const revealRef = useScrollReveal();
   return (
@@ -430,6 +461,9 @@ export function HomeProfile() {
   );
 }
 
+/**
+ * Renders the interactive Accordion-style Frequently Asked Questions section regarding consumer protection.
+ */
 export function HomeFaq() {
   const [openIdx, setOpenIdx] = useState(null);
   const revealRef = useScrollReveal();
@@ -526,6 +560,9 @@ export function HomeFaq() {
   );
 }
 
+/**
+ * Renders the final Call-To-Action (CTA) panel directing users to the educational courses page.
+ */
 export function HomeCta() {
   const revealRef = useScrollReveal();
   return (

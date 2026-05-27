@@ -1,9 +1,21 @@
+/**
+ * @fileoverview Main site navigation header.
+ * Implements a floating design system with glassmorphism styling, active route highlighting,
+ * full responsiveness, and mobile-friendly slide dropdowns.
+ */
+
 "use client";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 
+/**
+ * Navbar component for LITERA.
+ * Includes page route links, branding elements, CTA buttons, and a responsive toggle for mobile devices.
+ * Automatically conceals itself if current route matches isolated CMS paths.
+ * @returns {React.ReactElement|null} Navigation header node, or null when in CMS view.
+ */
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -35,7 +47,7 @@ export default function Navbar() {
       >
       <nav className="max-w-6xl mx-auto px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          {/* ── Logo ── */}
+          {/* Brand Logo */}
           <div className="flex-1 flex justify-start">
             <Link href="/" className="flex items-center gap-2 group" aria-label="Beranda - Kantor Perwakilan Bank Indonesia">
               <Image 
@@ -50,7 +62,7 @@ export default function Navbar() {
             </Link>
           </div>
 
-          {/* ── Desktop Nav ── */}
+          {/* Desktop Navigation Links */}
           <div className="hidden md:flex flex-1 items-center justify-center gap-1">
             {navLinks.map((link) => (
               <Link
@@ -67,14 +79,14 @@ export default function Navbar() {
             ))}
           </div>
 
-          {/* ── Desktop CTA ── */}
+          {/* Desktop Call-To-Action */}
           <div className="hidden md:flex flex-1 items-center justify-end gap-3">
             <Link href="/materi" className="bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-500/40 rounded-full px-6 py-2.5 text-[14px] font-medium transition-all duration-150 ease-out hover:-translate-y-0.5 hover:shadow-blue-500/60 active:scale-95">
               Mulai Belajar
             </Link>
           </div>
 
-          {/* ── Mobile Toggle ── */}
+          {/* Mobile Menu Toggle Button */}
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
             className="md:hidden w-11 h-11 flex items-center justify-center rounded-xl text-text-primary hover:bg-canvas-warm transition-colors"
@@ -92,7 +104,7 @@ export default function Navbar() {
         </nav>
       </header>
 
-      {/* ── Mobile Menu (Dropdown) ── */}
+      {/* Mobile Menu Dropdown Panel */}
       <div
         className={`absolute top-[80px] w-[calc(100%-2rem)] max-w-4xl bg-white/95 backdrop-blur-md border border-white/50 shadow-2xl shadow-blue-900/10 rounded-3xl pointer-events-auto transition-all duration-200 ease-out origin-top ${
           mobileOpen ? "opacity-100 scale-y-100" : "opacity-0 scale-y-95 pointer-events-none"

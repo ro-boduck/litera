@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
-/* ── Login Screen (Overhauled with Soft Civic Elegance Glassmorphism) ── */
+/* --- Administrative Login Screen --- */
 function LoginScreen({ onLogin }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -133,7 +133,7 @@ function LoginScreen({ onLogin }) {
   );
 }
 
-/* ── CMS Bento Grid Dashboard ── */
+/* --- Administrative CMS Dashboard Core Component --- */
 export default function AdminCMS() {
   const router = useRouter();
   const [adminUser, setAdminUser] = useState(null);
@@ -143,10 +143,10 @@ export default function AdminCMS() {
   const [loading, setLoading] = useState(true);
   const [toast, setToast] = useState(null);
 
-  // Search filter
+  // Local search filtering query state
   const [searchQuery, setSearchQuery] = useState('');
 
-  // Message read status tracking
+  // Telemetry to track message viewed statuses
   const [lastViewed, setLastViewed] = useState(0);
   const [hasUnread, setHasUnread] = useState(false);
 
@@ -155,7 +155,7 @@ export default function AdminCMS() {
     setTimeout(() => setToast(null), 3000);
   };
 
-  // Check session on mount
+  // Validate session state token on component initialization
   useEffect(() => {
     fetch('/api/auth/me')
       .then((r) => r.json())
@@ -202,7 +202,7 @@ export default function AdminCMS() {
     }
   }, [adminUser, fetchMaterials, fetchMessages]);
 
-  // Compute unread message status
+  // Check incoming message timestamps against local viewed coordinates
   useEffect(() => {
     if (messages.length > 0) {
       const unread = messages.some((msg) => {
@@ -259,7 +259,7 @@ export default function AdminCMS() {
     }
   };
 
-  // Auth gate
+  // Security middleware routing checkpoint
   if (!authChecked)
     return (
       <div
@@ -274,7 +274,7 @@ export default function AdminCMS() {
     );
   if (!adminUser) return <LoginScreen onLogin={setAdminUser} />;
 
-  // Filter lists
+  // Apply search filtering on cached lists
   const filteredMaterials = materials.filter(
     (m) =>
       m.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -289,7 +289,7 @@ export default function AdminCMS() {
           'linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 50%, #E2E8F0 100%)',
       }}
     >
-      {/* Toast Notification */}
+      {/* Transient toast alerts overlay wrapper */}
       {toast && (
         <div className="fixed top-6 right-6 z-[999] animate-fade-up">
           <div
@@ -305,9 +305,9 @@ export default function AdminCMS() {
         </div>
       )}
 
-      {/* Crextio Frame Container */}
+      {/* Main Dashboard wrapper container */}
       <div className="max-w-[1400px] mx-auto bg-white/75 backdrop-blur-3xl border border-white/60 rounded-[3rem] shadow-2xl shadow-[#1B2D4F]/5 overflow-hidden min-h-[calc(100vh-80px)] flex flex-col p-6 md:p-8">
-        {/* Header */}
+        {/* Header Navigation panel */}
         <header className="py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-5 border-b border-slate-100/50 bg-white/40 rounded-3xl px-6 mb-8">
           <div className="flex items-center gap-4">
             <div className="w-11 h-11 rounded-2xl flex items-center justify-center bg-[#1B2D4F] shadow-md shadow-[#1B2D4F]/20">
@@ -348,11 +348,11 @@ export default function AdminCMS() {
           </div>
         </header>
 
-        {/* ═══ BENTO GRID WORKSPACE ═══ */}
+        {/* --- CMS Dashboard Bento Grid Workspace --- */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 flex-1 items-start">
-          {/* ── BENTO CARD 1: Welcome & Stats (spans 2 Columns) ── */}
+          {/* Card 1: Session Welcome and Metrics Overview Panel */}
           <div className="lg:col-span-2 relative bg-civic-navy rounded-3xl p-8 text-left overflow-hidden shadow-xl shadow-blue-900/10 min-h-[190px] flex flex-col justify-center">
-            {/* Mega Mendung cloud motifs background */}
+            {/* Regional cloud motif background graphic layer */}
             <div className="absolute inset-0 z-0 pointer-events-none">
               <Image
                 src="/mega_mendung.jpeg"
@@ -371,7 +371,7 @@ export default function AdminCMS() {
                 Admin Dashboard
               </h2>
 
-              {/* Statistics Row */}
+              {/* Metrics data display group */}
               <div className="flex gap-8">
                 <div>
                   <p className="text-[10px] font-extrabold text-blue-300 uppercase tracking-wider mb-1">
@@ -397,7 +397,7 @@ export default function AdminCMS() {
             </div>
           </div>
 
-          {/* ── BENTO CARD 2: Quick Operations (spans 1 Column) ── */}
+          {/* Card 2: Quick actions and utility triggers panel */}
           <div className="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm flex flex-col gap-4 justify-center min-h-[190px]">
             <p className="text-[10px] font-extrabold text-slate-400 uppercase tracking-widest">
               Aksi Cepat
@@ -442,7 +442,7 @@ export default function AdminCMS() {
             </div>
           </div>
 
-          {/* ── BENTO CARD 3: Course Catalog (spans 2 Columns, Row 2) ── */}
+          {/* Card 3: Educational course database management grid */}
           <div className="lg:col-span-2 bg-white/70 border border-slate-100 rounded-[2rem] p-6 shadow-sm flex flex-col gap-5">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div>
@@ -454,7 +454,7 @@ export default function AdminCMS() {
                 </p>
               </div>
 
-              {/* Search Bar inside card */}
+              {/* Interactive filtering input */}
               <div className="relative w-full sm:w-64">
                 <svg
                   className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none"
@@ -478,7 +478,7 @@ export default function AdminCMS() {
               </div>
             </div>
 
-            {/* Scrollable Materi Rows */}
+            {/* Material query listing container */}
             <div className="space-y-2.5 max-h-[480px] overflow-y-auto pr-1 no-scrollbar">
               {loading ? (
                 <div className="text-center py-12 text-xs font-bold text-slate-400">
@@ -545,7 +545,7 @@ export default function AdminCMS() {
             </div>
           </div>
 
-          {/* ── BENTO CARD 4: Messages Log (spans 1 Column, Row 2) ── */}
+          {/* Card 4: Contact submissions database records log */}
           <div
             onMouseEnter={handleMarkAsRead}
             onClick={handleMarkAsRead}
@@ -557,7 +557,7 @@ export default function AdminCMS() {
                   Pesan Pengguna
                 </h3>
 
-                {/* pulsing orange unread notification dot */}
+                {/* Unread state visual indicator dot */}
                 {hasUnread && (
                   <span className="flex h-3 w-3 relative">
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
@@ -570,7 +570,7 @@ export default function AdminCMS() {
               </p>
             </div>
 
-            {/* Scrollable messages */}
+            {/* Submissions query listing container */}
             <div className="space-y-3 flex-1 max-h-[480px] overflow-y-auto pr-1 no-scrollbar">
               {messages.length === 0 ? (
                 <div className="text-center py-20 text-xs font-bold text-slate-400 bg-slate-50/50 border border-dashed rounded-2xl">

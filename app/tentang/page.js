@@ -65,7 +65,7 @@ const missions = [
 export default function TentangPage() {
   return (
     <>
-      {/* ═══ HERO ═══ */}
+      {/* Section: Main Hero Presentation and Platform Mission Context */}
       <RevealWrapper className="hero-gradient mega-mendung pt-[140px] md:pt-[160px] pb-20 relative overflow-hidden">
         <div className="ornament-cloud w-[500px] h-[500px] -top-40 -right-40" />
         <div className="relative max-w-6xl mx-auto px-6 lg:px-8 text-center reveal-base reveal-up delay-1">
@@ -86,7 +86,7 @@ export default function TentangPage() {
         </div>
       </RevealWrapper>
 
-      {/* ═══ MISSION ═══ */}
+      {/* Section: Institutional mission statements and customer empowerment goals */}
       <RevealWrapper className="bg-canvas section-padding">
         <div className="max-w-6xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-16 reveal-base reveal-up delay-1">
@@ -121,7 +121,7 @@ export default function TentangPage() {
         </div>
       </RevealWrapper>
 
-      {/* ═══ INSTITUTION ═══ */}
+      {/* Section: West Java Bank Indonesia provincial branch details */}
       <RevealWrapper className="bg-canvas-warm section-padding mega-mendung-blue">
         <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center reveal-base reveal-up delay-1">
           <p className="text-overline text-civic-blue mb-3">
@@ -144,7 +144,7 @@ export default function TentangPage() {
         </div>
       </RevealWrapper>
 
-      {/* ── Overhauled Bento Grid Design ── */}
+      {/* Grid Display: Core corporate pillars and education goals */}
       <RevealWrapper className="bg-canvas section-padding">
         <div className="max-w-6xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-12 reveal-base reveal-up delay-1">
@@ -157,14 +157,14 @@ export default function TentangPage() {
           <div className="max-w-6xl mx-auto mb-16 reveal-base reveal-up delay-2">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
               
-              {/* 1. PeKA Intro Card (col-span-2) */}
+              {/* Core catalog introduction box spanning two columns */}
               <div className="md:col-span-2 bg-gradient-to-br from-blue-50 via-white to-blue-50/20 border border-slate-100 rounded-[2.5rem] p-8 md:p-10 flex flex-col justify-between relative overflow-hidden shadow-xl shadow-blue-900/5 group hover:shadow-2xl hover:shadow-blue-900/10 transition-all duration-300 hover:-translate-y-1">
-                {/* Decorative Elements */}
+                {/* Decorative structural ornaments */}
                 <div className="absolute top-0 right-0 w-[300px] h-[300px] border border-blue-200/30 rounded-full translate-x-1/3 -translate-y-1/3 border-dashed pointer-events-none" />
                 <div className="absolute -bottom-10 left-10 w-[150px] h-[150px] bg-blue-100/40 rounded-full blur-3xl opacity-60 pointer-events-none" />
                 
                 <div className="relative z-10">
-                  {/* Brand Logo Container */}
+                  {/* Brand logo branding */}
                   <div className="relative w-[180px] h-[60px] mb-6">
                     <Image src="/FullLogoPeKa.png" alt="PeKA" fill sizes="(max-width: 768px) 180px, 180px" className="object-contain object-left" priority />
                   </div>
@@ -177,7 +177,7 @@ export default function TentangPage() {
                 </div>
               </div>
 
-              {/* 2. PEDULI Pillar Card (col-span-1) */}
+              {/* Pillar 1: Peduli card */}
               <div className="md:col-span-1 bg-gradient-to-br from-blue-600 to-[#0a4d94] rounded-[2.5rem] p-8 md:p-10 flex flex-col items-start justify-between text-white shadow-xl shadow-blue-900/10 group hover:shadow-2xl hover:shadow-blue-500/20 transition-all duration-300 hover:-translate-y-1 relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-[200px] h-[200px] bg-white/5 rounded-full translate-x-1/4 -translate-y-1/4 pointer-events-none" />
                 
@@ -195,7 +195,7 @@ export default function TentangPage() {
                 </div>
               </div>
 
-              {/* 3. KENALI Pillar Card (col-span-1) */}
+              {/* Pillar 2: Kenali card */}
               <div className="md:col-span-1 bg-gradient-to-br from-amber-50 to-orange-50/40 border border-amber-100/60 rounded-[2.5rem] p-8 md:p-10 flex flex-col items-start justify-between text-slate-800 shadow-xl shadow-amber-900/5 group hover:shadow-2xl hover:shadow-amber-500/10 transition-all duration-300 hover:-translate-y-1 relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-[200px] h-[200px] bg-amber-500/5 rounded-full translate-x-1/4 -translate-y-1/4 pointer-events-none" />
                 
@@ -210,7 +210,7 @@ export default function TentangPage() {
                 </div>
               </div>
 
-              {/* 4. ADUKAN Pillar Card (col-span-2) */}
+              {/* Pillar 3: Adukan card */}
               <div className="md:col-span-2 bg-gradient-to-br from-emerald-50 to-teal-50/40 border border-emerald-100/60 rounded-[2.5rem] p-8 md:p-10 flex flex-col md:flex-row items-start gap-6 md:gap-8 justify-between text-slate-800 shadow-xl shadow-emerald-900/5 group hover:shadow-2xl hover:shadow-emerald-500/10 transition-all duration-300 hover:-translate-y-1 relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-[200px] h-[200px] bg-emerald-500/5 rounded-full translate-x-1/4 -translate-y-1/4 pointer-events-none" />
                 

@@ -1,23 +1,13 @@
 @import "tailwindcss";
 
-/* ═══════════════════════════════════════════════════════════
-   Ruang PeKA JABAR — Design System v3.0
-   "Civic Elegance" — Fusing Apple precision with Claude warmth
-   and West Java cultural identity
-   
-   Applied Skills:
-   - ui-ux-pro-max (color-contrast ≥4.5:1, touch targets ≥44px,
-     no-emoji-icons, SVG-only, consistent spacing 8dp rhythm)
-   - Apple DESIGN.md (typography discipline, single-accent grammar)
-   - Ruang PeKA JABAR PROMPTS.md (content structure, Mega Mendung motif)
-   
-   Color Philosophy: WARM navy (#1B2D4F) not black.
-   Accent: Civic Blue (#2563EB). Surface: Warm canvas.
-   Cultural: Mega Mendung cloud patterns as subtle geometry.
-   ═══════════════════════════════════════════════════════════ */
+/* ==========================================================
+   LITERA NEW — Core Stylesheet & Design System
+   Provides global base resets, color theme tokens, shared layouts,
+   button styles, custom UI component animations, and responsive utilities.
+   ========================================================== */
 
 @theme {
-  /* ── Brand Palette ── */
+  /* --- Brand Palette --- */
   --color-civic-navy: #1B2D4F;
   --color-civic-blue: #2563EB;
   --color-civic-blue-light: #3B82F6;
@@ -25,7 +15,7 @@
   --color-civic-blue-subtle: #DBEAFE;
   --color-civic-blue-mist: #EFF6FF;
 
-  /* ── Warm Surfaces (NOT pure white/black) ── */
+  /* --- Background Surfaces --- */
   --color-canvas: #FAFAF8;
   --color-canvas-warm: #F5F3F0;
   --color-canvas-cream: #FAF8F5;
@@ -35,28 +25,28 @@
   --color-surface-darker: #142240;
   --color-surface-darkest: #0F1A33;
 
-  /* ── Text (High Contrast Guaranteed) ── */
+  /* --- High Contrast Text --- */
   --color-text-primary: #1A1A2E;
   --color-text-secondary: #4A5568;
   --color-text-tertiary: #718096;
   --color-text-on-dark: #F7FAFC;
   --color-text-on-dark-muted: #CBD5E0;
 
-  /* ── Accents & Feedback ── */
+  /* --- Feedback Colors --- */
   --color-success: #059669;
   --color-warning: #D97706;
   --color-error: #DC2626;
   --color-mega-mendung: #2563EB;
 
-  /* ── Borders ── */
+  /* --- Border Colors --- */
   --color-border: #E2E0DC;
   --color-border-light: #EDECEA;
   --color-border-on-dark: rgba(255, 255, 255, 0.12);
 
-  /* ── Font ── */
+  /* --- Typography --- */
   --font-sans: "Inter", system-ui, -apple-system, sans-serif;
 
-  /* ── Radius Scale (Apple-inspired) ── */
+  /* --- Border Radius Scale --- */
   --radius-xs: 6px;
   --radius-sm: 8px;
   --radius-md: 12px;
@@ -66,7 +56,7 @@
   --radius-pill: 9999px;
 }
 
-/* ── Base Reset ── */
+/* --- Global Resets & Transitions --- */
 html {
   scroll-behavior: smooth;
 }
@@ -76,7 +66,6 @@ html {
     --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
     --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
     
-    /* Impeccable Easing Curves */
     --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
     --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
     --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
@@ -88,7 +77,7 @@ html {
     @apply antialiased;
   }
 
-  /* Tactile Buttons */
+  /* Tactile transition animations for core action triggers */
   button, a.btn-primary, .btn-primary {
     transition: transform 160ms var(--ease-out), filter 200ms ease, opacity 200ms ease;
   }
@@ -109,7 +98,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* ── Typography System ── */
+/* --- Typography System --- */
 .text-hero {
   font-size: clamp(2.25rem, 5vw, 3.75rem);
   font-weight: 700;
@@ -183,7 +172,7 @@ body {
   letter-spacing: -0.003em;
 }
 
-/* ── Mega Mendung Cloud Pattern (West Java Batik) ── */
+/* --- Background Pattern (Decorative clouds background) --- */
 .mega-mendung {
   position: relative;
 }
@@ -218,7 +207,7 @@ body {
   z-index: 1;
 }
 
-/* ── Hero Gradient (Warm Navy, NOT black) ── */
+/* --- Gradient theme backgrounds --- */
 .hero-gradient {
   background: linear-gradient(
     165deg,
@@ -229,7 +218,7 @@ body {
   );
 }
 
-/* ── Section Spacing (80px desktop, 56px mobile) ── */
+/* --- Global Section Padding Controls --- */
 .section-padding {
   padding-top: 80px;
   padding-bottom: 80px;
@@ -242,7 +231,7 @@ body {
   }
 }
 
-/* ═══ BUTTON SYSTEM (Apple pill + proper contrast) ═══ */
+/* --- Button Component System --- */
 
 .btn-primary {
   display: inline-flex;
@@ -324,7 +313,7 @@ body {
   border-color: rgba(255, 255, 255, 0.35);
 }
 
-/* ═══ CARD SYSTEM ═══ */
+/* --- Card Component System --- */
 
 .card {
   background: var(--color-surface-card);
@@ -342,7 +331,7 @@ body {
   border-color: var(--color-civic-blue-subtle);
 }
 
-/* ── Stats Counter Card ── */
+/* Stats grid display layout */
 .stat-card {
   text-align: center;
   padding: 32px 16px;
@@ -355,7 +344,7 @@ body {
   color: var(--color-civic-blue);
 }
 
-/* ═══ ANIMATIONS ═══ */
+/* --- Global Animation Classes --- */
 
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(24px); }
@@ -387,19 +376,19 @@ body {
 }
 
 .animate-page-transition {
-  animation: pageTransition 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  animation: pageTransition 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
 }
 
 .animate-fade-up {
-  animation: fadeUp 0.8s var(--ease-out-quart) both;
+  animation: fadeUp 1.2s var(--ease-out-quart) both;
 }
 
 .animate-scale-in {
-  animation: scaleIn 0.8s var(--ease-out-quart) both;
+  animation: scaleIn 1.2s var(--ease-out-quart) both;
 }
 
 .animate-fade-in {
-  animation: fade-in 0.8s var(--ease-out-quart) both;
+  animation: fade-in 1.0s var(--ease-out-quart) both;
 }
 
 @keyframes revealUpAnim {
@@ -407,27 +396,48 @@ body {
   to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
-/* ═══ SCROLL REVEAL (IMPECCABLE) ═══ */
+/* --- Mascot Entrance Animations --- */
+@keyframes mascotSlideFromLeft {
+  from { opacity: 0; transform: translateY(-50%) translateX(-180px); }
+  to   { opacity: 1; transform: translateY(-50%) translateX(0); }
+}
+
+@keyframes mascotSlideFromRight {
+  from { opacity: 0; transform: translateY(-50%) translateX(180px); }
+  to   { opacity: 1; transform: translateY(-50%) translateX(0); }
+}
+
+.mascot-enter-left {
+  animation: mascotSlideFromLeft 1.0s var(--ease-out-expo) both;
+  animation-delay: 0.5s;
+}
+
+.mascot-enter-right {
+  animation: mascotSlideFromRight 1.0s var(--ease-out-expo) both;
+  animation-delay: 0.7s;
+}
+
+/* --- Scroll Reveal Intersection Observers --- */
 .reveal-base {
   opacity: 0;
   will-change: transform, opacity;
 }
 
 .reveal-base.reveal-up.is-revealed {
-  animation: revealUpAnim 0.8s var(--ease-out-quart) forwards;
+  animation: revealUpAnim 1.2s var(--ease-out-quart) forwards;
 }
 
-/* ── Stagger delays (must come after .reveal-up) ── */
-.delay-1 { animation-delay: 0.1s !important; }
-.delay-2 { animation-delay: 0.15s !important; }
-.delay-3 { animation-delay: 0.2s !important; }
-.delay-4 { animation-delay: 0.25s !important; }
-.delay-5 { animation-delay: 0.3s !important; }
-.delay-6 { animation-delay: 0.35s !important; }
-.delay-7 { animation-delay: 0.4s !important; }
-.delay-8 { animation-delay: 0.45s !important; }
+/* Cascade delay stagger classes */
+.delay-1 { animation-delay: 0.12s !important; }
+.delay-2 { animation-delay: 0.22s !important; }
+.delay-3 { animation-delay: 0.34s !important; }
+.delay-4 { animation-delay: 0.46s !important; }
+.delay-5 { animation-delay: 0.58s !important; }
+.delay-6 { animation-delay: 0.70s !important; }
+.delay-7 { animation-delay: 0.82s !important; }
+.delay-8 { animation-delay: 0.94s !important; }
 
-/* ═══ INTERACTIVE ELEMENTS ═══ */
+/* --- Interactive Hover & Outline Effects --- */
 
 /* Hover lift for interactive containers */
 .interactive-lift {
@@ -458,7 +468,7 @@ body {
   animation: shimmer 2s infinite;
 }
 
-/* ═══ CUSTOM SCROLLBAR — Modern Minimalist ═══ */
+/* --- Custom Minimalist Scrollbar Styles --- */
 
 /* Webkit (Chrome, Edge, Safari) */
 ::-webkit-scrollbar {
@@ -489,7 +499,7 @@ body {
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-/* ═══ ACCESSIBILITY ═══ */
+/* --- Selection & Reduced Motion Accessibility Settings --- */
 
 ::selection {
   background-color: var(--color-civic-blue-subtle);
@@ -505,7 +515,7 @@ body {
   html { scroll-behavior: auto; }
 }
 
-/* ═══ INTERACTIVE ORNAMENT ═══ */
+/* --- Decorative Ornamental Glowing Clouds --- */
 
 .ornament-cloud {
   position: absolute;
@@ -515,7 +525,7 @@ body {
   filter: blur(60px);
 }
 
-/* ═══ MAGNETIC HOVER GLOW ═══ */
+/* --- Dynamic Cursor-Tracking Hover Glow Effect --- */
 
 .hover-glow {
   position: relative;
@@ -540,7 +550,7 @@ body {
   opacity: 1;
 }
 
-/* ═══ CONTENT BLOCKS — Video & Slides ═══ */
+/* --- Media & Layout Components (Video Embed & Carousels) --- */
 
 .video-embed {
   position: relative;
@@ -608,9 +618,9 @@ body {
   to { opacity: 1; }
 }
 
-/* ═══ CHATBOT FAB — Pill Morph & Bounce ═══ */
+/* --- Virtual Assistant FAB Styles --- */
 
-/* Base button: circle shape, transitions to pill on hover */
+/* Closed circular button shape transition on desktop hover */
 .chatbot-fab-button {
   width: 64px;
   height: 64px;
@@ -625,7 +635,7 @@ body {
     box-shadow 300ms ease;
 }
 
-/* Hover: morph into pill (desktop only) */
+/* Expand button into pill shape on desktop hover */
 @media (hover: hover) {
   .chatbot-fab-button:hover {
     width: 180px;
@@ -635,12 +645,12 @@ body {
   }
 }
 
-/* Active press */
+/* Active state scaling transition */
 .chatbot-fab-button:active {
   transform: scale(0.93);
 }
 
-/* Background layers remain perfectly rounded pills at all times */
+/* Rounded background card layer */
 .chatbot-fab-bg {
   border-radius: 9999px !important;
   transition:
@@ -648,7 +658,7 @@ body {
     box-shadow 300ms ease;
 }
 
-/* Inline label inside pill — revealed on hover (desktop only) */
+/* Floating text label revealed on desktop hover */
 .chatbot-fab-label {
   opacity: 0;
   transform: scale(0.8);
@@ -668,7 +678,7 @@ body {
   }
 }
 
-/* Premium, soft, elastic bounce animation on click */
+/* Elastic scaling click bounce animation */
 @keyframes chatbot-fab-bounce {
   0% { transform: scale(1); }
   30% { transform: scale(0.93); }
@@ -681,7 +691,7 @@ body {
   animation: chatbot-fab-bounce 400ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
 }
 
-/* When chat is open, slightly shrink the button and keep it circular */
+/* Styling variations for open active chat state */
 .chatbot-fab-open {
   transform: scale(0.9);
   opacity: 0.95;
@@ -698,7 +708,7 @@ body {
   opacity: 0 !important;
 }
 
-/* Tooltip reveal: show tooltip on desktop when hovering near the button, hide when button morphs */
+/* Tooltip transition rules on hover */
 @media (hover: hover) {
   .pointer-events-auto:hover .chatbot-fab-tooltip {
     opacity: 1;
@@ -712,7 +722,7 @@ body {
   }
 }
 
-/* Mascot shrink-and-fade in pill state */
+/* Mascot avatar sizing transition in pill state */
 .chatbot-fab-mascot {
   will-change: transform, opacity;
   transition:
@@ -732,7 +742,7 @@ body {
 
 
 
-/* Fade out closed FAB button and tooltip when hovering the footer to prevent overlapping */
+/* Prevent overlapping FAB layout by fading out when hovering footer */
 body:has(footer:hover) .chatbot-fab-button:not(.chatbot-fab-open),
 body:has(footer:hover) .chatbot-fab-tooltip {
   opacity: 0 !important;
@@ -741,7 +751,7 @@ body:has(footer:hover) .chatbot-fab-tooltip {
   transition: all 400ms cubic-bezier(0.25, 1, 0.5, 1) !important;
 }
 
-/* ═══ PREMIUM NAVBAR INTERACTION ═══ */
+/* --- Header Navigation Hover & Active States --- */
 .nav-item {
   position: relative;
   transition: transform 300ms cubic-bezier(0.34, 1.56, 0.64, 1);

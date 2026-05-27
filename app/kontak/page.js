@@ -137,12 +137,12 @@ export default function KontakPage() {
     return () => clearInterval(timer);
   }, [isPaused]);
 
-  // Auto-scroll horizontally only on mobile, preventing vertical page jumping
+  // Prevent vertical page jumps by scrolling the card container horizontally only on mobile viewports
   useEffect(() => {
     if (!isPaused && window.innerWidth < 1024 && scrollRef.current && itemRefs.current[activeStep]) {
       const container = scrollRef.current;
       const element = itemRefs.current[activeStep];
-      // Calculate position to center the card horizontally
+      // Calculate layout coordinates to center the focused card inside the horizontal scrollable viewport
       const scrollPosition = element.offsetLeft - (container.clientWidth / 2) + (element.clientWidth / 2);
       
       container.scrollTo({
@@ -202,7 +202,7 @@ export default function KontakPage() {
 
   return (
     <>
-      {/* ── Header ── */}
+      {/* Section Header: Public support resources contact details */}
       <section ref={revealRef1} className="bg-[#f0f6fc] pt-[140px] md:pt-[160px] pb-16 relative overflow-hidden">
         <div className="absolute inset-0 z-0 pointer-events-none">
           <Image src="/batik_merak.png" alt="Motif Batik Merak" fill className="object-cover opacity-[0.03] mix-blend-multiply" />
@@ -216,7 +216,7 @@ export default function KontakPage() {
         </div>
       </section>
 
-      {/* ── Transaksi kamu bermasalah? Flow ── */}
+      {/* Transaction handling process flow steps */}
       <section ref={revealRef2} className="bg-[#f0f6fc] py-12 border-b border-blue-100/50">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-center text-[#0a4d94] mb-16 whitespace-nowrap tracking-tight reveal-base reveal-up delay-1">
@@ -224,7 +224,7 @@ export default function KontakPage() {
           </h2>
           
           <div className="relative">
-            {/* Desktop Connectors */}
+            {/* Visual connecting lines between process steps on desktop */}
             <div className="hidden lg:block absolute top-[80px] left-[10%] right-[10%] h-1 bg-blue-200/60 z-0 rounded-full" />
             <div 
               className="hidden lg:block absolute top-[80px] left-[10%] h-1 bg-[#1875c7] z-0 rounded-full transition-all duration-400 ease-in-out"
@@ -246,7 +246,7 @@ export default function KontakPage() {
                   onMouseEnter={() => { setActiveStep(idx); setIsPaused(true); }}
                   onMouseLeave={() => setIsPaused(false)}
                 >
-                  {/* --- DESKTOP VIEW --- */}
+                  {/* --- Desktop process layout view --- */}
                   <div className="hidden lg:flex flex-col items-center">
                     <div className={`relative mb-6 transform transition-all duration-200 ease-out ${isActive ? '-translate-y-4' : 'group-hover:-translate-y-2'}`}>
                       <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-lg absolute -top-4 -left-4 z-20 shadow-md transition-all duration-200 ease-out ${isActive ? 'bg-white text-[#0a4d94] ring-4 ring-white/20 shadow-lg scale-110' : 'bg-[#1875c7] text-white'}`}>
@@ -263,14 +263,14 @@ export default function KontakPage() {
                     </p>
                   </div>
 
-                  {/* --- MOBILE VIEW (TALL SLIDING CARDS) --- */}
+                  {/* --- Mobile swipable process cards view --- */}
                   <div className={`flex lg:hidden flex-col justify-between w-[280px] h-[360px] p-8 rounded-[2rem] transition-all duration-400 ease-out overflow-hidden shadow-lg border ${isActive ? 'bg-[#0a4d94] border-transparent shadow-[#0a4d94]/30' : 'bg-white border-blue-100 shadow-blue-900/5'}`}>
-                    {/* Top Icon */}
+                    {/* Step illustrative SVG icon */}
                     <div className={`w-12 h-12 flex items-center justify-center transition-colors duration-200 ease-out ${isActive ? 'text-white' : 'text-[#1875c7]'}`}>
                       {step.icon}
                     </div>
                     
-                    {/* Bottom Content */}
+                    {/* Step text content container */}
                     <div className="mt-8">
                       <p className={`text-sm font-bold mb-2 transition-colors duration-200 ease-out ${isActive ? 'text-blue-200' : 'text-slate-400'}`}>
                         0{step.number}.
@@ -298,7 +298,7 @@ export default function KontakPage() {
         </div>
       </section>
 
-      {/* ── Kewajiban Penyelenggara ── */}
+      {/* Provider statutory obligations and SLA constraints */}
       <section ref={revealRef3} className="bg-[#e4eff8] py-16 relative overflow-hidden">
         <div className="absolute inset-0 z-0 pointer-events-none">
           <Image src="/full_mega_mendung.png" alt="Motif Mega Mendung" fill className="object-cover opacity-[0.03] mix-blend-multiply" />
@@ -311,7 +311,7 @@ export default function KontakPage() {
           <div className="space-y-6 lg:space-y-4">
             {obligations.map((ob, idx) => (
               <div key={idx} className="flex flex-col sm:flex-row items-center sm:items-stretch group relative cursor-default">
-                {/* Icon block overlapping text block */}
+                {/* Overlapping layout placement positioning icon relative to box */}
                 <div className="w-16 h-16 sm:w-20 sm:h-20 bg-white rounded-2xl sm:rounded-3xl shadow-lg flex items-center justify-center text-[#1a73e8] z-20 flex-shrink-0 transition-transform duration-200 ease-out sm:group-hover:scale-[1.03] relative top-4 sm:top-0 sm:left-0 border border-blue-50 sm:border-none">
                   <div className="scale-75 sm:scale-100">{ob.icon}</div>
                 </div>
@@ -326,11 +326,11 @@ export default function KontakPage() {
         </div>
       </section>
 
-      {/* ── Form + Info ── */}
+      {/* Contact submission form layout block */}
       <section ref={revealRef4} className="bg-canvas section-padding">
         <div className="max-w-6xl mx-auto px-6 lg:px-8">
           <div className="flex flex-col lg:flex-row gap-12">
-            {/* Left: Form */}
+            {/* User feedback form fields */}
             <div className="lg:w-3/5 reveal-base reveal-up delay-1">
               <form onSubmit={handleSubmit} className="space-y-5">
                 <div>
@@ -382,7 +382,7 @@ export default function KontakPage() {
               </form>
             </div>
 
-            {/* Right: Contact Info */}
+            {/* Physical location addresses and active support phone lines */}
             <div className="lg:w-2/5 reveal-base reveal-up delay-2">
               <div className="bg-surface-card border border-border rounded-2xl p-8">
                 <h3 className="text-subheading text-text-primary mb-6">Informasi Kontak</h3>
@@ -405,7 +405,7 @@ export default function KontakPage() {
         </div>
       </section>
 
-      {/* ── Map ── */}
+      {/* Embedded interactive Google Maps location view */}
       <section className="bg-canvas pb-16">
         <div className="max-w-6xl mx-auto px-6 lg:px-8">
           <div className="rounded-2xl overflow-hidden border border-border shadow-sm">
@@ -417,7 +417,7 @@ export default function KontakPage() {
         </div>
       </section>
 
-      {/* ── Lembaga Terkait & Kanal Resmi ── */}
+      {/* Institutional and government regulatory hotlines and portal shortcuts */}
       <section ref={revealRef5} className="bg-canvas pb-24">
         <div className="max-w-6xl mx-auto px-6 lg:px-8">
           <div className="mb-10 text-center md:text-left reveal-base reveal-up delay-1">
@@ -427,7 +427,7 @@ export default function KontakPage() {
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-6">
              
-             {/* Card 1 (Anchor): Kontak BI */}
+             {/* Primary regulatory contact shortcut card */}
              <div className="bg-gradient-to-br from-[#0a4d94] to-[#1875c7] rounded-[2rem] p-8 lg:p-10 border border-[#0a4d94] shadow-xl shadow-blue-900/20 hover:shadow-2xl hover:shadow-blue-900/30 transition-all reveal-base reveal-up delay-1 flex flex-col md:flex-row md:items-center justify-between group lg:col-span-4 h-full gap-8 lg:gap-12">
                 <div className="flex-1">
                   <div className="w-16 h-16 bg-white/15 backdrop-blur-md text-white rounded-2xl flex items-center justify-center mb-6 transition-transform group-hover:scale-110 shadow-inner">
@@ -466,7 +466,7 @@ export default function KontakPage() {
                 </div>
              </div>
 
-             {/* Card 2: BI Jabar */}
+             {/* Regional provincial representative office card */}
              <div className="bg-white rounded-[2rem] p-8 border border-slate-100 shadow-sm hover:shadow-xl hover:shadow-blue-900/5 transition-all reveal-base reveal-up delay-2 flex flex-col group lg:col-span-2 h-full">
                 <div className="w-14 h-14 bg-blue-50 text-[#1875c7] rounded-2xl flex items-center justify-center mb-6 transition-transform group-hover:scale-110">
                   <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
@@ -478,7 +478,7 @@ export default function KontakPage() {
                 </a>
              </div>
 
-             {/* Card 3: Webportal BI */}
+             {/* Official Central Bank conversational portal */}
              <div className="bg-white rounded-[2rem] p-8 border border-slate-100 shadow-sm hover:shadow-xl hover:shadow-blue-900/5 transition-all reveal-base reveal-up delay-3 flex flex-col group lg:col-span-2 h-full">
                 <div className="w-14 h-14 bg-blue-50 text-[#1875c7] rounded-2xl flex items-center justify-center mb-6 transition-transform group-hover:scale-110">
                   <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
@@ -490,7 +490,7 @@ export default function KontakPage() {
                 </a>
              </div>
 
-             {/* Card 4: OJK */}
+             {/* Integrated Financial Services Authority (OJK) card */}
              <div className="bg-white rounded-[2rem] p-8 border border-slate-100 shadow-sm hover:shadow-xl hover:shadow-red-900/5 transition-all reveal-base reveal-up delay-4 flex flex-col group lg:col-span-2 h-full">
                 <div className="w-24 h-10 relative mb-6 transition-transform group-hover:scale-105 origin-left">
                   <Image src="/OJK.png" alt="Logo OJK" fill sizes="96px" className="object-contain object-left" />
@@ -512,7 +512,7 @@ export default function KontakPage() {
                 </ul>
              </div>
 
-             {/* Card 5: KOMDIGI */}
+             {/* Digital infrastructure ministry reporting links card */}
              <div className="bg-white rounded-[2rem] p-8 border border-slate-100 shadow-sm hover:shadow-xl hover:shadow-indigo-900/5 transition-all reveal-base reveal-up delay-5 flex flex-col group lg:col-span-2 h-full">
                 <div className="w-28 h-10 relative mb-6 transition-transform group-hover:scale-105 origin-left">
                   <Image src="/Komdigi.png" alt="Logo Komdigi" fill sizes="112px" className="object-contain object-left" />

@@ -1,3 +1,9 @@
+/**
+ * @fileoverview Floating Action Button (FAB) Virtual Assistant component.
+ * Provides an interactive, step-by-step navigational support assistant (Chatbot)
+ * that guides users through public FAQs using dynamic state choices.
+ */
+
 'use client';
 import { useState, useRef, useEffect, useCallback } from 'react';
 import Image from 'next/image';
@@ -12,7 +18,7 @@ export default function ChatbotFAB() {
   const [isAnimating, setIsAnimating] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   
-  // Navigation State
+  // Conversations & breadcrumbs choices stack
   const [currentOptions, setCurrentOptions] = useState(FAQ_DATA);
   const [parentStack, setParentStack] = useState([]);
   const [activeResponder, setActiveResponder] = useState("Kang Umen & Neng Euis");
@@ -20,7 +26,7 @@ export default function ChatbotFAB() {
   const pathname = usePathname();
   const messagesEndRef = useRef(null);
 
-  // Close chatbot when navigating to a new page
+  // Close overlay automatically on navigation shifts
   useEffect(() => {
     setIsOpen(false);
   }, [pathname]);
@@ -52,7 +58,7 @@ export default function ChatbotFAB() {
     }, 400);
   }, [isOpen, isAnimating]);
 
-  // Hide on admin/quiz pages — AFTER all hooks to respect Rules of Hooks
+  // Bypass rendering on CMS administration or active test screens
   const isAdmin = pathname?.startsWith("/kelola-8f2k9x3m");
   const isQuiz = /^\/materi\/[^/]+\/kuis/.test(pathname || "");
   if (isAdmin || isQuiz) return null;
@@ -122,11 +128,11 @@ export default function ChatbotFAB() {
 
   return (
     <div className="fixed bottom-24 right-4 md:bottom-8 md:right-8 lg:bottom-10 lg:right-16 z-50 flex flex-col items-end pointer-events-none">
-      {/* Chat Window Popup */}
+      {/* Chat Interface Window overlay */}
       <div 
         className={`pointer-events-auto mb-4 w-[340px] sm:w-[380px] bg-white rounded-[2rem] shadow-2xl border border-slate-100 overflow-hidden transition-all duration-300 ease-[cubic-bezier(0.25,1,0.5,1)] origin-bottom-right max-h-[calc(100dvh-120px)] ${isOpen ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-95 translate-y-4 pointer-events-none'}`}
       >
-        {/* Header — with the only mascot avatar */}
+        {/* Chat Window Header: Assistant identity indicator */}
         <div className="bg-white px-5 py-4 flex items-center justify-between border-b border-slate-100 relative z-20 shadow-sm">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-full bg-blue-50 border border-blue-100 flex-shrink-0 flex items-center justify-center relative overflow-hidden">
@@ -157,11 +163,11 @@ export default function ChatbotFAB() {
           </div>
         </div>
 
-        {/* Chat Body */}
+        {/* Chat Messages and User options viewport */}
         <div className="h-[420px] flex flex-col bg-slate-50 relative">
           <div className="flex-1 overflow-y-auto p-5 no-scrollbar flex flex-col gap-4 z-10 relative">
             
-            {/* Welcome message — no avatar, just bubble */}
+            {/* Welcome message bubble */}
             <div className="flex items-end gap-2 self-start animate-fade-up max-w-[90%]">
               <div className="flex flex-col">
                 <span className="text-[10px] text-slate-400 mb-1 ml-1 font-semibold">Kang Umen & Neng Euis</span>
@@ -171,7 +177,7 @@ export default function ChatbotFAB() {
               </div>
             </div>
 
-            {/* Messages — no avatar on individual bubbles */}
+            {/* Message bubble iterations */}
             {messages.map((msg, idx) => (
               <div key={idx} className={`flex items-end gap-2 max-w-[90%] animate-fade-up ${msg.sender === 'user' ? 'self-end flex-row-reverse' : 'self-start'}`}>
                 <div className="flex flex-col">
@@ -185,7 +191,7 @@ export default function ChatbotFAB() {
               </div>
             ))}
             
-            {/* Typing indicator — no avatar */}
+            {/* Dynamic typing latency visual indicator */}
             {isTyping && (
               <div className="flex items-end gap-2 self-start animate-fade-up">
                 <div className="flex flex-col">
@@ -199,7 +205,7 @@ export default function ChatbotFAB() {
               </div>
             )}
 
-            {/* User Option Buttons */}
+            {/* Next conversation choices actions group */}
             {currentOptions.length > 0 && (
               <div className="flex flex-col gap-2 items-end mt-2 animate-fade-in w-full">
                 {currentOptions.map((opt, i) => (
@@ -212,7 +218,7 @@ export default function ChatbotFAB() {
                   </button>
                 ))}
                 
-                {/* Back Button */}
+                {/* Previous navigation options choice shortcut */}
                 {parentStack.length > 0 && (
                   <button 
                     onClick={handleBackClick}
@@ -225,7 +231,7 @@ export default function ChatbotFAB() {
               </div>
             )}
 
-            {/* Menu Utama Button for Leaf Nodes */}
+            {/* Reset conversation path back to main choices menu */}
             {currentOptions.length === 0 && !isTyping && parentStack.length > 0 && (
               <div className="flex justify-end mt-2 animate-fade-in w-full">
                 <button 
@@ -241,7 +247,7 @@ export default function ChatbotFAB() {
             <div ref={messagesEndRef} className="h-4" />
           </div>
 
-          {/* CTA Banner at bottom of chat */}
+          {/* Quick course catalog access hyperlink card */}
           <div className="bg-white border-t border-slate-100 p-4 shrink-0 shadow-[0_-4px_10px_rgba(0,0,0,0.02)] z-20">
             <Link href="/materi" className="w-full bg-gradient-to-r from-blue-600 to-[#0a4d94] hover:from-blue-700 hover:to-blue-900 text-white rounded-xl py-3 px-4 flex items-center justify-between transition-all shadow-sm group">
               <div className="flex flex-col">
@@ -256,12 +262,12 @@ export default function ChatbotFAB() {
         </div>
       </div>
 
-      {/* Floating Action Button — Always visible, morphs on hover/click */}
+      {/* Floating action button toggle core element */}
       <div className="pointer-events-auto relative z-50 mt-2 flex items-center gap-3">
         
-        {/* Button Wrapper to prevent overflow:hidden clipping of the online dot */}
+        {/* Outer positioner ensuring overflow styles do not clip online status dot */}
         <div className="relative">
-          {/* Button Core */}
+          {/* Core interaction trigger button */}
           <button 
             onClick={handleFabClick}
             onMouseEnter={() => setIsHovered(true)}
@@ -269,13 +275,13 @@ export default function ChatbotFAB() {
             className={`chatbot-fab-button group relative flex items-center justify-center cursor-pointer transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] ${isAnimating ? 'chatbot-fab-bounce' : ''} ${isOpen ? 'chatbot-fab-open' : ''}`}
             aria-label="Buka Asisten Virtual PeKA"
           >
-            {/* Gradient Background — morphs from circle to pill on hover */}
+            {/* Decorative active backdrops */}
             <div className="chatbot-fab-bg absolute inset-0 rounded-full bg-gradient-to-br from-[#2563EB] via-[#1D4ED8] to-[#1B2D4F] shadow-[0_8px_32px_rgba(37,99,235,0.4)] group-hover:shadow-[0_12px_40px_rgba(37,99,235,0.55)] transition-all duration-300" />
             
-            {/* Subtle Border Ring */}
+            {/* Decorative border ring */}
             <div className="chatbot-fab-bg absolute inset-0 rounded-full border-[2.5px] border-white/30 group-hover:border-white/50 transition-all duration-300" />
 
-            {/* Mascot Icon Container */}
+            {/* Svg avatar image container */}
             <div 
               className="chatbot-fab-mascot absolute w-[50px] h-[50px] rounded-full flex items-center justify-center z-10 transition-all duration-300 overflow-hidden"
               style={{
@@ -294,7 +300,7 @@ export default function ChatbotFAB() {
               />
             </div>
 
-            {/* Close "X" Icon for when chatbox is open and hovered */}
+            {/* Visual close element active state */}
             <div 
               className="chatbot-fab-close absolute w-[50px] h-[50px] flex items-center justify-center z-10 text-white pointer-events-none transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)]"
               style={{
@@ -308,13 +314,13 @@ export default function ChatbotFAB() {
               </svg>
             </div>
 
-            {/* Hover label inside the pill — transition handled in globals.css */}
+            {/* Text label expanded on hover */}
             <span className="chatbot-fab-label absolute z-10 text-white text-[13px] font-semibold whitespace-nowrap overflow-hidden">
               Tanya Kami
             </span>
           </button>
 
-          {/* Online Indicator Dot — Placed OUTSIDE the button so it is never clipped */}
+          {/* Realtime status dot absolute layer placement */}
           <div className="absolute -top-0.5 -right-0.5 z-20 pointer-events-none">
             <span className="flex h-3.5 w-3.5">
               <span className="relative inline-flex rounded-full h-3.5 w-3.5 bg-emerald-500 border-2 border-white shadow-sm" />

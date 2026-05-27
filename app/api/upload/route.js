@@ -1,12 +1,33 @@
+/**
+ * @fileoverview File Upload API Endpoint.
+ * Supports image file uploads for dynamic course materials.
+ * Integrates dual storage modes: Vercel Blob Storage for cloud production deployment
+ * and a local file system storage fallback for development environments.
+ */
+
 import { NextResponse } from "next/server";
 import { writeFile, mkdir } from "fs/promises";
 import path from "path";
 import { put } from "@vercel/blob";
+import { getAdminSession } from "../../../lib/auth";
 
 const isVercelBlob = !!process.env.BLOB_READ_WRITE_TOKEN;
 
+/**
+ * Handles POST requests to upload image files.
+ * Requires active administrator authentication to prevent unauthorized uploads.
+ * Validates file MIME types and extensions to secure the application against unauthorized executable uploads (XSS/RCE).
+ * Dynamically switches upload targets between Vercel Blob Storage and local public/uploads directory.
+ * @param {Request} request Next.js request object containing form data with the target 'file'.
+ * @returns {Promise<NextResponse>} JSON containing the accessible file URL, or 400/401/500 error status codes.
+ */
 export async function POST(request) {
   try {
+    const session = await getAdminSession();
+    if (!session) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
     const data = await request.formData();
     const file = data.get("file");
 

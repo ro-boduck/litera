@@ -1,6 +1,7 @@
 /**
- * Honeypot: serves a convincing 404 page that looks identical
- * to the real Next.js 404. Anyone scanning for /admin gets nothing.
+ * @fileoverview Honeypot decoy page.
+ * Returns a generic 404 response for scanners looking for a standard "/admin" route.
+ * The actual admin portal is located at an obfuscated slug route.
  */
 import Link from "next/link";
 

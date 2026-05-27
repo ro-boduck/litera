@@ -28,46 +28,50 @@ const HomeCta = dynamic(
   { ssr: false }
 );
 
-/* ═══ CONTENT-AWARE SKELETON LOADERS ═══ */
+/* --- Skeleton Loader Components (Client-side dynamic view fallbacks) --- */
 const StatsSkeleton = () => (
-  <div className="max-w-6xl mx-auto px-6 lg:px-8 py-16 pb-24 lg:py-24 lg:pb-32 bg-[#FAFAF8] relative z-10 animate-pulse">
-    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
-      {[...Array(4)].map((_, i) => (
-        <div key={i} className="bg-white border border-slate-100 shadow-sm rounded-3xl p-6 sm:p-8">
-          <div className="w-14 h-14 rounded-2xl bg-slate-200 mb-5" />
-          <div className="h-8 w-20 bg-slate-200 rounded mb-2" />
-          <div className="h-4 w-32 bg-slate-200 rounded" />
-        </div>
-      ))}
+  <div className="relative z-30 overflow-hidden bg-[#1B2D4F] animate-pulse">
+    <div className="px-6 lg:px-8 max-w-6xl mx-auto py-16 pb-24 lg:py-24 lg:pb-32">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
+        {[...Array(4)].map((_, i) => (
+          <div key={i} className="bg-white/10 border border-white/10 rounded-3xl p-6 sm:p-8">
+            <div className="w-14 h-14 rounded-2xl bg-white/20 mb-5" />
+            <div className="h-8 w-20 bg-white/20 rounded mb-2" />
+            <div className="h-4 w-32 bg-white/15 rounded" />
+          </div>
+        ))}
+      </div>
     </div>
   </div>
 );
 
 const FeaturesSkeleton = () => (
-  <div className="max-w-6xl mx-auto px-6 lg:px-8 py-16 lg:py-24 bg-[#FAFAF8] animate-pulse">
-    <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 items-center">
-      <div className="lg:w-2/5 w-full space-y-4">
-        <div className="h-4 w-28 bg-slate-200 rounded" />
-        <div className="h-10 w-4/5 bg-slate-200 rounded" />
-        <div className="h-10 w-2/3 bg-slate-200 rounded" />
-        <div className="space-y-2 mt-6">
-          <div className="h-4 w-full bg-slate-200 rounded" />
-          <div className="h-4 w-5/6 bg-slate-200 rounded" />
-          <div className="h-4 w-4/5 bg-slate-200 rounded" />
-        </div>
-      </div>
-      <div className="lg:w-3/5 w-full">
-        <div className="bg-white border border-slate-100 rounded-[2.5rem] p-8 md:p-12 lg:p-14 space-y-8">
-          <div className="flex justify-between items-center relative">
-            {[...Array(3)].map((_, i) => (
-              <div key={i} className="flex flex-col items-center space-y-3 w-1/3">
-                <div className="w-20 h-20 lg:w-24 lg:h-24 rounded-full bg-slate-200" />
-                <div className="h-6 w-12 bg-slate-200 rounded" />
-                <div className="h-4 w-16 bg-slate-200 rounded" />
-              </div>
-            ))}
+  <div className="bg-[#1B2D4F] section-padding animate-pulse">
+    <div className="max-w-6xl mx-auto px-6 lg:px-8">
+      <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 items-center">
+        <div className="lg:w-2/5 w-full space-y-4">
+          <div className="h-4 w-28 bg-white/20 rounded" />
+          <div className="h-10 w-4/5 bg-white/20 rounded" />
+          <div className="h-10 w-2/3 bg-white/20 rounded" />
+          <div className="space-y-2 mt-6">
+            <div className="h-4 w-full bg-white/15 rounded" />
+            <div className="h-4 w-5/6 bg-white/15 rounded" />
+            <div className="h-4 w-4/5 bg-white/15 rounded" />
           </div>
-          <div className="h-14 w-full bg-slate-200 rounded-xl" />
+        </div>
+        <div className="lg:w-3/5 w-full">
+          <div className="bg-white/5 border border-white/10 rounded-[2.5rem] p-8 md:p-12 lg:p-14 space-y-8">
+            <div className="flex justify-between items-center relative">
+              {[...Array(3)].map((_, i) => (
+                <div key={i} className="flex flex-col items-center space-y-3 w-1/3">
+                  <div className="w-20 h-20 lg:w-24 lg:h-24 rounded-full bg-white/20" />
+                  <div className="h-6 w-12 bg-white/20 rounded" />
+                  <div className="h-4 w-16 bg-white/15 rounded" />
+                </div>
+              ))}
+            </div>
+            <div className="h-14 w-full bg-white/10 rounded-xl" />
+          </div>
         </div>
       </div>
     </div>
@@ -125,8 +129,8 @@ export default function Home() {
 
   return (
     <>
-      <section ref={heroRef} className="relative overflow-hidden min-h-screen flex flex-col justify-center bg-gradient-to-b from-[#f0f6fc] to-[#e4eff8] pt-[75px] pb-32 lg:pt-[160px] lg:pb-16">
-        {/* Background Image Layer (Mega Mendung Pattern) */}
+      <section ref={heroRef} className="relative overflow-hidden min-h-[100svh] bg-gradient-to-b from-[#f0f6fc] to-[#e4eff8]">
+        {/* Decorative background motif cloud pattern overlay */}
         <div className="absolute inset-0 z-0 pointer-events-none">
           <Image
             src="/full_mega_mendung.png"
@@ -139,94 +143,104 @@ export default function Home() {
           />
         </div>
 
-        {/* Bank Indonesia Building (Bottom) */}
-        <div className="absolute left-0 bottom-0 translate-y-[40%] lg:translate-y-[35%] w-full h-[300px] md:w-[300px] md:h-[150px] lg:w-[420px] lg:h-[210px] z-0 pointer-events-none opacity-45 lg:opacity-30 brightness-100 select-none">
+        {/* Purely decorative building graphic placed at bottom left */}
+        <div className="hidden lg:block absolute left-0 bottom-0 translate-y-[45%] w-[320px] h-[160px] xl:w-[400px] xl:h-[200px] z-0 pointer-events-none opacity-20 select-none">
           <Image
             src="/HeroBIBuilding.png"
             alt="Gedung Bank Indonesia"
             fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 300px, 420px"
-            className="object-contain object-bottom lg:object-left-bottom"
+            sizes="(max-width: 1280px) 320px, 400px"
+            className="object-contain object-left-bottom"
             priority
           />
         </div>
 
-        {/* Karakter Kang Umen (Kiri) */}
-        <div className="hidden xl:block absolute left-4 xl:left-12 top-1/2 -translate-y-1/2 w-[140px] h-[240px] xl:w-[180px] xl:h-[300px] z-10 select-none transition-transform duration-500 hover:scale-105 pointer-events-none">
-          <Image
-            src="/KangUmen.png"
-            alt="Karakter Kang Umen"
-            fill
-            sizes="(max-width: 1280px) 140px, 180px"
-            className="object-contain"
-            priority
-          />
-        </div>
+        {/* Vertically centered layout container */}
+        <div className="relative z-20 min-h-[100svh] flex flex-col justify-center items-center pt-[100px] pb-10">
 
-        {/* Karakter Neng Euis (Kanan) */}
-        <div className="hidden xl:block absolute right-4 xl:right-12 top-1/2 -translate-y-1/2 w-[140px] h-[240px] xl:w-[180px] xl:h-[300px] z-10 select-none transition-transform duration-500 hover:scale-105 pointer-events-none">
-          <Image
-            src="/NengEuis.png"
-            alt="Karakter Neng Euis"
-            fill
-            sizes="(max-width: 1280px) 140px, 180px"
-            className="object-contain"
-            priority
-          />
-        </div>
+          {/* Central content wrapper */}
+          <div className="relative w-full max-w-4xl px-6 lg:px-8 text-center flex flex-col items-center">
 
-        <div className="relative z-20 max-w-5xl mx-auto px-6 lg:px-8 text-center flex flex-col items-center">
-          {/* PeKa Logo */}
-          <div className="mb-8 relative w-56 h-16 md:w-64 md:h-20 lg:w-[280px] lg:h-[88px] flex justify-center items-center reveal-base reveal-up delay-1">
-            <Image
-              src="/FullLogoPeKa.png"
-              alt="PeKa Logo"
-              fill
-              sizes="(max-width: 768px) 224px, (max-width: 1024px) 256px, 280px"
-              className="object-contain"
-              priority
-            />
+            {/* PeKa Logo */}
+            <div className="mb-3 relative w-40 h-[52px] md:w-48 md:h-[60px] lg:w-[200px] lg:h-[66px] reveal-base reveal-up delay-1">
+              <Image
+                src="/FullLogoPeKa.png"
+                alt="PeKa Logo"
+                fill
+                sizes="(max-width: 768px) 160px, (max-width: 1024px) 192px, 200px"
+                className="object-contain"
+                priority
+              />
+            </div>
+
+            {/* Relative positioning container that anchors side mascots beside the main header title */}
+            <div className="relative w-full">
+              {/* Left mascot: Vertically centered relative to parent title height */}
+              <div className="hidden xl:block absolute right-full top-1/2 mr-10 mascot-enter-left select-none pointer-events-none">
+                <div className="relative w-[150px] h-[246px]">
+                  <Image
+                    src="/KangUmen.png"
+                    alt="Karakter Kang Umen"
+                    fill
+                    sizes="150px"
+                    className="object-contain"
+                    priority
+                  />
+                </div>
+              </div>
+
+              {/* Right mascot: Vertically centered relative to parent title height */}
+              <div className="hidden xl:block absolute left-full top-1/2 ml-10 mascot-enter-right select-none pointer-events-none">
+                <div className="relative w-[150px] h-[246px]">
+                  <Image
+                    src="/NengEuis.png"
+                    alt="Karakter Neng Euis"
+                    fill
+                    sizes="150px"
+                    className="object-contain"
+                    priority
+                  />
+                </div>
+              </div>
+
+              <h1 className="flex flex-col items-center text-center text-2xl sm:text-3xl md:text-4xl lg:text-[2.65rem] xl:text-[2.85rem] font-bold tracking-tight text-slate-900 leading-[1.2] mb-3 reveal-base reveal-up delay-2">
+                <span className="block mb-0.5">
+                  Ruang Edukasi Pelindungan Konsumen
+                </span>
+                <span className="block mb-2">Demi Mewujudkan</span>
+                <span className="inline-flex items-center px-5 py-1 mb-2 text-blue-600 bg-blue-100/50 rounded-2xl border border-blue-200 shadow-sm">
+                  Masyarakat Jawa Barat
+                </span>
+                <span className="text-slate-800 block">
+                  Cerdas, Waspada, dan Terlindungi
+                </span>
+              </h1>
+            </div>
+
+            <p className="text-sm md:text-base lg:text-lg text-slate-500 leading-relaxed max-w-2xl mb-6 reveal-base reveal-up delay-3">
+              Membantu kamu untuk lebih sadar dan paham cara melindungi diri agar
+              terhindar dari praktik kejahatan, penipuan serta kecurangan di
+              bidang sistem pembayaran.
+            </p>
+
+            <Link
+              href="/materi"
+              className="group relative inline-flex items-center justify-center gap-3 bg-blue-600 text-white font-medium px-8 py-4 rounded-full overflow-hidden transition-all hover:scale-105 active:scale-95 shadow-xl shadow-blue-600/30 reveal-base reveal-up delay-4"
+            >
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-blue-500 opacity-0 group-hover:opacity-100 transition-opacity" />
+              <span className="relative z-10 flex items-center gap-2">
+                Mulai Belajar Sekarang{' '}
+                <span className="text-xl leading-none group-hover:translate-x-1 transition-transform">
+                  →
+                </span>
+              </span>
+            </Link>
           </div>
 
-          <h1 className="flex flex-col items-center text-center text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-slate-900 leading-[1.25] mb-6 max-w-4xl mx-auto reveal-base reveal-up delay-2">
-            {/* Baris Atas */}
-            <span className="block mb-1">
-              Ruang Edukasi Pelindungan Konsumen
-            </span>
-            <span className="block mb-3">Demi Mewujudkan</span>
-
-            {/* Baris Tengah (Highlight) */}
-            <span className="inline-flex items-center gap-2 px-6 py-1.5 mb-3 text-blue-600 bg-blue-100/50 rounded-2xl border border-blue-200 shadow-sm transition-all">
-              Masyarakat Jawa Barat
-            </span>
-
-            {/* Baris Bawah */}
-            <span className="text-slate-800 block mt-1">
-              Cerdas, Waspada, dan Terlindungi
-            </span>
-          </h1>
-          <p className="text-lg md:text-xl text-slate-500 leading-relaxed max-w-2xl mb-10 reveal-base reveal-up delay-3">
-            Membantu kamu untuk lebih sadar dan paham cara melindungi diri agar
-            terhindar dari praktik kejahatan, penipuan serta kecurangan di
-            bidang sistem pembayaran.
-          </p>
-
-          <Link
-            href="/materi"
-            className="group relative inline-flex items-center justify-center gap-3 bg-blue-600 text-white font-medium px-8 py-4 rounded-full overflow-hidden transition-all hover:scale-105 active:scale-95 shadow-xl shadow-blue-600/30 reveal-base reveal-up delay-4"
-          >
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-blue-500 opacity-0 group-hover:opacity-100 transition-opacity" />
-            <span className="relative z-10 flex items-center gap-2">
-              Mulai Belajar Sekarang{' '}
-              <span className="text-xl leading-none group-hover:translate-x-1 transition-transform">
-                →
-              </span>
-            </span>
-          </Link>
         </div>
       </section>
 
-      {/* ═══ LAZY LOADED SECTIONS ═══ */}
+      {/* --- Lazy-loaded Content Sections (Rendered on intersection to reduce initial bundle loading footprints) --- */}
       <LazyLoad minHeight="500px" skeleton={<StatsSkeleton />}>
         <HomeStats />
       </LazyLoad>

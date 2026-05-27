@@ -5,7 +5,7 @@ import Image from "next/image";
 
 export default function Error({ error, reset }) {
   useEffect(() => {
-    // Log the error to an error reporting service if available
+    // Log the error to the console or an external telemetry reporting service
     console.error(error);
   }, [error]);
 

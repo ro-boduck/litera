@@ -1,7 +1,18 @@
+/**
+ * @fileoverview Scroll progress tracking indicator.
+ * Displays a fixed, thin progress bar at the very top of the page that advances as the user scrolls.
+ * Employs requestAnimationFrame throttling for optimal scroll performance.
+ */
+
 "use client";
 
 import { useState, useEffect } from "react";
 
+/**
+ * ScrollProgressBar component.
+ * Tracks window scroll position relative to document height and renders a horizontal progress indicator.
+ * @returns {React.ReactElement} The progress bar container and indicator.
+ */
 export function ScrollProgressBar() {
   const [progress, setProgress] = useState(0);
 

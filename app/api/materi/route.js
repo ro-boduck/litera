@@ -1,12 +1,18 @@
 /**
- * GET  /api/materi      — list all materials (public)
- * POST /api/materi      — create material (admin only)
+ * @fileoverview Educational Materials Management API Endpoint.
+ * Serves public GET requests to fetch all courses/materials and handles authenticated POST requests
+ * for administrative material registration/creation.
  */
 
 import { NextResponse } from "next/server";
 import { getAllMaterials, createMaterial } from "../../../lib/db";
 import { getAdminSession } from "../../../lib/auth";
 
+/**
+ * Handles GET requests to retrieve a list of all educational materials.
+ * Accessible publicly without active authentication.
+ * @returns {Promise<NextResponse>} List of material database records or 500 server error status.
+ */
 export async function GET() {
   try {
     const materials = await getAllMaterials();
@@ -17,6 +23,12 @@ export async function GET() {
   }
 }
 
+/**
+ * Handles POST requests to register a new educational material block.
+ * Requires active administrator authentication. Validates input schema properties (`cat`, `title`, and `desc`).
+ * @param {Request} request Next.js request object containing material properties in JSON format.
+ * @returns {Promise<NextResponse>} Metadata of the registered database record, or HTTP error status codes (401, 400, 500).
+ */
 export async function POST(request) {
   const session = await getAdminSession();
   if (!session) {

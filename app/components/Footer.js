@@ -32,7 +32,7 @@ export default function Footer() {
 
   return (
     <footer className="bg-civic-navy relative overflow-hidden">
-      {/* Background Image Layer - Flipped and highly visible for variation */}
+      {/* Decorative background clouds pattern overlay */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <Image
           src="/mega_mendung.jpeg"
@@ -45,7 +45,7 @@ export default function Footer() {
       </div>
 
       <div className="relative z-10 max-w-6xl mx-auto px-6 lg:px-8 pt-16 pb-8">
-        {/* ── Top: Logo + Description ── */}
+        {/* Branding information and description footer blocks */}
         <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 mb-12">
           <div className="lg:w-2/5">
             <div className="mb-6">
@@ -65,7 +65,7 @@ export default function Footer() {
             </p>
           </div>
 
-          {/* ── Link Columns ── */}
+          {/* Footer sitemap columns navigation */}
           <div className="lg:w-3/5 grid grid-cols-2 gap-8">
             {columns.map((col) => (
               <div key={col.title}>
@@ -89,10 +89,10 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* ── Divider ── */}
+        {/* Horizontal partition line */}
         <div className="border-t border-border-on-dark" />
 
-        {/* ── Bottom Bar ── */}
+        {/* Attribution copyright block */}
         <div className="pt-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
           <p className="text-fine text-text-on-dark-muted opacity-60">
             &copy; {year} KPwBI Provinsi Jawa Barat. Hak cipta dilindungi.

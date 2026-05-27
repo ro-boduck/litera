@@ -2,11 +2,9 @@
 import { useEffect, useCallback } from "react";
 
 /**
- * Tracks mouse position on `.hover-glow` elements and sets
- * CSS custom properties `--mouse-x` and `--mouse-y` so the
- * radial-gradient glow follows the cursor.
- *
- * Drop this component once in the root layout.
+ * Tracks mouse coordinates on active glow-enabled containers to dynamically set CSS custom properties.
+ * Applies coordinates to hovered elements supporting radial glow effects.
+ * @returns {null} Renders no DOM nodes, running as a side-effect.
  */
 export default function CursorGlow() {
   const handleMouseMove = useCallback((e) => {
@@ -25,5 +23,5 @@ export default function CursorGlow() {
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, [handleMouseMove]);
 
-  return null; // No DOM output — pure side-effect
+  return null; // Pure side-effect component rendering no DOM elements
 }
